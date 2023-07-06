@@ -3,9 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './views/App';
 import reportWebVitals from './reportWebVitals';
 import './styles/globla.scss';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux'
+import rootReduces from './store/reduces/rootReducers'
+const reduxStore = createStore(rootReduces, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={reduxStore}>
+      <App />
+    </Provider>
+
   </React.StrictMode>,
   document.getElementById('root')
 );
