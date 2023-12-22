@@ -12,6 +12,7 @@ import { UserContext } from "../context/userContext";
 import ManageUser from "../components/system/manageUser/manageUser";
 import HomePage from "../components/home/homePage";
 import RegisterGara from "../components/register/registerGara";
+import DetailGara from "../components/customer/gara/garaDetail"
 class AppRouter extends Component {
 
 
@@ -43,7 +44,7 @@ class AppRouter extends Component {
                             <RegisterGara />
                         </Route>
 
-
+                        <PrivateRole path='/detailGara/:id' component={DetailGara} />
 
                         <Route path="*" >
                             404not fout

@@ -73,7 +73,7 @@ class DetailGara extends Component {
     render() {
 
 
-        console.log(this.state)
+
 
         return (
             <>
@@ -107,10 +107,11 @@ class DetailGara extends Component {
                             {this.state.descriptionHTML &&
                                 < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
                         </div>
-                        <div className='active col-12'>
+                        {this.context.user.account.role[0].id === 4 && <div className='active col-12'>
                             <button onClick={() => this.handlAcepGara()} className='mx-3 btn btn-primary'>accep</button>
                             <button className='mx-3 btn btn-danger'>denice</button>
-                        </div>
+                        </div>}
+
                     </div>
 
                 </div >

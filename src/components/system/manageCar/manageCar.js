@@ -4,11 +4,11 @@ import { toast } from 'react-toastify';
 import './manageCar.scss'
 
 
-
+import CreateCar from './CreateCarModel';
 
 import _ from 'lodash';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { feactAllUser } from '../../../services/userService';
+import { feactAllCar } from '../../../services/userService';
 class ManageCar extends Component {
 
     constructor(props) {
@@ -20,10 +20,17 @@ class ManageCar extends Component {
             totalpage: 0,
             showModel: false,
             showModelUser: false,
-            dataModel: {}
+            dataModel: {},
+            action: 'CREATE'
         }
     }
+    onHideModelUser = async (item) => {
+        this.setState({
+            showModelUser: false,
 
+        })
+
+    }
     handlePageClick = async (event) => {
 
         let coppystate = { ...this.state }
@@ -37,7 +44,7 @@ class ManageCar extends Component {
     };
     async componentDidMount() {
         let { currenpage, currenlimit } = this.state
-        let respons = await feactAllUser(currenpage, currenlimit)
+        let respons = await feactAllCar(currenpage, currenlimit)
         console.log('all user: ', respons)
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
@@ -52,7 +59,7 @@ class ManageCar extends Component {
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevState.currenpage !== this.state.currenpage) {
             let { currenpage, currenlimit } = this.state
-            let respons = await feactAllUser(currenpage, currenlimit)
+            let respons = await feactAllCar(currenpage, currenlimit)
             console.log('all user: ', respons)
             if (respons && respons.EC === 0) {
                 let coppystate = { ...this.state }
@@ -65,9 +72,21 @@ class ManageCar extends Component {
             }
         }
     }
+    SetShowmodelUser = () => {
+
+        this.setState({
+            showModelUser: true,
+            action: 'CREATE',
+
+        })
+
+
+    }
+
     render() {
 
         let { listUser } = this.state
+        console.log(this.state)
         return (
             <>
                 <div className='container'><div className='manage-user-container'>
@@ -76,7 +95,7 @@ class ManageCar extends Component {
                         </div>
                         <div className='action'>
                             <button className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
-                            <button className='btn btn-success'>Add New user <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
+                            <button onClick={() => { this.SetShowmodelUser() }} className='btn btn-success'>Add New user <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
                         </div>
                     </div>
                     <div className='user-body'>
@@ -84,9 +103,10 @@ class ManageCar extends Component {
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">USER NAME</th>
-                                    <th scope="col">EMAIL</th>
-                                    <th scope="col">GROUP</th>
+                                    <th scope="col">car NAME</th>
+                                    <th scope="col">hang xe</th>
+                                    <th scope="col">mo ta</th>
+                                    <th scope="col">avata</th>
                                     <th scope="col">action</th>
                                 </tr>
                             </thead>
@@ -99,9 +119,10 @@ class ManageCar extends Component {
                                                     <tr key={`row-${index}`}>
 
                                                         <td>{item.id}</td>
-                                                        <td>{item.userName}</td>
-                                                        <td>{item.email}</td>
-                                                        <td>{item.groupData ? item.groupData.name : ''}</td>
+                                                        <td>{item.nameCar}</td>
+                                                        <td>{item.carCompanyData.name}</td>
+                                                        <td>{item.descriptions}</td>
+                                                        <td>{item.avata}</td>
                                                         <td><button className='btn btn-primary'>update</button>
                                                             <button className='btn btn-danger'>delete</button></td>
                                                     </tr>
@@ -150,6 +171,11 @@ class ManageCar extends Component {
                 </div>
                 </div>
 
+                <CreateCar titile={'crete new user'}
+                    onHide={this.onHideModelUser}
+                    show={this.state.showModelUser}
+                    action={this.state.action}
+                    dataModel={this.state.dataModel} />
 
             </>
         )

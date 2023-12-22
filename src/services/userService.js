@@ -58,7 +58,17 @@ const getGaraInfo = async (id) => {
 const accepGara = async (id) => {
     return axios.put(`/api/v1/accep/gara`, { id });
 }
+const getTopGara = (limit) => {
+    return axios.get(`/api/v1/gara/read?limit=${limit}`)
+}
 
+const feactAllCar = async (page, limit) => {
+    return axios.get(`/api/v1/car/read?page=${page}&limit=${limit}`)
+}
+const feactAllCarCompany = async () => {
+    return axios.get(`/api/v1/carCompany/read`)
+}
 export {
-    getAllGender, registerUser, loginUser, getUserAccount, userLogout, feactAllUser, getAllProvind, registerGara, feactAllGara, getGaraInfo, accepGara
+    getAllGender, registerUser, loginUser, getUserAccount, userLogout, feactAllUser, getAllProvind, registerGara, feactAllGara,
+    getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany
 }
