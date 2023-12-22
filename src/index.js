@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './views/App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './styles/globla.scss';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux'
-import rootReduces from './store/reduces/rootReducers'
-const reduxStore = createStore(rootReduces, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+import { UserProvider } from './context/userContext';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.min.css'
+import 'react-multi-carousel/lib/styles.css';
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={reduxStore}>
-      <App />
-    </Provider>
+    <UserProvider>   <App /></UserProvider>
 
   </React.StrictMode>,
   document.getElementById('root')

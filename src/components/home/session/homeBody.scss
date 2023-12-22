@@ -1,0 +1,76 @@
+.home-header-banner {
+    background: url(../../../assets/img/image/garacar1.jpeg)center center no-repeat;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+
+
+    .content-up {
+        margin-top: 50px;
+        height: 50%;
+        padding-top: 20px;
+
+        .title-1 {
+            text-align: center;
+            font-size: 30px;
+            text-shadow: 1px 1px 1px #333;
+            margin-bottom: 15px;
+            color: rgb(240, 238, 238);
+
+        }
+
+        .title-2 {
+            text-align: center;
+            font-size: 30px;
+            text-shadow: 1px 1px 1px #333;
+            color: white;
+            margin-bottom: 100px;
+        }
+
+        .search {
+
+
+            width: fit-content;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+            padding: 10px;
+            border-radius: 25px;
+            background: #f7d800;
+
+
+            i {
+                margin: 0 5px;
+
+                &:hover {
+                    .text-child {
+                        color: #49bce2;
+                    }
+                }
+            }
+
+            input {
+                height: 30px;
+                width: 380px;
+                background: transparent;
+                border: none;
+                outline: none;
+            }
+        }
+
+    }
+
+    .content-dow {
+
+        height: 400px;
+        padding: 0px 50px;
+        padding-bottom: 10px;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
+
+
+
+    }
+
+}
