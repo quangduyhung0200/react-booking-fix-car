@@ -68,7 +68,18 @@ const feactAllCar = async (page, limit) => {
 const feactAllCarCompany = async () => {
     return axios.get(`/api/v1/carCompany/read`)
 }
+const createCar = async (nameCar, avata, descriptions, selectedCarCompany) => {
+    return axios.post(`/api/v1/car/create`, { nameCar, avata, descriptions, selectedCarCompany })
+}
+const updateCar = async (id, nameCar, avata, descriptions, carCompanyId) => {
+    return axios.put(`/api/v1/car/update`, { id, nameCar, avata, descriptions, carCompanyId });
+}
+const deleteCar = async (car) => {
+    return axios.delete(`/api/v1/car/delete`, { data: { id: car.id } });
+}
+
+
 export {
     getAllGender, registerUser, loginUser, getUserAccount, userLogout, feactAllUser, getAllProvind, registerGara, feactAllGara,
-    getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany
+    getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany, createCar, updateCar, deleteCar
 }

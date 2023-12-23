@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
 import { toast } from 'react-toastify';
 import './manageCar.scss'
-
+import { Buffer } from 'buffer';
 
 import CreateCar from './CreateCarModel';
-
+import Modelconfimdelede from './modelConfimDelete';
 import _ from 'lodash';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { feactAllCar } from '../../../services/userService';
+import { feactAllCar, deleteCar } from '../../../services/userService';
 class ManageCar extends Component {
 
     constructor(props) {
@@ -16,7 +16,7 @@ class ManageCar extends Component {
         this.state = {
             listUser: [],
             currenpage: 1,
-            currenlimit: 2,
+            currenlimit: 5,
             totalpage: 0,
             showModel: false,
             showModelUser: false,
@@ -24,11 +24,37 @@ class ManageCar extends Component {
             action: 'CREATE'
         }
     }
-    onHideModelUser = async (item) => {
+    handlDeleteuser = async (user) => {
+        console.log(user)
+        this.setState({
+            showModel: true,
+            dataModel: user
+        })
+
+
+
+
+
+    }
+    onHideModelUser = async () => {
         this.setState({
             showModelUser: false,
+            dataModel: {},
+            action: 'CREATE'
+
 
         })
+        let respons = await feactAllCar(this.state.currenpage, this.state.currenlimit)
+
+        if (respons && respons.EC === 0) {
+            let coppystate = { ...this.state }
+            coppystate.listUser = respons.DT.user
+            coppystate.totalpage = respons.DT.totalPage
+            this.setState({
+                ...coppystate
+            })
+
+        }
 
     }
     handlePageClick = async (event) => {
@@ -39,13 +65,13 @@ class ManageCar extends Component {
         this.setState({
             ...coppystate
         })
-        console.log(this.state.currenpage)
+
 
     };
     async componentDidMount() {
         let { currenpage, currenlimit } = this.state
         let respons = await feactAllCar(currenpage, currenlimit)
-        console.log('all user: ', respons)
+
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
             coppystate.listUser = respons.DT.user
@@ -60,7 +86,7 @@ class ManageCar extends Component {
         if (prevState.currenpage !== this.state.currenpage) {
             let { currenpage, currenlimit } = this.state
             let respons = await feactAllCar(currenpage, currenlimit)
-            console.log('all user: ', respons)
+
             if (respons && respons.EC === 0) {
                 let coppystate = { ...this.state }
                 coppystate.listUser = respons.DT.user
@@ -82,11 +108,52 @@ class ManageCar extends Component {
 
 
     }
+    handlUpdatUser = (car) => {
+        console.log(car)
+        this.setState({
+            dataModel: car,
+            action: 'UPDATE',
+            showModelUser: true
 
+        })
+
+    }
+    handleClose = () => {
+        this.setState({
+            showModel: false,
+            dataModel: {}
+        })
+
+
+
+    }
+    comfirmDeleteUser = async () => {
+        let res = await deleteCar(this.state.dataModel)
+        console.log(res)
+        if (res && res.EC === 0) {
+            toast.success('delete succes')
+
+            this.setState({
+                showModel: false,
+
+            })
+        }
+        let respons = await feactAllCar(this.state.currenpage, this.state.currenlimit)
+
+        if (respons && respons.EC === 0) {
+            let coppystate = { ...this.state }
+            coppystate.listUser = respons.DT.user
+            coppystate.totalpage = respons.DT.totalPage
+            this.setState({
+                ...coppystate
+            })
+
+        }
+    }
     render() {
 
         let { listUser } = this.state
-        console.log(this.state)
+
         return (
             <>
                 <div className='container'><div className='manage-user-container'>
@@ -111,10 +178,16 @@ class ManageCar extends Component {
                                 </tr>
                             </thead>
                             <tbody>
+
                                 {listUser && listUser.length > 0 ?
                                     <>
                                         {
                                             listUser.map((item, index) => {
+                                                let imageBase64 = ''
+                                                if (item.avata) {
+
+                                                    imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
+                                                }
                                                 return (
                                                     <tr key={`row-${index}`}>
 
@@ -122,9 +195,12 @@ class ManageCar extends Component {
                                                         <td>{item.nameCar}</td>
                                                         <td>{item.carCompanyData.name}</td>
                                                         <td>{item.descriptions}</td>
-                                                        <td>{item.avata}</td>
-                                                        <td><button className='btn btn-primary'>update</button>
-                                                            <button className='btn btn-danger'>delete</button></td>
+                                                        <td style={{
+                                                            backgroundImage: `url(${imageBase64})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat'
+
+                                                        }}></td>
+                                                        <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary'>update</button>
+                                                            <button onClick={() => this.handlDeleteuser(item)} className='btn btn-danger'>delete</button></td>
                                                     </tr>
                                                 )
 
@@ -176,6 +252,13 @@ class ManageCar extends Component {
                     show={this.state.showModelUser}
                     action={this.state.action}
                     dataModel={this.state.dataModel} />
+
+                <Modelconfimdelede
+                    show={this.state.showModel}
+                    handleClose={this.handleClose}
+                    comfirmDeleteUser={this.comfirmDeleteUser}
+                    dataModel={this.state.dataModel}
+                />
 
             </>
         )

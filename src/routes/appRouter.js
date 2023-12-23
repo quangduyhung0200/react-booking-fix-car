@@ -43,6 +43,9 @@ class AppRouter extends Component {
                         <Route exact path="/RegisterGara">
                             <RegisterGara />
                         </Route>
+                        <Route exact path="/mygara">
+                            my gara
+                        </Route>
 
                         <PrivateRole path='/detailGara/:id' component={DetailGara} />
 

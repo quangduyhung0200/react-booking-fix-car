@@ -43,9 +43,10 @@ class NavigateGara extends Component {
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
-                                    <NavLink to="/" exact className='nav-link'>gara</NavLink>
+                                    <NavLink to="/" exact className='nav-link'>home</NavLink>
+                                    <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>
 
-
+                                    DetailGara
 
                                 </Nav>
 

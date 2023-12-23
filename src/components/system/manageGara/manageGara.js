@@ -66,7 +66,7 @@ class ManageGara extends Component {
     }
     handlViewDetailGara = (item) => {
 
-        this.props.history.push(`/detailGara/${item.userGara.id}`)
+        this.props.history.push(`/checkdetailGara/${item.userGara.id}`)
 
     }
     render() {

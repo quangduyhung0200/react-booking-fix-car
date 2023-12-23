@@ -15,6 +15,7 @@ import ManageCar from "../components/system/manageCar/manageCar";
 import ManageGara from "../components/system/manageGara/manageGara";
 import ManageSchedule from "../components/system/ManageSchedule/ManageSchedule";
 import DetailGara from "../components/customer/gara/garaDetail";
+import checkDetailGara from "../components/system/manageGara/checkDetailGara";
 class AdminRouter extends Component {
 
 
@@ -46,6 +47,7 @@ class AdminRouter extends Component {
                         <PrivateRole path='/gara' component={ManageGara} />
                         <PrivateRole path='/car' component={ManageCar} />
                         <PrivateRole path='/schedule' component={ManageSchedule} />
+                        <PrivateRole path='/checkdetailGara/:id' component={checkDetailGara} />
                         <PrivateRole path='/detailGara/:id' component={DetailGara} />
 
 

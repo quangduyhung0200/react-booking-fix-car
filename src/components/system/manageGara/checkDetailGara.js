@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { getGaraInfo } from '../../../services/userService';
 import { Buffer } from "buffer";
-import './garaDetail.scss'
+import './checkDetailGara.scss'
 import { accepGara } from '../../../services/userService';
 import { UserContext } from "../../../context/userContext"
 import { userLogout } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
-class DetailGara extends Component {
+class CheckDetailGara extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -59,7 +59,17 @@ class DetailGara extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
 
     }
+    handlAcepGara = async () => {
+        let respons = await accepGara(this.state.userId)
+        if (respons && respons.EC === 0) {
 
+            toast.success('da xet duyet thanh cong')
+            this.props.history.push(`/gara`);
+
+
+        }
+
+    }
     render() {
 
 
@@ -97,6 +107,10 @@ class DetailGara extends Component {
                             {this.state.descriptionHTML &&
                                 < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
                         </div>
+                        {this.context.user.account.role[0].id === 4 && <div className='active col-12'>
+                            <button onClick={() => this.handlAcepGara()} className='mx-3 btn btn-primary'>accep</button>
+                            <button className='mx-3 btn btn-danger'>denice</button>
+                        </div>}
 
                     </div>
 
@@ -105,6 +119,6 @@ class DetailGara extends Component {
         );
     }
 }
-DetailGara.contextType = UserContext
+CheckDetailGara.contextType = UserContext
 
-export default withRouter(DetailGara);
+export default withRouter(CheckDetailGara);
