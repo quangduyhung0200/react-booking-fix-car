@@ -77,9 +77,38 @@ const updateCar = async (id, nameCar, avata, descriptions, carCompanyId) => {
 const deleteCar = async (car) => {
     return axios.delete(`/api/v1/car/delete`, { data: { id: car.id } });
 }
+const getDataGara = async (emailinput) => {
+    return axios.get(`/api/v1/gara/readdata?email=${emailinput}`);
+}
+const getDataPickCar = async (carcompanyid) => {
+    return axios.get(`/api/v1/car/readCarInfoByCarCompany?carCompany=${carcompanyid}`);
+}
+const getDataCarById = async (carid) => {
+    return axios.get(`/api/v1/car/readCarInfoByCariD?carId=${carid}`);
+}
+const getAllPrice = async (carid) => {
+    return axios.get(`/api/v1/price/read`);
+}
+const getAllPayment = async (carid) => {
+    return axios.get(`/api/v1/payment/read`);
+}
+const getAllService = async (carid) => {
+    return axios.get(`/api/v1/service/read`);
+}
+const registerCartoGara = async (dataSave) => {
+    return axios.post(`/api/v1/gara/registerCar`, { ...dataSave });
+}
+const getAllTime = async () => {
+    return axios.get(`/api/v1/gara/readTime`);
+}
+const createBulkScheduleGara = async (data) => {
+    return axios.post(`/api/v1/gara/createBulkSchedule`, { ...data });
+}
+
 
 
 export {
     getAllGender, registerUser, loginUser, getUserAccount, userLogout, feactAllUser, getAllProvind, registerGara, feactAllGara,
-    getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany, createCar, updateCar, deleteCar
+    getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany, createCar, updateCar, deleteCar, getDataGara, getDataPickCar,
+    getDataCarById, getAllPrice, getAllPayment, getAllService, registerCartoGara, getAllTime, createBulkScheduleGara
 }

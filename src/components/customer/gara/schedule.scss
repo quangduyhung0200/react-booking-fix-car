@@ -1,0 +1,62 @@
+.docter-schedule-container {
+    height: 100%;
+    border-right: 1px solid #ddd;
+
+    .all-schedule {
+        select {
+            border-bottom: 1px solid #4cb7c7;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            cursor: pointer;
+            outline: none;
+            color: #22a9d6;
+            padding: 10px 0;
+            text-transform: capitalize;
+
+        }
+    }
+
+    .all-vailble-time {
+        .text-calender {
+            text-transform: uppercase;
+
+
+            font-weight: 600;
+
+            i {
+                margin-right: 10px;
+                color: #333;
+
+            }
+        }
+
+        .time-content {
+
+
+            .time-content-availble {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            button {
+
+                padding: 5px 10px;
+                border: none;
+                outline: none;
+                min-width: 120px;
+                padding: 7px 7px;
+                border-radius: 3px;
+                background-color: rgb(253, 220, 159);
+
+                &:hover {
+                    background-color: #4cb7c7;
+                    font-weight: 550;
+                    color: white;
+                }
+            }
+        }
+
+    }
+}

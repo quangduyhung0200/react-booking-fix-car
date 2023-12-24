@@ -45,8 +45,10 @@ class NavigateGara extends Component {
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>home</NavLink>
                                     <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>
+                                    <NavLink to="/pickcar" exact className='nav-link'>pickcar</NavLink>
+                                    <NavLink to="/setSchedule" exact className='nav-link'>Schedule</NavLink>
 
-                                    DetailGara
+
 
                                 </Nav>
 

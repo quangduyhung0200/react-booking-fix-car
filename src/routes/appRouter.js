@@ -13,6 +13,10 @@ import ManageUser from "../components/system/manageUser/manageUser";
 import HomePage from "../components/home/homePage";
 import RegisterGara from "../components/register/registerGara";
 import DetailGara from "../components/customer/gara/garaDetail"
+import ManageGara from "../components/Gara/manageGara";
+import PickCar from "../components/Gara/pickCar";
+import GaraSchedule from "../components/customer/gara/schedule";
+import ManageSchedule from "../components/Gara/manageSchedule";
 class AppRouter extends Component {
 
 
@@ -44,7 +48,13 @@ class AppRouter extends Component {
                             <RegisterGara />
                         </Route>
                         <Route exact path="/mygara">
-                            my gara
+                            <ManageGara />
+                        </Route>
+                        <Route exact path="/pickcar">
+                            <PickCar />
+                        </Route>
+                        <Route exact path="/setSchedule">
+                            <ManageSchedule />
                         </Route>
 
                         <PrivateRole path='/detailGara/:id' component={DetailGara} />
