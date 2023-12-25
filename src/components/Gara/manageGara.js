@@ -5,6 +5,9 @@ import { getDataGara } from '../../services/userService';
 import { Buffer } from 'buffer';
 import './manageGara.scss'
 import GaraSchedule from '../customer/gara/schedule';
+import { readAllCarByGara } from '../../services/userService';
+import ReactPaginate from 'react-paginate';
+
 class ManageGara extends Component {
 
     constructor(props) {
@@ -18,32 +21,42 @@ class ManageGara extends Component {
             provind: '',
             avata: '',
             descriptionHTML: '',
-            userId: ''
+            userId: '',
+            garaId: '',
+            listCar: [],
+
+
         }
     }
     async componentDidMount() {
 
 
 
-        let data = await getDataGara(this.context.user.account.email)
+        let data = await getDataGara(this.context.user.account.id)
         console.log('check data: ', data)
         if (data && data.EC === 0) {
-            let imageBase64 = ''
-            if (data.DT.userGara.avata.data) {
 
-                imageBase64 = new Buffer(data.DT.userGara.avata.data, 'base64').toString('binary')
+            let data1 = await readAllCarByGara(this.context.user.account.id)
+
+            let imageBase64 = ''
+            if (data.DT.avata.data) {
+
+                imageBase64 = new Buffer(data.DT.avata.data, 'base64').toString('binary')
             }
             let coppyState = { ...this.state }
-            coppyState.address = data.DT.userGara.address
-            coppyState.description = data.DT.userGara.description
-            coppyState.nameGara = data.DT.userGara.nameGara
-            coppyState.phone = data.DT.userGara.phone
-            coppyState.provind = data.DT.userGara.provindGaraData.name
+            coppyState.address = data.DT.address
+            coppyState.description = data.DT.description
+            coppyState.nameGara = data.DT.nameGara
+            coppyState.phone = data.DT.phone
+            coppyState.provind = data.DT.provindGaraData.name
             coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.userGara.descriptionHTML
-            coppyState.userId = data.DT.userGara.id
+            coppyState.descriptionHTML = data.DT.descriptionHTML
+            coppyState.userId = data.DT.userId
+            coppyState.garaId = data.DT.id
+            coppyState.listCar = data1.DT
 
-            console.log('check state: ', this.state)
+
+
             this.setState({
                 ...coppyState
             })
@@ -51,12 +64,34 @@ class ManageGara extends Component {
 
 
 
+
+
+
     }
 
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.currenpage !== this.state.currenpage) {
+
+            let respons = await readAllCarByGara(this.context.user.account.id)
+
+            if (respons && respons.EC === 0) {
+                let coppystate = { ...this.state }
+                coppystate.listCar = respons.DT.user
+
+                this.setState({
+                    ...coppystate
+                })
+
+            }
+        }
+    }
+    handlViewCar = async (item) => {
+        console.log(item)
+    }
     render() {
 
-
-
+        let { listCar } = this.state
+        console.log('check state: ', this.state)
         return (
             <>
                 <div className='Docter-Detail-Container container'>
@@ -76,14 +111,64 @@ class ManageGara extends Component {
                             </div>
                         </div>
                         <div className='schedule-docter col-12 row '>
-                            <div className='conten-left col-6'>
+                            <table className="table table-hover table-bordered my-3">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">car NAME</th>
+                                        <th scope="col">hang xe</th>
+                                        <th scope="col">mo ta</th>
+                                        <th scope="col">avata</th>
+                                        <th scope="col">action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                <GaraSchedule />
-                            </div>
-                            <div className='conten-right col-6'>
-                                gara extral info
-                            </div>
+                                    {listCar && listCar.length > 0 ?
+                                        <>
+                                            {
+                                                listCar.map((item, index) => {
+                                                    let imageBase64 = ''
+                                                    if (item.Cars.avata) {
+
+                                                        imageBase64 = new Buffer(item.Cars.avata, 'base64').toString('binary')
+                                                    }
+                                                    return (
+
+                                                        <tr key={`row-${index}`}>
+
+                                                            <td>{item.Cars.id}</td>
+                                                            <td>{item.Cars.nameCar}</td>
+                                                            <td>{item.Cars.carCompanyData.name}</td>
+                                                            <td>{item.Cars.descriptions}</td>
+                                                            <td style={{
+                                                                backgroundImage: `url(${imageBase64})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat'
+
+                                                            }}></td>
+                                                            <td><button onClick={() => this.handlViewCar(item)} className='btn btn-primary'>view</button>
+                                                            </td>
+                                                        </tr>
+                                                    )
+
+
+
+
+                                                })
+                                            }
+                                        </> : <>
+                                            <tr><td>not fout user</td></tr>
+                                        </>
+
+                                    }
+                                </tbody>
+                            </table>
+
                         </div>
+
+
+
+
+
                         <div className='detail-info-docter col-12'>
                             {this.state.descriptionHTML &&
                                 < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}

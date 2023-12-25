@@ -4,7 +4,7 @@ import { UserContext } from "../../context/userContext"
 import { getDataGara } from '../../services/userService';
 import { Buffer } from 'buffer';
 import Select from 'react-select';
-import { getDataPickCar, getDataCarById, feactAllCarCompany, getAllPrice, getAllPayment, getAllService, registerCartoGara } from '../../services/userService';
+import { getDataPickCar, getDataCarById, feactAllCarCompany, getAllPrice, getAllPayment, getAllService, registerCartoGara, deletePickCar } from '../../services/userService';
 import DetailCar from '../customer/car/carDetail'
 import _ from 'lodash';
 
@@ -103,24 +103,24 @@ class PickCar extends Component {
         // let data1 = await getDataCarById(2)
 
 
-        let data = await getDataGara(this.context.user.account.email)
+        let data = await getDataGara(this.context.user.account.id)
 
         if (data && data.EC === 0) {
             let imageBase64 = ''
-            if (data.DT.userGara.avata.data) {
+            if (data.DT.avata) {
 
-                imageBase64 = new Buffer(data.DT.userGara.avata.data, 'base64').toString('binary')
+                imageBase64 = new Buffer(data.DT.avata, 'base64').toString('binary')
             }
             let coppyState = { ...this.state }
-            coppyState.address = data.DT.userGara.address
-            coppyState.description = data.DT.userGara.description
-            coppyState.nameGara = data.DT.userGara.nameGara
-            coppyState.phone = data.DT.userGara.phone
-            coppyState.provind = data.DT.userGara.provindGaraData.name
+            coppyState.address = data.DT.address
+            coppyState.description = data.DT.description
+            coppyState.nameGara = data.DT.nameGara
+            coppyState.phone = data.DT.phone
+            coppyState.provind = data.DT.provindGaraData.name
             coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.userGara.descriptionHTML
+            coppyState.descriptionHTML = data.DT.descriptionHTML
             coppyState.userId = data.DT.id
-            coppyState.garaId = data.DT.userGara.id
+            coppyState.garaId = data.DT.id
 
 
             this.setState({
@@ -204,6 +204,14 @@ class PickCar extends Component {
         let dataSave = this.buidDataSave(this.state)
         console.log(dataSave)
         let res = await registerCartoGara(dataSave)
+        console.log(res)
+    }
+    handlOnclickDeletePickCar = async () => {
+        let garaId = this.state.garaId;
+        let carId = this.state.selectCar
+        let serviceId = this.state.selectService === '' ? 1 : this.state.selectService;
+        console.log(garaId, carId, serviceId)
+        let res = await deletePickCar(garaId, carId, serviceId)
         console.log(res)
     }
     render() {
@@ -292,7 +300,8 @@ class PickCar extends Component {
                         <div className='detail-info-docter col-12'>
                             <DetailCar carId={this.state.selectCar} />
                         </div>
-                        <div><button onClick={() => this.handlOnclickSavePickCar()} className='btn btn-primary'>save</button></div>
+                        <div><button onClick={() => this.handlOnclickSavePickCar()} className='btn btn-primary'>save</button>
+                            <button onClick={() => this.handlOnclickDeletePickCar()} className='btn btn-primary'>khong chon xe nay nua</button></div>
                     </div>
 
                 </div >

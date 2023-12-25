@@ -47,7 +47,7 @@ class CheckDetailGara extends Component {
             coppyState.provind = data.DT.provindGaraData.name
             coppyState.avata = imageBase64
             coppyState.descriptionHTML = data.DT.descriptionHTML
-            coppyState.userId = data.DT.userGara.id
+            coppyState.userId = data.DT.userId
 
 
             this.setState({

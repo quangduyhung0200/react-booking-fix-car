@@ -66,7 +66,7 @@ class ManageGara extends Component {
     }
     handlViewDetailGara = (item) => {
 
-        this.props.history.push(`/checkdetailGara/${item.userGara.id}`)
+        this.props.history.push(`/checkdetailGara/${item.id}`)
 
     }
     render() {
@@ -106,13 +106,13 @@ class ManageGara extends Component {
                                                         return (
                                                             <tr key={`row-${index}`}>
 
-                                                                <td>{item.userGara.id}</td>
-                                                                <td>{item.userGara.nameGara}</td>
-                                                                <td>{item.userGara.address}</td>
-                                                                <td>{item.userGara.provindGaraData.name}</td>
+                                                                <td>{item.id}</td>
+                                                                <td>{item.nameGara}</td>
+                                                                <td>{item.address}</td>
+                                                                <td>{item.provindGaraData.name}</td>
 
-                                                                <td>{item.userGara.phone}</td>
-                                                                <td>{item.userGara.description}</td>
+                                                                <td>{item.phone}</td>
+                                                                <td>{item.description}</td>
 
 
                                                                 <td><button onClick={() => this.handlViewDetailGara(item)} className='button btn btn-primary'>view</button>

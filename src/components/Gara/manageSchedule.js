@@ -8,6 +8,7 @@ import _ from 'lodash';
 import ReactDatePicker from 'react-datepicker';
 import { getAllTime, getDataGara, createBulkScheduleGara } from '../../services/userService';
 import { UserContext } from "../../context/userContext"
+import { readAllScheduleByDate } from '../../services/userService';
 class ManageSchedule extends Component {
 
 
@@ -16,12 +17,35 @@ class ManageSchedule extends Component {
 
         this.state = {
             currenGara: '',
-
+            allDay: [],
 
             currenDate: new Date(),
             timeArr: [],
+            allAvailbleTime: [],
 
         }
+    }
+    getArrDay = () => {
+        let allDay = []
+        for (let i = 0; i < 7; i++) {
+            let obj = {};
+
+            if (i === 0) {
+                let ddMM = moment(new Date()).format('DD/MM')
+                let today = `Hôm nay - ${ddMM}`
+                obj.label = today
+            } else {
+                obj.label = moment(new Date()).add(i, 'days').format('dddd-DD/MM')
+
+
+            }
+
+
+
+            obj.value = moment(new Date()).add(i, 'days').startOf('day').valueOf()
+            allDay.push(obj)
+        }
+        return allDay
     }
     async componentDidMount() {
         let timeData = await getAllTime()
@@ -30,11 +54,51 @@ class ManageSchedule extends Component {
                 timeArr: timeData.DT
             })
         }
-        let dataGara = await getDataGara(this.context.user.account.email)
+        let dataGara = await getDataGara(this.context.user.account.id)
 
         this.setState({
-            currenGara: dataGara.DT.userGara.id
+            currenGara: dataGara.DT.id
         })
+        if (dataGara && dataGara.EC === 0) {
+            let allday = this.getArrDay()
+            if (allday && allday.length > 0) {
+
+                this.setState({
+                    allDay: allday,
+
+                })
+            }
+
+            let timedatabyday = await readAllScheduleByDate(dataGara.DT.id, allday[0].value / 1000)
+            this.setState({
+                allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : []
+            })
+            if (timedatabyday && timedatabyday.EC === 0) {
+                let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+                this.setState({
+                    timeArr: time
+                })
+
+            }
+
+
+        }
+
+    }
+    buidDatatimepick = (timePick, allTime) => {
+        let resuf = []
+        if (allTime.length > 0) {
+            allTime.map(time => {
+                let obj = {};
+                obj.id = time.id;
+                obj.timValue = time.timValue
+                if (timePick && timePick.length > 0) {
+                    obj.isSelected = timePick.some(item => +item.timeType === obj.id)
+                }
+                resuf.push(obj)
+            })
+        }
+        return resuf
     }
     buidDataInputSeclect = (inputData) => {
 
@@ -47,11 +111,29 @@ class ManageSchedule extends Component {
     handleChange = async (selectedDocter) => {
 
     };
-    handleChangedatePick = (date) => {
+    handleChangedatePick = async (date) => {
         this.setState({
             currenDate: date
         })
-        console.log(date)
+        let datenew = moment(new Date(date)).startOf('day').unix()
+        let dataGara = await getDataGara(this.context.user.account.id)
+        if (dataGara && dataGara.EC === 0) {
+
+            let timedatabyday = await readAllScheduleByDate(dataGara.DT.id, datenew)
+            this.setState({
+                allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : []
+            })
+            if (timedatabyday && timedatabyday.EC === 0) {
+                let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+                this.setState({
+                    timeArr: time
+                })
+
+            }
+
+
+        }
+
 
 
     }
@@ -115,7 +197,7 @@ class ManageSchedule extends Component {
 
     }
     render() {
-
+        console.log(this.state)
         return (
             <>
 

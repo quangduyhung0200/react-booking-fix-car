@@ -10,7 +10,8 @@ const UserProvider = ({ children }) => {
         isAuthenticated: false,
         isLoading: true,
         token: "",
-        account: {}
+        account: {},
+        id: ''
     }
     // User is the name of the "data" that gets stored in context
     const [user, setUser] = useState(
@@ -35,12 +36,13 @@ const UserProvider = ({ children }) => {
             let email = data.DT.email
             let userName = data.DT.userName
             let role = data.DT.role
-
+            let id = data.DT.id
             setUser({
                 isAuthenticated: true,
                 token: token,
-                account: { role, email, userName },
-                isLoading: false
+                account: { role, email, userName, id },
+                isLoading: false,
+
             })
 
 

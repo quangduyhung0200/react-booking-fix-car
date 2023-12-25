@@ -95,12 +95,13 @@ class Login extends Component {
             let token = data.DT.access_token
             let email = data.DT.email
             let userName = data.DT.userName
+            let id = data.DT.id
             let role = data.DT.data
             if (data && data.EC === 0) {
                 let hehe = {
                     isAuthenticated: true,
                     token: token,
-                    account: { role, email, userName }
+                    account: { role, email, userName, id }
                 }
                 this.context.loginContext(hehe)
                 console.log(this.context.user)

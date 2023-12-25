@@ -1,0 +1,77 @@
+.Docter-Detail-Container {
+
+
+
+    .schedule-docter {
+
+
+        min-height: 200px;
+        padding: 10px 0;
+        border-top: 1px solid #ddd;
+
+        .conten-left {
+
+            border-right: 1px solid #ddd;
+
+        }
+
+        .conten-right {}
+    }
+
+
+
+
+
+
+    .comment {
+        border-top: 1px solid #ddd;
+        height: 50px;
+        padding: 0 200px;
+    }
+
+    .detail-info-docter {
+        border-top: 1px solid #ddd;
+        background-color: rgb(240, 240, 239);
+
+        margin-bottom: 20px;
+
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .introduction {
+        border-top: 1px solid #ddd;
+
+
+        .content-left {
+
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 10px 20px;
+
+            background: center center no-repeat;
+
+        }
+
+        .content-right {
+
+
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+
+            .up {
+                font-size: 20px;
+                font-weight: 600;
+                padding-top: 15px;
+            }
+
+            .down {
+                padding-top: 10px;
+            }
+        }
+    }
+}

@@ -34,7 +34,7 @@ const getAllProvind = async () => {
     return await axios.get(`/api/v1/provind/read`)
 }
 
-const registerGara = async (nameGara, contenMarkdown, contenHTML, addressGara, provindId, avata, phone, description, emailUser) => {
+const registerGara = async (nameGara, contenMarkdown, contenHTML, addressGara, provindId, avata, phone, description, emailUser, id) => {
     return await axios.post(`/api/v1/register/gara`, {
         nameGara: nameGara,
         descriptionHTML: contenHTML,
@@ -44,7 +44,8 @@ const registerGara = async (nameGara, contenMarkdown, contenHTML, addressGara, p
         avata: avata,
         phone: phone,
         description: description,
-        emailUser: emailUser
+        emailUser: emailUser,
+        id: id
     })
 }
 const feactAllGara = async (page, limit) => {
@@ -77,8 +78,8 @@ const updateCar = async (id, nameCar, avata, descriptions, carCompanyId) => {
 const deleteCar = async (car) => {
     return axios.delete(`/api/v1/car/delete`, { data: { id: car.id } });
 }
-const getDataGara = async (emailinput) => {
-    return axios.get(`/api/v1/gara/readdata?email=${emailinput}`);
+const getDataGara = async (idInput) => {
+    return axios.get(`/api/v1/gara/readdata?id=${idInput}`);
 }
 const getDataPickCar = async (carcompanyid) => {
     return axios.get(`/api/v1/car/readCarInfoByCarCompany?carCompany=${carcompanyid}`);
@@ -104,11 +105,24 @@ const getAllTime = async () => {
 const createBulkScheduleGara = async (data) => {
     return axios.post(`/api/v1/gara/createBulkSchedule`, { ...data });
 }
+const readAllScheduleByDate = async (garaID, Date) => {
+    return axios.get(`/api/v1/schedule/read?garaId=${garaID}&day=${Date}`);
+}
+const readAllCarByGara = async (garaID) => {
+    return axios.get(`/api/v1/gara/getAllCar?id=${garaID}`);
+}
+const deletePickCar = async (garaId, carId, serviceId) => {
+    return axios.delete(`/api/v1/gara/deletePickCar`, { data: { garaId, carId, serviceId } });
+}
+
+
+
 
 
 
 export {
     getAllGender, registerUser, loginUser, getUserAccount, userLogout, feactAllUser, getAllProvind, registerGara, feactAllGara,
     getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany, createCar, updateCar, deleteCar, getDataGara, getDataPickCar,
-    getDataCarById, getAllPrice, getAllPayment, getAllService, registerCartoGara, getAllTime, createBulkScheduleGara
+    getDataCarById, getAllPrice, getAllPayment, getAllService, registerCartoGara, getAllTime, createBulkScheduleGara, readAllScheduleByDate,
+    readAllCarByGara, deletePickCar
 }
