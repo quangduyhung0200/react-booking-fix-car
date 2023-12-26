@@ -8,7 +8,7 @@ import { userLogout } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
 import GaraSchedule from './schedule';
-import AllCar from './allCar';
+import ExtralDataGara from './extralDataGara';
 class DetailGara extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +22,8 @@ class DetailGara extends Component {
             avata: '',
             descriptionHTML: '',
             userId: '',
-            garaId: ''
+            garaId: '',
+            propvindGara: {}
 
         }
     }
@@ -36,7 +37,8 @@ class DetailGara extends Component {
             })
 
             let data = await getGaraInfo(id)
-            console.log('check data: ', data)
+            console.log('check data: ', data.DT.avata)
+
             let imageBase64 = ''
             if (data.DT.avata.data) {
 
@@ -52,6 +54,9 @@ class DetailGara extends Component {
             coppyState.descriptionHTML = data.DT.descriptionHTML
             coppyState.userId = data.DT.userId
             coppyState.garaId = data.DT.id
+            coppyState.propvindGara = data.DT.provindGaraData
+
+
 
 
             this.setState({
@@ -92,10 +97,13 @@ class DetailGara extends Component {
                             <div className='conten-left col-6'>
 
                                 <GaraSchedule
+                                    dataGara={this.state.propvindGara}
+
+
                                 />
                             </div>
                             <div className='conten-right col-6'>
-                                <AllCar />
+                                <ExtralDataGara />
                             </div>
                         </div>
                         <div className='detail-info-docter col-12'>

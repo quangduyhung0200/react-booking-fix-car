@@ -9,6 +9,8 @@ import { readAllScheduleByDate } from '../../../services/userService';
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
+import ModelBooking from './modelBooking';
+
 class GaraSchedule extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +18,8 @@ class GaraSchedule extends Component {
             allDay: [],
             allAvailbleTime: [],
             isOpentTogger: false,
-            dataModelSchedule: {}
+            dataModelSchedule: {},
+            dataGara: {}
         }
     }
     async componentDidMount() {
@@ -41,10 +44,7 @@ class GaraSchedule extends Component {
 
 
     }
-    async componentDidUpdate(prevProps, prevState, snapshot) {
 
-
-    }
     getArrDay = () => {
         let allDay = []
         for (let i = 0; i < 7; i++) {
@@ -92,16 +92,20 @@ class GaraSchedule extends Component {
     }
     handleClickScheduleTime = async (time) => {
 
-        // this.setState({
-        //     isOpentTogger: !this.state.isOpentTogger,
-        //     dataModelSchedule: time
+        this.setState({
+            isOpentTogger: !this.state.isOpentTogger,
 
-        // })
+            dataModelSchedule: time,
+            dataGara: this.props.dataGara
+
+        })
         console.log('check dadasdasd: ', time)
 
     }
     closeBookingModel = () => {
-
+        this.setState({
+            isOpentTogger: false
+        })
     }
     render() {
 
@@ -155,6 +159,13 @@ class GaraSchedule extends Component {
 
                     </div>
                 </div>
+                <ModelBooking
+                    isOpentTogger={this.state.isOpentTogger}
+                    closeBookingModel={this.closeBookingModel}
+                    dataModelSchedule={this.state.dataModelSchedule}
+                    datagara={this.state.dataGara}
+                />
+
 
             </>
         );

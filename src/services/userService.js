@@ -114,6 +114,9 @@ const readAllCarByGara = async (garaID) => {
 const deletePickCar = async (garaId, carId, serviceId) => {
     return axios.delete(`/api/v1/gara/deletePickCar`, { data: { garaId, carId, serviceId } });
 }
+const readAllServiceCarGara = async (garaId, carId) => {
+    return axios.get(`/api/v1/booking/readService?garaId=${garaId}&carId=${carId}`);
+}
 
 
 
@@ -124,5 +127,5 @@ export {
     getAllGender, registerUser, loginUser, getUserAccount, userLogout, feactAllUser, getAllProvind, registerGara, feactAllGara,
     getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany, createCar, updateCar, deleteCar, getDataGara, getDataPickCar,
     getDataCarById, getAllPrice, getAllPayment, getAllService, registerCartoGara, getAllTime, createBulkScheduleGara, readAllScheduleByDate,
-    readAllCarByGara, deletePickCar
+    readAllCarByGara, deletePickCar, readAllServiceCarGara
 }
