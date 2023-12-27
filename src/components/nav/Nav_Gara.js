@@ -47,6 +47,8 @@ class NavigateGara extends Component {
                                     <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>
                                     <NavLink to="/pickcar" exact className='nav-link'>pickcar</NavLink>
                                     <NavLink to="/setSchedule" exact className='nav-link'>Schedule</NavLink>
+                                    <NavLink to="/manageBooking" exact className='nav-link'>ManageBooking</NavLink>
+                                    <NavLink to="/manageOrder" exact className='nav-link'>manageOrder</NavLink>
 
 
 

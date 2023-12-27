@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import './modelBoking.scss'
 import { Buffer } from 'buffer';
-import { readAllCarByGara, readAllServiceCarGara, getAllService } from '../../../services/userService';
+import { readAllCarByGara, readAllServiceCarGara, getAllService, getAllPrice, getAllPayment, readAllServiceCarGaraPaymentPrice, postBooking } from '../../../services/userService';
 
 class ModelBooking extends Component {
     constructor(props) {
@@ -31,6 +31,8 @@ class ModelBooking extends Component {
             garaAvata: '',
             userId: '',
             listCar: [],
+            listPrice: [],
+            listPayment: [],
             selectCarId: '',
             listService: [],
             selectService: '',
@@ -47,11 +49,16 @@ class ModelBooking extends Component {
     }
     async componentDidMount() {
         let data = await getAllService()
-        if (data.EC === 0) {
+        let data1 = await getAllPrice()
+        let data2 = await getAllPayment()
+        if (data.EC === 0 && data1.EC === 0 && data2.EC === 0) {
             this.setState({
-                serviceCheck: data.DT
+                serviceCheck: data.DT,
+                listPrice: data1.DT,
+                listPayment: data2.DT,
             })
         }
+
     }
     buidDataInputSeclectGender = (inputData) => {
         let resuf = []
@@ -163,6 +170,7 @@ class ModelBooking extends Component {
                 obj.label = item.name
                 obj.value = item.id;
 
+
                 resuf.push(obj);
 
             })
@@ -179,29 +187,59 @@ class ModelBooking extends Component {
             let carService = this.buidDataInputSeclectservice(res.DT)
             let allService = this.state.serviceCheck
 
-
-
-            const results = allService.filter(({ id: id1 }) => carService.some(({ id: id2 }) => +id2 === +id1));
-
+            const results = allService.filter(({ id: id1 }) => carService.some(({ id: id2, }) => +id2 === +id1));
             let resule2 = this.buidDataInputSeclectservice2(results)
 
-            console.log(resule2)
-
-
+            console.log(carService)
 
 
             this.setState({
                 selectCarId: selectedOption,
-                listService: resule2
+                listService: resule2,
+
+
+
             })
         }
 
     }
-    handleChangeService = (selectedOption) => {
-        this.setState({
-            selectService: selectedOption,
+    handleChangeService = async (selectedOption) => {
 
-        })
+        let res = await readAllServiceCarGaraPaymentPrice(this.state.garaId, this.state.selectCarId.value, selectedOption.value)
+
+        console.log(res)
+        if (res.EC === 0) {
+            this.setState({
+                selectService: selectedOption,
+                price: res.DT.priceData.value,
+                payment: res.DT.paymentData.value
+
+            })
+        }
+
+    }
+    buidDataSave = (data) => {
+        let resuf = {}
+        resuf.email = data.customerEmail
+        resuf.date = data.date
+        resuf.userName = data.customerName
+        resuf.time = data.time
+        resuf.docterName = data.garaName
+        resuf.docterId = data.garaId
+        resuf.address = data.customerAddress
+        resuf.garaId = data.garaId
+        resuf.timetype = data.timeid
+        resuf.carId = data.selectCarId.value
+        resuf.serviceId = data.selectService.value
+        return resuf
+
+
+
+    }
+    handlSaveBooking = async () => {
+        let data = this.buidDataSave(this.state)
+        let res = await postBooking(data)
+        console.log(this.state)
     }
     render() {
         let imageBase64 = ''
@@ -313,19 +351,11 @@ class ModelBooking extends Component {
                             </div>
                             <div className='col-12   col-sm-6 from-group'>
                                 <label>gia tien</label>
-                                <input
-                                    onChange={(event) => this.handlOnchaneInput(event.target.value, 'descriptions')}
-                                    type='text' className='form-control'
-                                    placeholder='descriptions '
-                                    value={this.state.descriptions} required></input>
+                                <p>{this.state.price}</p>
                             </div>
                             <div className='col-12   col-sm-6 from-group'>
                                 <label>hin thuc thanh toan</label>
-                                <input
-                                    onChange={(event) => this.handlOnchaneInput(event.target.value, 'descriptions')}
-                                    type='text' className='form-control'
-                                    placeholder='descriptions '
-                                    value={this.state.descriptions} required></input>
+                                <p>{this.state.payment}</p>
                             </div>
 
 
@@ -338,7 +368,7 @@ class ModelBooking extends Component {
                         <Button variant="secondary" onClick={() => this.props.closeBookingModel()}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={() => this.handlCreateCar()}>
+                        <Button variant="primary" onClick={() => this.handlSaveBooking()}>
                             Save Changes
                         </Button>
                     </Modal.Footer>

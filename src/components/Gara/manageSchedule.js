@@ -189,7 +189,7 @@ class ManageSchedule extends Component {
                 garaId: this.state.currenGara,
                 fomatDate: fomatDate
             })
-            console.log(res)
+            console.log(fomatDate)
         }
 
 

@@ -117,6 +117,26 @@ const deletePickCar = async (garaId, carId, serviceId) => {
 const readAllServiceCarGara = async (garaId, carId) => {
     return axios.get(`/api/v1/booking/readService?garaId=${garaId}&carId=${carId}`);
 }
+const readAllServiceCarGaraPaymentPrice = async (garaId, carId, serviceId) => {
+    return axios.get(`/api/v1/booking/readPricePayment?garaId=${garaId}&carId=${carId}&serviceId=${serviceId}`);
+}
+const postBooking = async (data) => {
+    return axios.post(`/api/v1/booking/createBooking`, { ...data });
+}
+const veryfyBooking = (data) => {
+    return axios.post('/api/v1/vetyfy-booking', data)
+}
+
+const getAllBookingByDay = async (garaId, date) => {
+    return axios.get(`/api/v1/gara/getListBooking?garaId=${garaId}&date=${date}`);
+}
+const comfimBooking = async (data) => {
+    return axios.post(`/api/v1/gara/comfimeBooking`, data);
+}
+const getAllOrderByDay = async (garaId, date) => {
+    return axios.get(`/api/v1/gara/getListOrder?garaId=${garaId}&date=${date}`);
+}
+
 
 
 
@@ -127,5 +147,6 @@ export {
     getAllGender, registerUser, loginUser, getUserAccount, userLogout, feactAllUser, getAllProvind, registerGara, feactAllGara,
     getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany, createCar, updateCar, deleteCar, getDataGara, getDataPickCar,
     getDataCarById, getAllPrice, getAllPayment, getAllService, registerCartoGara, getAllTime, createBulkScheduleGara, readAllScheduleByDate,
-    readAllCarByGara, deletePickCar, readAllServiceCarGara
+    readAllCarByGara, deletePickCar, readAllServiceCarGara, readAllServiceCarGaraPaymentPrice, postBooking, veryfyBooking, getAllBookingByDay,
+    comfimBooking, getAllOrderByDay
 }
