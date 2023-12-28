@@ -147,6 +147,14 @@ const canserOrder = async (data) => {
 const getAllOrderUser = async (userId) => {
     return axios.get(`/api/v1/getAllOrder?userId=${userId}`);
 }
+const createComment = async (data) => {
+    return axios.post(`/api/v1/comment/create`, { ...data });
+}
+
+const getAllCommentByGara = async (garaId) => {
+    return axios.get(`/api/v1/comment/read?garaId=${garaId}`);
+}
+
 
 
 
@@ -161,5 +169,5 @@ export {
     getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany, createCar, updateCar, deleteCar, getDataGara, getDataPickCar,
     getDataCarById, getAllPrice, getAllPayment, getAllService, registerCartoGara, getAllTime, createBulkScheduleGara, readAllScheduleByDate,
     readAllCarByGara, deletePickCar, readAllServiceCarGara, readAllServiceCarGaraPaymentPrice, postBooking, veryfyBooking, getAllBookingByDay,
-    comfimBooking, getAllOrderByDay, finishOrder, canserOrder, getAllOrderUser
+    comfimBooking, getAllOrderByDay, finishOrder, canserOrder, getAllOrderUser, createComment, getAllCommentByGara
 }

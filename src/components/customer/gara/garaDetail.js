@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getGaraInfo } from '../../../services/userService';
+import { getGaraInfo, } from '../../../services/userService';
 import { Buffer } from "buffer";
 import './garaDetail.scss'
 import { accepGara } from '../../../services/userService';
@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
 import GaraSchedule from './schedule';
 import ExtralDataGara from './extralDataGara';
+import Comment from './comment';
+
 class DetailGara extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +25,8 @@ class DetailGara extends Component {
             descriptionHTML: '',
             userId: '',
             garaId: '',
-            propvindGara: {}
+            propvindGara: {},
+            rate: ''
 
         }
     }
@@ -37,7 +40,7 @@ class DetailGara extends Component {
             })
 
             let data = await getGaraInfo(id)
-            console.log('check data: ', data.DT.avata)
+            console.log('check data: ', data)
 
             let imageBase64 = ''
             if (data.DT.avata.data) {
@@ -55,6 +58,7 @@ class DetailGara extends Component {
             coppyState.userId = data.DT.userId
             coppyState.garaId = data.DT.id
             coppyState.propvindGara = data.DT.provindGaraData
+            coppyState.rate = data.DT.rateId
 
 
 
@@ -109,6 +113,11 @@ class DetailGara extends Component {
                         <div className='detail-info-docter col-12'>
                             {this.state.descriptionHTML &&
                                 < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
+                        </div>
+                        <div>
+                            <Comment
+                                currenGaraId={this.state.currenGaraId}
+                                rate={this.state.rate} />
                         </div>
 
                     </div>

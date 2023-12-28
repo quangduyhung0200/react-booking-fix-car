@@ -67,7 +67,7 @@ class AppRouter extends Component {
                             <ManageOrder />
                         </Route>
                         <Route exact path="/myOrder">
-                            <MyOrder />
+                            <MyOrder /> 
                         </Route>
 
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />

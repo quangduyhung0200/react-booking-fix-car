@@ -3,7 +3,8 @@ import ReactDatePicker from 'react-datepicker';
 import { UserContext } from '../../../context/userContext';
 import moment from 'moment';
 import { getAllOrderUser } from '../../../services/userService';
-
+import { template } from 'lodash';
+import CreateComent from './modelAddComent';
 class MyOrder extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +14,7 @@ class MyOrder extends Component {
             garaId: '',
             dataBooking: {},
             isOpentModel: false,
-            isOpentModelCanser: false,
+
             dateModel: {}
         }
     }
@@ -42,7 +43,7 @@ class MyOrder extends Component {
     hanldOnclickConfid = (item) => {
         let data = {
             userId: item.userId,
-            garaid: item.garaid,
+            garaId: item.garaid,
             carId: item.carId,
             timetype: item.timeType,
             serviceId: item.serviceId,
@@ -51,10 +52,12 @@ class MyOrder extends Component {
             time: item.timeDataBooking.timValue,
 
 
+
         }
 
         this.setState({
             isOpentModel: true,
+
             dateModel: data
         })
 
@@ -63,43 +66,15 @@ class MyOrder extends Component {
     closeBookingModel = () => {
         this.setState({
             isOpentModel: false,
-            isOpentModelCanser: false,
+
             dataModel: {},
 
 
 
         })
     }
-    closeBookingModelCanser = () => {
-        this.setState({
-
-            isOpentModelCanser: false,
-            dataModel: {},
 
 
-
-        })
-    }
-    hanldOnclickDontFinshTheOrder = (item) => {
-        let data = {
-            userId: item.userId,
-            garaid: item.garaid,
-            carId: item.carId,
-            timetype: item.timeType,
-            serviceId: item.serviceId,
-            date: item.date,
-            email: item.bookingData.email,
-            time: item.timeDataBooking.timValue,
-
-
-        }
-
-        this.setState({
-            isOpentModelCanser: true,
-            dateModel: data
-        })
-
-    }
     render() {
 
         let dataBooking = this.state.dataBooking
@@ -134,10 +109,9 @@ class MyOrder extends Component {
                                                     <td>{item.bookingData.email}</td>
                                                     <td>{item.bookingData.address}</td>
                                                     <td>{item.status === 'S2' ? 'don hang dang doi gara xac nhan' : item.status === 'S3' ? 'don hang dng tien hanh' : item.status === 'S4' ? 'don hang da hoan thnah' : 'don hang da that bai'}</td>
-                                                    <td><button className={item.status === 'S3' ? 'btn btn-primary mx-3' : 'btn btn-primary mx-3 disabled'}
-                                                        onClick={() => this.hanldOnclickConfid(item)}>hoàn thành đơn hàng</button>
-                                                        <button className={item.status === 'S3' ? 'btn btn-primary' : 'btn btn-primary disabled'}
-                                                            onClick={() => this.hanldOnclickDontFinshTheOrder(item)}>khong hoan thanh don hang</button></td>
+                                                    <td><button className={item.status === 'S4' ? 'btn btn-primary mx-3' : 'btn btn-primary mx-3 disabled'}
+                                                        onClick={() => this.hanldOnclickConfid(item)}>xacs nhan hoan thanh don hang</button>
+                                                    </td>
                                                 </tr>
                                             )
                                         })}
@@ -152,7 +126,9 @@ class MyOrder extends Component {
                         </div>
                     </div>
                 </div>
-
+                <CreateComent show={this.state.isOpentModel}
+                    dataModel={this.state.dateModel}
+                    onHide={this.closeBookingModel} />
 
             </>
         );
