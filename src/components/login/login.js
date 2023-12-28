@@ -14,6 +14,7 @@ class Login extends Component {
             password: '',
             isValidEmail: true,
             isValidPassword: true,
+            createNewAccoutWithEmailHasOrder: false
 
         }
     }
@@ -91,13 +92,14 @@ class Login extends Component {
 
         if (check) {
             let data = await loginUser(this.state.email, password)
-            console.log('data: ', data)
-            let token = data.DT.access_token
-            let email = data.DT.email
-            let userName = data.DT.userName
-            let id = data.DT.id
-            let role = data.DT.data
+
             if (data && data.EC === 0) {
+                console.log('data: ', data)
+                let token = data.DT.access_token
+                let email = data.DT.email
+                let userName = data.DT.userName
+                let id = data.DT.id
+                let role = data.DT.data
                 let hehe = {
                     isAuthenticated: true,
                     token: token,
@@ -123,14 +125,22 @@ class Login extends Component {
             if (data && data.EC === 2) {
                 toast.error('your email or phone number dont exit')
             }
+            if (data && data.EC === 3) {
+                this.setState({
+                    createNewAccoutWithEmailHasOrder: true
+                })
+            }
             if (data && data.EC === -1) {
                 toast.error('erro from server')
             }
 
         }
     }
+    HandlCreateNewAccoutewithEmail = (email) => {
+        this.props.history.push(`/register?email=${this.state.email}`);
+    }
     render() {
-        let { email, password, isValidEmail, isValidPassword } = this.state
+        let { email, password, isValidEmail, isValidPassword, createNewAccoutWithEmailHasOrder } = this.state
         if (this.context.user.isAuthenticated === true) {
             return (
 
@@ -169,6 +179,10 @@ class Login extends Component {
                                         <button onClick={() => this.HandlCreateNewAccoute()} className='btn btn-success' >
                                             create new accoute</button>
                                     </div>
+                                    <div className={createNewAccoutWithEmailHasOrder === true ? 'text-center ' : 'text-center invisible'}>
+                                        <button onClick={() => this.HandlCreateNewAccoutewithEmail(email)} className='btn btn-success' >
+                                            create new accoute with this email</button>
+                                    </div>
                                     <hr />
                                     <div className='return-home'>
 
@@ -180,7 +194,7 @@ class Login extends Component {
 
                             </div>
                         </div>
-                    </div>
+                    </div >
 
                 </>
 

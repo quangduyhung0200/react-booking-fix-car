@@ -137,6 +137,19 @@ const getAllOrderByDay = async (garaId, date) => {
     return axios.get(`/api/v1/gara/getListOrder?garaId=${garaId}&date=${date}`);
 }
 
+const finishOrder = async (data) => {
+    return axios.post(`/api/v1/gara/finishOrder`, data);
+}
+const canserOrder = async (data) => {
+    return axios.post(`/api/v1/gara/canserOrder`, data);
+}
+
+const getAllOrderUser = async (userId) => {
+    return axios.get(`/api/v1/getAllOrder?userId=${userId}`);
+}
+
+
+
 
 
 
@@ -148,5 +161,5 @@ export {
     getGaraInfo, accepGara, getTopGara, feactAllCar, feactAllCarCompany, createCar, updateCar, deleteCar, getDataGara, getDataPickCar,
     getDataCarById, getAllPrice, getAllPayment, getAllService, registerCartoGara, getAllTime, createBulkScheduleGara, readAllScheduleByDate,
     readAllCarByGara, deletePickCar, readAllServiceCarGara, readAllServiceCarGaraPaymentPrice, postBooking, veryfyBooking, getAllBookingByDay,
-    comfimBooking, getAllOrderByDay
+    comfimBooking, getAllOrderByDay, finishOrder, canserOrder, getAllOrderUser
 }

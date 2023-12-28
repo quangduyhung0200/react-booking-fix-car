@@ -6,6 +6,7 @@ import { registerUser } from '../../services/userService';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from "../../context/userContext"
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { loginUser } from '../../services/userService';
 
 class Register extends Component {
     constructor(props) {
@@ -28,11 +29,21 @@ class Register extends Component {
             isValidPassword: true,
             isValidGender: true,
             isValidAddress: true,
+            isNewAccout: true
 
 
         }
     }
     async componentDidMount() {
+        let urlParams = new URLSearchParams(this.props.location.search);
+        let email2 = urlParams.get('email');
+        if (email2 !== '') {
+            this.setState({
+                email: email2,
+                isNewAccout: false
+            })
+        }
+
         let data = await getAllGender()
         let coppyState = { ...this.state }
         coppyState.genderArr = data.DT
@@ -179,23 +190,29 @@ class Register extends Component {
             let data = await registerUser(address, gender, phone, userName, comfimPassword, email, password)
             if (data && data.EC === 0) {
                 toast.success('register success')
-                this.setState({
-                    userName: '',
-                    password: '',
-                    comfimPassword: '',
-                    email: '',
-                    phone: '',
-                    gender: '',
-                    address: '',
-                    provindId: '',
-                    isValidEmail: true,
-                    isValidUserName: true,
-                    isValidphone: true,
-                    isValidConfigPassword: true,
-                    isValidPassword: true,
-                    isValidGender: true,
-                    isValidAddress: true,
-                })
+                let data = await loginUser(email, password)
+                if (data && data.EC === 0) {
+                    console.log('data: ', data)
+                    let token = data.DT.access_token
+                    let email = data.DT.email
+                    let userName = data.DT.userName
+                    let id = data.DT.id
+                    let role = data.DT.data
+                    let hehe = {
+                        isAuthenticated: true,
+                        token: token,
+                        account: { role, email, userName, id }
+                    }
+                    this.context.loginContext(hehe)
+                    console.log(this.context.user)
+                    toast.success('LOGIN SUCCESS')
+
+                    this.props.history.push(`/`);
+                    // window.location.reload()
+
+
+                }
+
             }
             if (data && data.EC === 1) {
                 toast.error(data.EM)
@@ -215,7 +232,8 @@ class Register extends Component {
     render() {
 
         let { genderArr, address, gender, phone, userName, comfimPassword, email, password, isValidEmail,
-            isValidUserName, isValidphone, isValidConfigPassword, isValidPassword, isValidGender, isValidAddress } = this.state
+            isValidUserName, isValidphone, isValidConfigPassword, isValidPassword, isValidGender, isValidAddress, isNewAccout } = this.state
+
 
         return (
             <>
@@ -232,13 +250,24 @@ class Register extends Component {
 
                             <div className='content-right col-sm-5 col-12  my-3 d-flex flex-column gap-3 py-3 '>
                                 <div className='brand d-sm-none'>duyhungapp</div>
-                                <div className='form-group'>
-                                    <label className='form-label'>Email</label>
-                                    <input onChange={(event) => this.handleOnchaneInput(event, 'email')} type='email'
-                                        className={isValidEmail === true ? 'form-control' : 'form-control is-invalid'} placeholder='Email address '
-                                        value={email}
-                                        required></input>
-                                </div>
+                                {isNewAccout === true ?
+                                    <div className='form-group'>
+                                        <label className='form-label'>Email</label>
+                                        <input onChange={(event) => this.handleOnchaneInput(event, 'email')} type='email'
+                                            className={isValidEmail === true ? 'form-control' : 'form-control is-invalid'}
+                                            placeholder='Email address '
+                                            value={email}
+                                            required></input>
+                                    </div> :
+                                    <fieldset disabled>
+                                        <div className='form-group'>
+                                            <div class="form-group">
+                                                <label for="disabledTextInput">Email</label>
+                                                <input type="text" id="disabledTextInput" class="form-control" placeholder="Email input" value={email} />
+                                            </div>
+                                        </div></fieldset>
+                                }
+
                                 <div className='form-group'>
                                     <label className='form-label'>Phonenumber</label>
                                     <input onChange={(event) => this.handleOnchaneInput(event, 'phone')} type='text'

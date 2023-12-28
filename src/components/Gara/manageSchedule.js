@@ -18,7 +18,7 @@ class ManageSchedule extends Component {
         this.state = {
             currenGara: '',
             allDay: [],
-
+            numberCarPerTime: '',
             currenDate: new Date(),
             timeArr: [],
             allAvailbleTime: [],
@@ -108,9 +108,7 @@ class ManageSchedule extends Component {
     }
 
 
-    handleChange = async (selectedDocter) => {
 
-    };
     handleChangedatePick = async (date) => {
         this.setState({
             currenDate: date
@@ -175,6 +173,7 @@ class ManageSchedule extends Component {
 
                     obj.date = fomatDate;
                     obj.timeType = schedule.id
+                    obj.maxOrder = this.state.numberCarPerTime
                     resuf.push(obj)
 
                 })
@@ -195,6 +194,12 @@ class ManageSchedule extends Component {
 
 
 
+    }
+    handlOnchane = (event) => {
+        this.setState({
+            numberCarPerTime: event.target.value
+        })
+        console.log(this.state)
     }
     render() {
         console.log(this.state)
@@ -235,6 +240,18 @@ class ManageSchedule extends Component {
 
                                     })}
 
+
+                                <div className='col-2'>
+                                    <label>Chon so luong xe toi da trong 1 khung gio</label>
+                                    <input
+                                        onChange={(event) => this.handlOnchane(event)}
+                                        type='number' className='form-control'
+                                        placeholder='chon so '
+                                        required>
+
+                                    </input>
+
+                                </div>
 
                                 <div className='col-12'>
                                     <button

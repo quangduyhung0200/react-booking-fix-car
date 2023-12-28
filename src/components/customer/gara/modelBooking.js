@@ -224,8 +224,8 @@ class ModelBooking extends Component {
         resuf.date = data.date
         resuf.userName = data.customerName
         resuf.time = data.time
-        resuf.docterName = data.garaName
-        resuf.docterId = data.garaId
+        resuf.garaName = data.garaName
+
         resuf.address = data.customerAddress
         resuf.garaId = data.garaId
         resuf.timetype = data.timeid
@@ -239,7 +239,7 @@ class ModelBooking extends Component {
     handlSaveBooking = async () => {
         let data = this.buidDataSave(this.state)
         let res = await postBooking(data)
-        console.log(this.state)
+        console.log(data)
     }
     render() {
         let imageBase64 = ''

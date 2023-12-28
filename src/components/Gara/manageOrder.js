@@ -3,7 +3,8 @@ import ReactDatePicker from 'react-datepicker';
 import { UserContext } from '../../context/userContext';
 import moment from 'moment';
 import { getAllOrderByDay, getDataGara } from '../../services/userService';
-import ModelComfimBooking from './modelComfimBooking';
+import ModelComfimFinishOrder from './AllModel/modelComfimFinishOrder';
+import ModelComfimCanserOrder from './AllModel/modelComfimCanserOder';
 class ManageOrder extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +14,7 @@ class ManageOrder extends Component {
             garaId: '',
             dataBooking: {},
             isOpentModel: false,
+            isOpentModelCanser: false,
             dateModel: {}
         }
     }
@@ -86,11 +88,42 @@ class ManageOrder extends Component {
     closeBookingModel = () => {
         this.setState({
             isOpentModel: false,
+            isOpentModelCanser: false,
             dataModel: {},
 
 
 
         })
+    }
+    closeBookingModelCanser = () => {
+        this.setState({
+
+            isOpentModelCanser: false,
+            dataModel: {},
+
+
+
+        })
+    }
+    hanldOnclickDontFinshTheOrder = (item) => {
+        let data = {
+            userId: item.userId,
+            garaid: item.garaid,
+            carId: item.carId,
+            timetype: item.timeType,
+            serviceId: item.serviceId,
+            date: item.date,
+            email: item.bookingData.email,
+            time: item.timeDataBooking.timValue,
+
+
+        }
+
+        this.setState({
+            isOpentModelCanser: true,
+            dateModel: data
+        })
+
     }
     render() {
 
@@ -109,7 +142,7 @@ class ManageOrder extends Component {
                                 className='form-control'
                                 value={this.state.currenDate}
                                 selected={this.state.currenDate}
-                                minDate={new Date((new Date()).valueOf())}
+
 
 
                             />
@@ -123,6 +156,7 @@ class ManageOrder extends Component {
                                         <th>HO VA TEN</th>
                                         <th>email</th>
                                         <th>DIA CHI</th>
+                                        <th>trang thai don hang</th>
                                         <th>ACTION</th>
                                     </tr>
                                     {dataBooking && dataBooking.length > 0 &&
@@ -135,8 +169,11 @@ class ManageOrder extends Component {
                                                     <td>{item.bookingData.userName}</td>
                                                     <td>{item.bookingData.email}</td>
                                                     <td>{item.bookingData.address}</td>
-                                                    <td><button className='config' onClick={() => this.hanldOnclickConfid(item)}>xac nhan</button>
-                                                        <button className='send-tex'>gui hoa don</button></td>
+                                                    <td>{item.status === 'S3' ? 'don hang dang tien hanh' : item.status === 'S4' ? 'don hang da hoan thanh' : 'don hang da that bai'}</td>
+                                                    <td><button className={item.status === 'S3' ? 'btn btn-primary mx-3' : 'btn btn-primary mx-3 disabled'}
+                                                        onClick={() => this.hanldOnclickConfid(item)}>hoàn thành đơn hàng</button>
+                                                        <button className={item.status === 'S3' ? 'btn btn-primary' : 'btn btn-primary disabled'}
+                                                            onClick={() => this.hanldOnclickDontFinshTheOrder(item)}>khong hoan thanh don hang</button></td>
                                                 </tr>
                                             )
                                         })}
@@ -152,10 +189,16 @@ class ManageOrder extends Component {
                     </div>
                 </div>
 
-                <ModelComfimBooking
+                <ModelComfimFinishOrder
                     show={this.state.isOpentModel}
                     dataModel={this.state.dateModel}
                     onHide={this.closeBookingModel} />
+                <ModelComfimCanserOrder
+
+                    show={this.state.isOpentModelCanser}
+                    dataModel={this.state.dateModel}
+                    onHide={this.closeBookingModelCanser} />
+
             </>
         );
     }

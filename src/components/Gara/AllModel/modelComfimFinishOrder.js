@@ -5,10 +5,10 @@ import _ from 'lodash';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import { comfimBooking } from '../../services/userService';
+import { finishOrder } from '../../../services/userService';
 
 
-class ModelComfimBooking extends Component {
+class ModelComfimFinishOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,8 +50,8 @@ class ModelComfimBooking extends Component {
 
     }
     handlecomfime = async () => {
-        console.log(this.state)
-        await comfimBooking(this.state)
+        await finishOrder(this.state)
+
     }
     render() {
 
@@ -72,7 +72,7 @@ class ModelComfimBooking extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>asdasdasd</span>
+                            <span>moi moi</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -96,4 +96,4 @@ class ModelComfimBooking extends Component {
 }
 
 
-export default ModelComfimBooking;
+export default ModelComfimFinishOrder;

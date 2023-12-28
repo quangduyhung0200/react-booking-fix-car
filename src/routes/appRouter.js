@@ -20,6 +20,7 @@ import ManageSchedule from "../components/Gara/manageSchedule";
 import VerifyEmail from "../components/customer/vetifyEmail";
 import ManageBookingGara from "../components/Gara/manageBooking";
 import ManageOrder from "../components/Gara/manageOrder.js";
+import MyOrder from "../components/customer/gara/MyOrder.js";
 class AppRouter extends Component {
 
 
@@ -65,6 +66,10 @@ class AppRouter extends Component {
                         <Route exact path="/manageOrder">
                             <ManageOrder />
                         </Route>
+                        <Route exact path="/myOrder">
+                            <MyOrder />
+                        </Route>
+
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />
 
                         <PrivateRole path='/detailGara/:id' exact component={DetailGara} />

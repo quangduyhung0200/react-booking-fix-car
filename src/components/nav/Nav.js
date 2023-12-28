@@ -45,11 +45,8 @@ class Navigate extends Component {
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>Home</NavLink>
                                     {user && user.isAuthenticated === true && <>
-                                        <NavLink to="/user" className='nav-link'>user</NavLink>
-                                        <NavLink to="/project" className='nav-link'>project</NavLink>
-                                        <NavLink to="/role" className='nav-link'>Role</NavLink>
-                                        <NavLink to="/listRole" className='nav-link'>List Role</NavLink>
-                                        <NavLink to="/grouprole" className='nav-link'>Group Role</NavLink>
+                                        <NavLink to="/myOrder" exact className='nav-link'>My order</NavLink>
+
                                     </>}
 
 

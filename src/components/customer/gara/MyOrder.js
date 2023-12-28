@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ReactDatePicker from 'react-datepicker';
-import { UserContext } from '../../context/userContext';
+import { UserContext } from '../../../context/userContext';
 import moment from 'moment';
-import { getAllBookingByDay, getDataGara } from '../../services/userService';
-import ModelComfimBooking from './AllModel/modelComfimBooking';
-class ManageBookingGara extends Component {
+import { getAllOrderUser } from '../../../services/userService';
+
+class MyOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,21 +13,22 @@ class ManageBookingGara extends Component {
             garaId: '',
             dataBooking: {},
             isOpentModel: false,
+            isOpentModelCanser: false,
             dateModel: {}
         }
     }
     async componentDidMount() {
-        let data = await getDataGara(this.context.user.account.id)
-        if (data.EC === 0) {
 
 
-            let currendate = moment(new Date(this.state.currenDate)).startOf('day').unix()
-            let res = await getAllBookingByDay(data.DT.id, currendate)
-            this.setState({
-                dataBooking: res.DT,
-                garaId: data.DT.id
-            })
-        }
+
+
+
+        let res = await getAllOrderUser(this.context.user.account.id)
+        this.setState({
+            dataBooking: res.DT,
+
+        })
+
 
 
 
@@ -36,32 +37,8 @@ class ManageBookingGara extends Component {
     async componentDidUpdate(prevProps, prevState, snapshot) {
 
     }
-    getDataPatient = async (gara, fomatedDate) => {
-
-        let res = await getAllBookingByDay(gara, fomatedDate)
-        if (res && res.EC === 0) {
-            this.setState({
-                dataBooking: res.DT
-            })
-        }
-
-    }
-    handleChangedatePick = async (date) => {
-        console.log(date)
-        this.setState({
-            currenDate: date
-        }, () => {
-            let gara = this.state.garaId
-            let currenDate = this.state.currenDate
-            let fomatedDate = moment(new Date(currenDate)).startOf('day').unix()
-
-            this.getDataPatient(gara, fomatedDate)
-
-        })
 
 
-
-    }
     hanldOnclickConfid = (item) => {
         let data = {
             userId: item.userId,
@@ -86,11 +63,42 @@ class ManageBookingGara extends Component {
     closeBookingModel = () => {
         this.setState({
             isOpentModel: false,
+            isOpentModelCanser: false,
             dataModel: {},
 
 
 
         })
+    }
+    closeBookingModelCanser = () => {
+        this.setState({
+
+            isOpentModelCanser: false,
+            dataModel: {},
+
+
+
+        })
+    }
+    hanldOnclickDontFinshTheOrder = (item) => {
+        let data = {
+            userId: item.userId,
+            garaid: item.garaid,
+            carId: item.carId,
+            timetype: item.timeType,
+            serviceId: item.serviceId,
+            date: item.date,
+            email: item.bookingData.email,
+            time: item.timeDataBooking.timValue,
+
+
+        }
+
+        this.setState({
+            isOpentModelCanser: true,
+            dateModel: data
+        })
+
     }
     render() {
 
@@ -102,18 +110,7 @@ class ManageBookingGara extends Component {
                         Quan ly benh nhan kham benh
                     </div>
                     <div className='m-p-body row'>
-                        <div className='col-4 form-group'>
-                            <label>Chon ngay kham</label>
-                            <ReactDatePicker
-                                onChange={this.handleChangedatePick}
-                                className='form-control'
-                                value={this.state.currenDate}
-                                selected={this.state.currenDate}
-                                minDate={new Date((new Date()).valueOf())}
 
-
-                            />
-                        </div>
                         <div className='col-12'>
                             <table style={{ width: '100%' }} className='table-patient'>
                                 <tbody>
@@ -123,6 +120,7 @@ class ManageBookingGara extends Component {
                                         <th>HO VA TEN</th>
                                         <th>email</th>
                                         <th>DIA CHI</th>
+                                        <th>trang thai don hang</th>
                                         <th>ACTION</th>
                                     </tr>
                                     {dataBooking && dataBooking.length > 0 &&
@@ -135,8 +133,11 @@ class ManageBookingGara extends Component {
                                                     <td>{item.bookingData.userName}</td>
                                                     <td>{item.bookingData.email}</td>
                                                     <td>{item.bookingData.address}</td>
-                                                    <td><button className='config' onClick={() => this.hanldOnclickConfid(item)}>xac nhan</button>
-                                                        <button className='send-tex'>gui hoa don</button></td>
+                                                    <td>{item.status === 'S2' ? 'don hang dang doi gara xac nhan' : item.status === 'S3' ? 'don hang dng tien hanh' : item.status === 'S4' ? 'don hang da hoan thnah' : 'don hang da that bai'}</td>
+                                                    <td><button className={item.status === 'S3' ? 'btn btn-primary mx-3' : 'btn btn-primary mx-3 disabled'}
+                                                        onClick={() => this.hanldOnclickConfid(item)}>hoàn thành đơn hàng</button>
+                                                        <button className={item.status === 'S3' ? 'btn btn-primary' : 'btn btn-primary disabled'}
+                                                            onClick={() => this.hanldOnclickDontFinshTheOrder(item)}>khong hoan thanh don hang</button></td>
                                                 </tr>
                                             )
                                         })}
@@ -152,15 +153,12 @@ class ManageBookingGara extends Component {
                     </div>
                 </div>
 
-                <ModelComfimBooking
-                    show={this.state.isOpentModel}
-                    dataModel={this.state.dateModel}
-                    onHide={this.closeBookingModel} />
+
             </>
         );
     }
 }
-ManageBookingGara.contextType = UserContext
+MyOrder.contextType = UserContext
 
 
-export default ManageBookingGara;
+export default MyOrder;
