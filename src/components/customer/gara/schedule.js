@@ -5,7 +5,7 @@ import './schedule.scss'
 
 import 'moment/locale/vi';
 import moment from 'moment';
-import { readAllScheduleByDate } from '../../../services/userService';
+import { readAllScheduleByDate, getAllDay } from '../../../services/guestService';
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -19,13 +19,16 @@ class GaraSchedule extends Component {
             allAvailbleTime: [],
             isOpentTogger: false,
             dataModelSchedule: {},
-            dataGara: {}
+            dataGara: {},
+
+
         }
     }
     async componentDidMount() {
+
+
+
         let allday = this.getArrDay()
-
-
 
         if (allday && allday.length > 0) {
 
@@ -34,12 +37,23 @@ class GaraSchedule extends Component {
 
             })
         }
+        if (this.props.garaId !== '') {
+            let allday = this.getArrDay()
+            let res = await readAllScheduleByDate(this.props.garaId, allday[0].value / 1000)
+            if (res.EC === 0) {
+                this.setState({
+                    allAvailbleTime: res.DT ? res.DT : [],
+                    garaId: this.props.garaId
+                })
+            }
 
-        let res = await readAllScheduleByDate(this.props.match.params.id, allday[0].value / 1000)
+        }
 
-        this.setState({
-            allAvailbleTime: res.DT ? res.DT : []
-        })
+
+
+
+
+
 
 
 
@@ -69,14 +83,31 @@ class GaraSchedule extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.garaId !== this.props.garaId) {
+
+            let allday2 = await getAllDay(this.props.garaId)
+            let allday3 = allday2.DT
+            let allday = this.getArrDay()
+            const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
+
+            let res = await readAllScheduleByDate(this.props.garaId, allday[0].value / 1000)
+            if (res.EC === 0) {
+                this.setState({
+                    allAvailbleTime: res.DT ? res.DT : [],
+                    garaId: this.props.garaId,
+                    allDay: results2
+                })
+            }
+        }
+
 
     }
     handlOnchanSelect = async (event) => {
 
-        let garaId = this.props.match.params.id
+        let garaId = this.props.garaId
 
         let date = event.target.value / 1000
-        console.log(garaId, date)
+
         let res = await readAllScheduleByDate(garaId, date)
 
         if (res && res.EC === 0) {
@@ -99,7 +130,7 @@ class GaraSchedule extends Component {
             dataGara: this.props.dataGara
 
         })
-        console.log('check dadasdasd: ', time)
+
 
     }
     closeBookingModel = () => {
@@ -110,7 +141,7 @@ class GaraSchedule extends Component {
     render() {
 
         let { allDay } = this.state
-        console.log(this.state)
+
         let { allAvailbleTime } = this.state
         return (
             <>

@@ -108,7 +108,7 @@ class MyOrder extends Component {
                                                     <td>{item.bookingData.userName}</td>
                                                     <td>{item.bookingData.email}</td>
                                                     <td>{item.bookingData.address}</td>
-                                                    <td>{item.status === 'S2' ? 'don hang dang doi gara xac nhan' : item.status === 'S3' ? 'don hang dng tien hanh' : item.status === 'S4' ? 'don hang da hoan thnah' : 'don hang da that bai'}</td>
+                                                    <td>{item.status === 'S2' ? 'don hang dang doi gara xac nhan' : item.status === 'S3' ? 'don hang dng tien hanh' : item.status === 'S4' ? 'don hang da hoan thnah' : item.status === 'S5' ? 'don hang da duoc danh gia' : 'don hang da that bai'}</td>
                                                     <td><button className={item.status === 'S4' ? 'btn btn-primary mx-3' : 'btn btn-primary mx-3 disabled'}
                                                         onClick={() => this.hanldOnclickConfid(item)}>xacs nhan hoan thanh don hang</button>
                                                     </td>

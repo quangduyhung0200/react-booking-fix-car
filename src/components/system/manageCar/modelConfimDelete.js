@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { feactAllCarCompany } from '../../../services/userService';
+import { feactAllCarCompany } from '../../../services/guestService';
 import CommonUtils from '../../../utils/CommonUtils';
-import { createCar, updateCar } from '../../../services/userService';
+import { createCar, updateCar } from '../../../services/staffService';
 import { toast } from 'react-toastify';
 import { Buffer } from 'buffer';
 import _ from 'lodash';

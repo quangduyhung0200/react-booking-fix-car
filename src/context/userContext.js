@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUserAccount } from "../services/userService";
+import { getUserAccount } from "../services/guestService";
 
 
 const UserContext = React.createContext(null);
@@ -30,7 +30,7 @@ const UserProvider = ({ children }) => {
     };
     const feactUser = async () => {
         let data = await getUserAccount()
-        console.log('data user: d', data)
+
         if (data && data.EC === 0) {
             let token = data.DT.access_token
             let email = data.DT.email

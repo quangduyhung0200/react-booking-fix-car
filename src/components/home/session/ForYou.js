@@ -4,11 +4,11 @@ import garaImage1 from '../../../assets/img/image/garacar1.jpeg'
 import garaImage2 from '../../../assets/img/image/gara2.webp'
 import garaImage3 from '../../../assets/img/image/gara3.jpeg'
 
-import './HandBook.scss'
+import './ForYou.scss'
 import { Buffer } from 'buffer';
 import { withRouter } from 'react-router';
 
-class HandBook extends Component {
+class ForYou extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,16 +45,16 @@ class HandBook extends Component {
         return (
             <>
                 <div className='container'>
-                    <div className='session-container'>
+                    <div className='session-container-foryou'>
                         <div className='session-header'>
-                            <h3 className='content-left'>Cẩm nang</h3>
+                            <h3 className='content-left'>Dành cho bạn</h3>
                             <div className='content-right'> <button className='btn btn-warning'>Xem thêm</button></div>
                         </div>
                         <div className='session-content'>
                             <Carousel
                                 swipeable={false}
                                 draggable={false}
-                                showDots={true}
+                                showDots={false}
                                 responsive={responsive}
                                 ssr={true} // means to render carousel on server-side.
                                 infinite={false}
@@ -80,9 +80,32 @@ class HandBook extends Component {
                                         />
 
                                     </div>
-                                    <h5 className='name-child'>aaaaaaaaaaaa, Địa chỉ:</h5>
+                                    <h5 className='name-child'>Tìm gara theo địa chỉ</h5>
                                 </>
+                                <>
+                                    <div className='silde-child' >
+                                        <img
+                                            className="img-child w-100 h-100"
+                                            src={garaImage1}
+                                            alt="First slide"
+                                        // onClick={() => this.handlOnclickGara()}
+                                        />
 
+                                    </div>
+                                    <h5 className='name-child'>Tìm gara theo ô tô</h5>
+                                </>
+                                <>
+                                    <div className='silde-child' >
+                                        <img
+                                            className="img-child w-100 h-100"
+                                            src={garaImage1}
+                                            alt="First slide"
+                                        // onClick={() => this.handlOnclickGara()}
+                                        />
+
+                                    </div>
+                                    <h5 className='name-child'>Tìm gara theo hãng xe</h5>
+                                </>
 
 
 
@@ -104,4 +127,4 @@ class HandBook extends Component {
 
 
 
-export default withRouter(HandBook);
+export default withRouter(ForYou);

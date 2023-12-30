@@ -13,7 +13,8 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import './modelBoking.scss'
 import { Buffer } from 'buffer';
-import { readAllCarByGara, readAllServiceCarGara, getAllService, getAllPrice, getAllPayment, readAllServiceCarGaraPaymentPrice, postBooking } from '../../../services/userService';
+
+import { getAllPrice, getAllPayment, getAllService, readAllCarByGara, readAllServiceCarGara, readAllServiceCarGaraPaymentPrice, postBooking } from '../../../services/guestService';
 
 class ModelBooking extends Component {
     constructor(props) {
@@ -190,7 +191,7 @@ class ModelBooking extends Component {
             const results = allService.filter(({ id: id1 }) => carService.some(({ id: id2, }) => +id2 === +id1));
             let resule2 = this.buidDataInputSeclectservice2(results)
 
-            console.log(carService)
+
 
 
             this.setState({
@@ -207,7 +208,7 @@ class ModelBooking extends Component {
 
         let res = await readAllServiceCarGaraPaymentPrice(this.state.garaId, this.state.selectCarId.value, selectedOption.value)
 
-        console.log(res)
+
         if (res.EC === 0) {
             this.setState({
                 selectService: selectedOption,
@@ -239,11 +240,11 @@ class ModelBooking extends Component {
     handlSaveBooking = async () => {
         let data = this.buidDataSave(this.state)
         let res = await postBooking(data)
-        console.log(data)
+
     }
     render() {
         let imageBase64 = ''
-        console.log('check state booking: ', this.state)
+
 
         let { garaName, garaAddress, garaDescription, garaProvind, garaAvata } = this.state
 

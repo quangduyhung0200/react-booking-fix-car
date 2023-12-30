@@ -6,9 +6,11 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
 import ReactDatePicker from 'react-datepicker';
-import { getAllTime, getDataGara, createBulkScheduleGara } from '../../services/userService';
+
+import { getAllTime, createBulkScheduleGara } from '../../services/garaService';
+import { getDataGara } from '../../services/garaService';
 import { UserContext } from "../../context/userContext"
-import { readAllScheduleByDate } from '../../services/userService';
+import { readAllScheduleByDate } from '../../services/guestService';
 class ManageSchedule extends Component {
 
 
@@ -188,7 +190,7 @@ class ManageSchedule extends Component {
                 garaId: this.state.currenGara,
                 fomatDate: fomatDate
             })
-            console.log(fomatDate)
+
         }
 
 
@@ -199,10 +201,10 @@ class ManageSchedule extends Component {
         this.setState({
             numberCarPerTime: event.target.value
         })
-        console.log(this.state)
+
     }
     render() {
-        console.log(this.state)
+
         return (
             <>
 

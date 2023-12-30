@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 
 import { UserContext } from "../../context/userContext"
-import { getDataGara } from '../../services/userService';
+import { getDataGara } from '../../services/garaService';
 import { Buffer } from 'buffer';
 import Select from 'react-select';
-import { getDataPickCar, getDataCarById, feactAllCarCompany, getAllPrice, getAllPayment, getAllService, registerCartoGara, deletePickCar } from '../../services/userService';
+import { deletePickCar } from '../../services/garaService';
+import { registerCartoGara } from '../../services/garaService';
+import { getAllPrice, getAllPayment, getAllService } from '../../services/guestService';
+import { getDataCarById } from '../../services/guestService';
+import { getDataPickCar, } from '../../services/guestService';
+import { feactAllCarCompany } from '../../services/guestService';
 import DetailCar from '../customer/car/carDetail'
 import _ from 'lodash';
 
@@ -200,19 +205,18 @@ class PickCar extends Component {
         return obj
     }
     handlOnclickSavePickCar = async () => {
-        console.log(this.state)
+
         let dataSave = this.buidDataSave(this.state)
-        console.log(dataSave)
+
         let res = await registerCartoGara(dataSave)
-        console.log(res)
+
     }
     handlOnclickDeletePickCar = async () => {
         let garaId = this.state.garaId;
         let carId = this.state.selectCar
         let serviceId = this.state.selectService === '' ? 1 : this.state.selectService;
-        console.log(garaId, carId, serviceId)
+
         let res = await deletePickCar(garaId, carId, serviceId)
-        console.log(res)
     }
     render() {
 

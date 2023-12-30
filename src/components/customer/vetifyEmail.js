@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-import { veryfyBooking } from '../../services/userService';
+import { veryfyBooking } from '../../services/guestService';
 class VerifyEmail extends Component {
     constructor(props) {
         super(props);

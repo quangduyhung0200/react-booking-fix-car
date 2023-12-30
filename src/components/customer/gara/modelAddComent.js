@@ -86,9 +86,6 @@ class CreateComent extends Component {
     }
     render() {
 
-
-        console.log('check stasdasdas', this.state)
-        console.log('check prop', this.props)
         return (
             <div>
 

@@ -8,7 +8,8 @@ import CreateCar from './CreateCarModel';
 import Modelconfimdelede from './modelConfimDelete';
 import _ from 'lodash';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { feactAllCar, deleteCar } from '../../../services/userService';
+import { feactAllCar } from '../../../services/guestService';
+import { deleteCar } from '../../../services/adminService';
 class ManageCar extends Component {
 
     constructor(props) {
@@ -25,7 +26,7 @@ class ManageCar extends Component {
         }
     }
     handlDeleteuser = async (user) => {
-        console.log(user)
+
         this.setState({
             showModel: true,
             dataModel: user
@@ -109,7 +110,7 @@ class ManageCar extends Component {
 
     }
     handlUpdatUser = (car) => {
-        console.log(car)
+
         this.setState({
             dataModel: car,
             action: 'UPDATE',
@@ -129,7 +130,7 @@ class ManageCar extends Component {
     }
     comfirmDeleteUser = async () => {
         let res = await deleteCar(this.state.dataModel)
-        console.log(res)
+
         if (res && res.EC === 0) {
             toast.success('delete succes')
 

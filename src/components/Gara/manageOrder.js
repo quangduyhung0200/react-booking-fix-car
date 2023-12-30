@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { UserContext } from '../../context/userContext';
 import moment from 'moment';
-import { getAllOrderByDay, getDataGara } from '../../services/userService';
+import { getDataGara } from '../../services/garaService';
+import { getAllOrderByDay } from '../../services/garaService';
 import ModelComfimFinishOrder from './AllModel/modelComfimFinishOrder';
 import ModelComfimCanserOrder from './AllModel/modelComfimCanserOder';
 class ManageOrder extends Component {
@@ -49,7 +50,7 @@ class ManageOrder extends Component {
 
     }
     handleChangedatePick = async (date) => {
-        console.log(date)
+
         this.setState({
             currenDate: date
         }, () => {

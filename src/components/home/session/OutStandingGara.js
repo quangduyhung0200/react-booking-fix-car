@@ -3,7 +3,7 @@ import Carousel from 'react-multi-carousel';
 import garaImage1 from '../../../assets/img/image/garacar1.jpeg'
 import garaImage2 from '../../../assets/img/image/gara2.webp'
 import garaImage3 from '../../../assets/img/image/gara3.jpeg'
-import { getTopGara } from '../../../services/userService';
+import { getTopGara } from '../../../services/guestService';
 import './OutStandingGara.scss'
 import { Buffer } from 'buffer';
 import { withRouter } from 'react-router';
@@ -24,12 +24,14 @@ class OutStandingGara extends Component {
             })
         }
     }
-
+    handlOnclickMore = () => {
+        this.props.history.push(`/allGara`)
+    }
     handlOnclickGara = (item) => {
         this.props.history.push(`/detailGara/${item.id}`)
     }
     render() {
-        console.log(this.state)
+
         let { arrDocter } = this.state
         const responsive = {
             desktop: {
@@ -53,8 +55,8 @@ class OutStandingGara extends Component {
                 <div className='container'>
                     <div className='session-container'>
                         <div className='session-header'>
-                            <div className='content-left'>asdasdasd</div>
-                            <div className='content-right'>asdasdasd</div>
+                            <h3 className='content-left'>Cơ sở gara nổi bật</h3>
+                            <div className='content-right'> <button className='btn btn-warning' onClick={() => this.handlOnclickMore()}>Xem thêm</button></div>
                         </div>
                         <div className='session-content'>
                             <Carousel
@@ -83,22 +85,25 @@ class OutStandingGara extends Component {
                                             imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
                                         }
                                         return (
-                                            <div key={`chile-${index}`} className='silde-child' >
-                                                <img
-                                                    className="img-child w-100 h-100"
-                                                    src={imageBase64}
-                                                    alt="First slide"
-                                                    onClick={() => this.handlOnclickGara(item)}
-                                                />
-                                                <p className='name-child'>{item.nameGara}</p>
-                                            </div>
-                                        )
+                                            <>
+                                                <div key={`chile-${index}`} className='silde-child' >
+                                                    <img
+                                                        className="img-child w-100 h-100"
+                                                        src={imageBase64}
+                                                        alt="First slide"
+                                                        onClick={() => this.handlOnclickGara(item)}
+                                                    />
+
+                                                </div>
+                                                <h5 className='name-child'>{item.nameGara} , Địa chỉ: {item.provindGaraData.name}</h5>
+                                            </>)
+
                                     })}
 
 
 
 
-                            </Carousel>;
+                            </Carousel>
 
                         </div>
 
@@ -109,7 +114,7 @@ class OutStandingGara extends Component {
 
             </>
 
-        );
+        )
     }
 
 }

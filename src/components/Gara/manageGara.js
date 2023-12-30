@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 import { UserContext } from "../../context/userContext"
-import { getDataGara } from '../../services/userService';
+import { getDataGara } from '../../services/garaService';
 import { Buffer } from 'buffer';
 import './manageGara.scss'
 import GaraSchedule from '../customer/gara/schedule';
-import { readAllCarByGara } from '../../services/userService';
+import { readAllCarByGara } from '../../services/guestService';
 import ReactPaginate from 'react-paginate';
 
 class ManageGara extends Component {
@@ -33,7 +33,7 @@ class ManageGara extends Component {
 
 
         let data = await getDataGara(this.context.user.account.id)
-        console.log('check data: ', data)
+
         if (data && data.EC === 0) {
 
             let data1 = await readAllCarByGara(this.context.user.account.id)
@@ -86,12 +86,12 @@ class ManageGara extends Component {
         }
     }
     handlViewCar = async (item) => {
-        console.log(item)
+
     }
     render() {
 
         let { listCar } = this.state
-        console.log('check state: ', this.state)
+
         return (
             <>
                 <div className='Docter-Detail-Container container'>

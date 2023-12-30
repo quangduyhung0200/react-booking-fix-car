@@ -3,13 +3,39 @@ import React, { Component } from 'react';
 import './homeBody.scss'
 import Carousel from 'react-bootstrap/Carousel';
 import { withRouter } from 'react-router';
-import garaImage1 from '../../../assets/img/image/garacar1.jpeg'
-import garaImage2 from '../../../assets/img/image/gara2.webp'
-import garaImage3 from '../../../assets/img/image/gara3.jpeg'
-
+import { getAllGara } from '../../../services/guestService';
+import Select from 'react-select';
 class HomeBody extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+            listGara: [],
+            selectGara: ''
+        }
+    }
+
+    async componentDidMount() {
+        let data = await getAllGara()
+        let data3 = data.DT
+        let data2 = []
+        data3.map((item, index) =>
+            data2[index] = {
+                label: item.nameGara,
+                value: item.id
+            })
+
+        if (data.EC === 0) {
+            this.setState({
+                listGara: data2
+            })
+        }
+    }
+    handleChange = async (selectedOption) => {
+        this.props.history.push(`/detailGara/${selectedOption.value}`)
 
 
+    }
 
     render() {
 
@@ -22,17 +48,24 @@ class HomeBody extends Component {
             <div className='home-header-banner img-fluid'>
                 <div className='content-up'>
                     <div className='title-1'>
-                        asdasdasda
+                        MYCAR
                     </div>
                     <div className='title-2'>
 
 
-                        asfasfasd
+                        Hệ thống đặt lịch sửa xe Ôtô
 
                     </div>
                     <div className='search'>
 
-                        <input type='text' placeholder='Tìm chuyên khoa khám bệnh' />
+                        <Select
+
+                            placeholder={'CHON gara'}
+                            value={this.state.selectGara}
+                            onChange={this.handleChange}
+                            options={this.state.listGara}
+
+                        />
                     </div>
                 </div>
                 <div className='content-dow'>
@@ -41,7 +74,7 @@ class HomeBody extends Component {
             </div>
 
 
-        );
+        )
     }
 
 }

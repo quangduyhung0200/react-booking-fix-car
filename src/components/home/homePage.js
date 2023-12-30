@@ -9,6 +9,7 @@ import HomeFooter from './homeFooter/homeFooter';
 import OutStandingGara from './session/OutStandingGara'
 import About from './session/About';
 import HandBook from './session/HandBook';
+import ForYou from './session/ForYou';
 class HomePage extends Component {
 
     render() {
@@ -19,6 +20,7 @@ class HomePage extends Component {
 
                 <HomeBody />
                 <OutStandingGara />
+                <ForYou />
                 <HandBook />
                 <About />
 

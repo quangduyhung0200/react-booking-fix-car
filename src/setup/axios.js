@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 // Set config defaults when creating the instance
 const instance = axios.create({
     baseURL: 'http://localhost:8080'
@@ -30,19 +30,24 @@ instance.interceptors.response.use(function (response) {
     switch (status) {
         // authentication (token related issues)
         case 401: {
-            if (window.location.pathname !== '/' && window.location.pathname !== '/login' && window.location.pathname !== '/resgister') {
+            if (window.location.pathname !== '/vetyfy-booking' && window.location.pathname !== '/' && window.location.pathname !== '/login' && window.location.pathname !== '/resgister' && window.location.pathname !== '/allGara') {
                 toast.error('you dont have authentication to accest')
+                window.location.href = '/login'
+
             }
 
 
-            // window.location.href = '/login'
+
+
             return err.response.data
 
         }
 
         // forbidden (permission related issues)
         case 403: {
+
             toast.error('you dont have permistions to access this resource')
+            window.location.href = '/login'
             return err.response.data
         }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { UserContext } from '../../../context/userContext';
 import './comment.scss'
-import { getAllCommentByGara } from '../../../services/userService';
+import { getAllCommentByGara } from '../../../services/guestService';
 import { Rating } from 'react-simple-star-rating'
 class Comment extends Component {
     constructor(props) {

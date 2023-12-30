@@ -94,7 +94,7 @@ class Login extends Component {
             let data = await loginUser(this.state.email, password)
 
             if (data && data.EC === 0) {
-                console.log('data: ', data)
+
                 let token = data.DT.access_token
                 let email = data.DT.email
                 let userName = data.DT.userName
@@ -106,7 +106,7 @@ class Login extends Component {
                     account: { role, email, userName, id }
                 }
                 this.context.loginContext(hehe)
-                console.log(this.context.user)
+
                 toast.success('LOGIN SUCCESS')
 
                 this.props.history.push(`/`);

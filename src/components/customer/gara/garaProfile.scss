@@ -1,0 +1,40 @@
+.profile-gara {
+    background-color: #f8fafa;
+
+    .gara-childe {
+
+        border-top: 1px solid #ddd;
+        margin: 30px 0;
+
+        .avata {
+            background: center center no-repeat;
+            height: 200px;
+
+            flex-direction: column;
+            background-size: cover;
+        }
+
+        .content-right {
+            height: 200px;
+
+            .up {
+                height: 20%;
+
+            }
+
+            .down {
+                padding-top: 20px;
+                margin: 10px 0;
+                height: 80%;
+                overflow: auto;
+            }
+        }
+
+        .content-mid {
+            padding-right: 50px;
+        }
+
+        .content-left {}
+    }
+
+}

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { getGaraInfo, } from '../../../services/userService';
+import { getGaraInfo, } from '../../../services/guestService';
 import { Buffer } from "buffer";
 import './garaDetail.scss'
-import { accepGara } from '../../../services/userService';
+import { accepGara } from '../../../services/staffService';
 import { UserContext } from "../../../context/userContext"
 import { userLogout } from '../../../services/userService';
 import { toast } from 'react-toastify';
@@ -40,7 +40,7 @@ class DetailGara extends Component {
             })
 
             let data = await getGaraInfo(id)
-            console.log('check data: ', data)
+
 
             let imageBase64 = ''
             if (data.DT.avata.data) {
@@ -54,7 +54,7 @@ class DetailGara extends Component {
             coppyState.phone = data.DT.phone
             coppyState.provind = data.DT.provindGaraData.name
             coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.descriptionHTML
+            coppyState.descriptionHTML = data.DT.contenHTML
             coppyState.userId = data.DT.userId
             coppyState.garaId = data.DT.id
             coppyState.propvindGara = data.DT.provindGaraData
@@ -75,7 +75,7 @@ class DetailGara extends Component {
 
     render() {
 
-
+        console.log(this.state)
 
 
         return (
@@ -102,6 +102,7 @@ class DetailGara extends Component {
 
                                 <GaraSchedule
                                     dataGara={this.state.propvindGara}
+                                    garaId={this.state.currenGaraId}
 
 
                                 />

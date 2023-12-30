@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { feactAllCarCompany } from '../../../services/userService';
+import { feactAllCarCompany } from '../../../services/guestService';
 import CommonUtils from '../../../utils/CommonUtils';
-import { createCar, updateCar } from '../../../services/userService';
+import { createCar, updateCar } from '../../../services/staffService';
 import { toast } from 'react-toastify';
 import { Buffer } from 'buffer';
 import _ from 'lodash';
@@ -50,7 +50,7 @@ class CreateCar extends Component {
             }
             if (this.props.action === 'UPDATE') {
 
-                console.log('data avata: ', this.props.dataModel.avata)
+
                 let coppyState = { ...this.state }
                 coppyState.nameCar = this.props.dataModel.nameCar
                 coppyState.carCompanyId = this.props.dataModel.carCompanyData.id
@@ -132,8 +132,7 @@ class CreateCar extends Component {
     render() {
         let { listCarCompany } = this.state
 
-        console.log('check stasdasdas', this.state)
-        console.log('check prop', this.props)
+
         return (
             <div>
 

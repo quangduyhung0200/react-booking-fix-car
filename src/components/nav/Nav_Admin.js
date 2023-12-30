@@ -31,7 +31,7 @@ class NavigateAdmim extends Component {
     render() {
         let user = this.context.user
         const location = window.location.pathname
-        console.log('this. user: ', user)
+
 
         if (user && user.isAuthenticated === true && user.account.role[0].id === 4) {
             return (

@@ -8,7 +8,7 @@ import './manageUser.scss'
 
 import _ from 'lodash';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { feactAllUser } from '../../../services/userService';
+import { feactAllUser } from '../../../services/staffService';
 class ManageUser extends Component {
 
     constructor(props) {
@@ -32,13 +32,13 @@ class ManageUser extends Component {
         this.setState({
             ...coppystate
         })
-        console.log(this.state.currenpage)
+
 
     };
     async componentDidMount() {
         let { currenpage, currenlimit } = this.state
         let respons = await feactAllUser(currenpage, currenlimit)
-        console.log('all user: ', respons)
+
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
             coppystate.listUser = respons.DT.user
@@ -53,7 +53,7 @@ class ManageUser extends Component {
         if (prevState.currenpage !== this.state.currenpage) {
             let { currenpage, currenlimit } = this.state
             let respons = await feactAllUser(currenpage, currenlimit)
-            console.log('all user: ', respons)
+
             if (respons && respons.EC === 0) {
                 let coppystate = { ...this.state }
                 coppystate.listUser = respons.DT.user

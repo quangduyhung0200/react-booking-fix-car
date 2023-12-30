@@ -31,7 +31,7 @@ class NavigateGara extends Component {
     render() {
         let user = this.context.user
         const location = window.location.pathname
-        console.log('this. user: ', user)
+
 
         if (user && user.isAuthenticated === true && user.account.role[0].id === 2) {
             return (
@@ -44,11 +44,7 @@ class NavigateGara extends Component {
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>home</NavLink>
-                                    <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>
-                                    <NavLink to="/pickcar" exact className='nav-link'>pickcar</NavLink>
-                                    <NavLink to="/setSchedule" exact className='nav-link'>Schedule</NavLink>
-                                    <NavLink to="/manageBooking" exact className='nav-link'>ManageBooking</NavLink>
-                                    <NavLink to="/manageOrder" exact className='nav-link'>manageOrder</NavLink>
+
                                     <NavLink to="/myOrder" exact className='nav-link'>My order</NavLink>
 
 
@@ -60,8 +56,12 @@ class NavigateGara extends Component {
 
                                 </Nav>
                                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="#action/3.1">Change Password</NavDropdown.Item>
-
+                                    <NavLink to="" exact className='nav-link'>chanePassword</NavLink>
+                                    <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>
+                                    <NavLink to="/pickcar" exact className='nav-link'>pickcar</NavLink>
+                                    <NavLink to="/setSchedule" exact className='nav-link'>Schedule</NavLink>
+                                    <NavLink to="/manageBooking" exact className='nav-link'>ManageBooking</NavLink>
+                                    <NavLink to="/manageOrder" exact className='nav-link'>manageOrder</NavLink>
 
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item>

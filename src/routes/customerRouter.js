@@ -21,9 +21,7 @@ import VerifyEmail from "../components/customer/vetifyEmail";
 import ManageBookingGara from "../components/Gara/manageBooking";
 import ManageOrder from "../components/Gara/manageOrder.js";
 import MyOrder from "../components/customer/gara/MyOrder.js";
-import ManageCar from "../components//system//manageCar/manageCar.js"
-import checkDetailGara from "../components/system/manageGara/checkDetailGara";
-class StaffRouter extends Component {
+class CustommerRouter extends Component {
 
 
 
@@ -50,15 +48,10 @@ class StaffRouter extends Component {
                         <Route exact path="/">
                             <HomePage />
                         </Route>
-
+                        <PrivateRole exact path="/RegisterGara" component={RegisterGara} />
 
                         <PrivateRole exact path="/myOrder" component={MyOrder} />
-                        <PrivateRole path='/user' component={ManageUser} />
-                        <PrivateRole path='/gara' component={ManageGara} />
-                        <PrivateRole path='/car' component={ManageCar} />
-                        <PrivateRole path='/schedule' component={ManageSchedule} />
-                        <PrivateRole path='/checkdetailGara/:id' component={checkDetailGara} />
-                        <PrivateRole path='/detailGara/:id' component={DetailGara} />
+
 
 
 
@@ -84,4 +77,4 @@ class StaffRouter extends Component {
 
 
 }
-export default StaffRouter
+export default CustommerRouter

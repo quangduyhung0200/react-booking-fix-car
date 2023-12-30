@@ -48,6 +48,14 @@
 
             .nav-link {
                 color: black !important;
+
+                &:hover {
+                    color: #61dafb !important;
+                }
+
+                &.active {
+                    color: #61dafb !important;
+                }
             }
         }
 

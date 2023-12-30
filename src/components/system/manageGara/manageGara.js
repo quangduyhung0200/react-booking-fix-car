@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
 import './manageGara.scss'
 import ReactPaginate from 'react-paginate';
-import { feactAllGara } from '../../../services/userService';
+import { feactAllGara } from '../../../services/staffService';
 import { Buffer } from "buffer";
 import { withRouter } from 'react-router-dom';
 class ManageGara extends Component {
@@ -72,7 +72,7 @@ class ManageGara extends Component {
     render() {
 
         let { listGara } = this.state
-        console.log(listGara)
+
         return (
             <>
                 <>

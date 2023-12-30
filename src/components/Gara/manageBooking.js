@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { UserContext } from '../../context/userContext';
 import moment from 'moment';
-import { getAllBookingByDay, getDataGara } from '../../services/userService';
+import { getDataGara } from '../../services/garaService';
+import { getAllBookingByDay } from '../../services/garaService';
 import ModelComfimBooking from './AllModel/modelComfimBooking';
 class ManageBookingGara extends Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class ManageBookingGara extends Component {
 
     }
     handleChangedatePick = async (date) => {
-        console.log(date)
+
         this.setState({
             currenDate: date
         }, () => {

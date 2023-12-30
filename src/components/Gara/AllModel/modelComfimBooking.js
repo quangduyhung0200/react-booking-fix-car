@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import { comfimBooking } from '../../../services/userService';
+import { comfimBooking } from '../../../services/garaService';
 
 
 class ModelComfimBooking extends Component {
@@ -52,13 +52,13 @@ class ModelComfimBooking extends Component {
 
     }
     handlecomfime = async () => {
-        console.log(this.state)
+
         await comfimBooking(this.state)
     }
     render() {
 
         let dataModel = this.props.dataModel
-        console.log('check props', this.props)
+
 
         return (
             <>

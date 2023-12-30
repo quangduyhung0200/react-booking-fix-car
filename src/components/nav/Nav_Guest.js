@@ -11,29 +11,16 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { userLogout } from '../../services/userService';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
-class Navigate extends Component {
+class Navigate_Guest extends Component {
 
 
-    handLogout = async () => {
-        let data = await userLogout()
-
-        this.context.logout()
-        if (data && data.EC === 0) {
-            this.props.history.push('/login')
-            toast.success('log out success')
-
-        }
-        else {
-            toast.error(data.EM)
-        }
-    }
 
     render() {
         let user = this.context.user
         const location = window.location.pathname
 
 
-        if (user && user.isAuthenticated === true && user.account.role[0].id === 1) {
+        if (location !== "/login") {
             return (
 
                 <div className='nav-header'>
@@ -44,28 +31,14 @@ class Navigate extends Component {
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>Home</NavLink>
-                                    {user && user.isAuthenticated === true && <>
-                                        <NavLink to="/myOrder" exact className='nav-link'>My order</NavLink>
+                                    <NavLink to="/allGara" exact className='nav-link'>Allgara</NavLink>
 
-                                    </>}
+
+
 
 
                                 </Nav>
-                                {user && user.isAuthenticated === true ? <>
-                                    <Nav className='nav-link'>
-                                        <Nav.Item  >Wellcome  {user.account.userName}</Nav.Item>
-
-                                    </Nav>
-                                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-
-                                        <Link className='nav-link' to="/RegisterGara">RegisterGara</Link>
-
-                                        <NavDropdown.Divider />
-                                        <NavDropdown.Item>
-                                            <span onClick={() => this.handLogout()}> Log out</span>
-
-                                        </NavDropdown.Item>
-                                    </NavDropdown></> : <> <Link className='nav-link' to='/login'>Login</Link></>}
+                                <> <Link className='nav-link' to='/login'>Login</Link></>
 
 
                             </Navbar.Collapse>
@@ -90,7 +63,7 @@ class Navigate extends Component {
 
     }
 }
-Navigate.contextType = UserContext
+Navigate_Guest.contextType = UserContext
 
 
-export default withRouter(Navigate);
+export default withRouter(Navigate_Guest);

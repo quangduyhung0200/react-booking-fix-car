@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
-import { readAllCarByGara } from '../../../services/userService';
+import { readAllCarByGara } from '../../../services/guestService';
 class ExtralDataGara extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +31,7 @@ class ExtralDataGara extends Component {
 
 
     render() {
-        console.log(this.state)
+
 
         return (
             <>

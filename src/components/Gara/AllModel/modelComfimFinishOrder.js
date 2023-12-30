@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import { finishOrder } from '../../../services/userService';
+import { finishOrder } from '../../../services/garaService';
 
 
 class ModelComfimFinishOrder extends Component {
@@ -56,7 +56,7 @@ class ModelComfimFinishOrder extends Component {
     render() {
 
         let dataModel = this.props.dataModel
-        console.log('check props', this.props)
+
 
         return (
             <>

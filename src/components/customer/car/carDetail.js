@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Buffer } from "buffer";
 
 import { UserContext } from "../../../context/userContext"
-import { getDataCarById } from '../../../services/userService';
+import { getDataCarById } from '../../../services/guestService';
 import { withRouter } from 'react-router-dom';
 class DetailCar extends Component {
     constructor(props) {

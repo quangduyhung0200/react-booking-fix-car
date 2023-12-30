@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './register.scss'
 import { toast } from 'react-toastify';
-import { getAllGender } from '../../services/userService';
-import { registerUser } from '../../services/userService';
+import { getAllGender } from '../../services/guestService';
+import { registerUser } from '../../services/guestService';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from "../../context/userContext"
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
@@ -192,7 +192,7 @@ class Register extends Component {
                 toast.success('register success')
                 let data = await loginUser(email, password)
                 if (data && data.EC === 0) {
-                    console.log('data: ', data)
+
                     let token = data.DT.access_token
                     let email = data.DT.email
                     let userName = data.DT.userName
@@ -204,7 +204,7 @@ class Register extends Component {
                         account: { role, email, userName, id }
                     }
                     this.context.loginContext(hehe)
-                    console.log(this.context.user)
+
                     toast.success('LOGIN SUCCESS')
 
                     this.props.history.push(`/`);
@@ -230,10 +230,16 @@ class Register extends Component {
     }
 
     render() {
+        if (this.context.user.isAuthenticated === true) {
+            return (
+
+                < Redirect to="/" ></Redirect >
+            )
+        }
 
         let { genderArr, address, gender, phone, userName, comfimPassword, email, password, isValidEmail,
             isValidUserName, isValidphone, isValidConfigPassword, isValidPassword, isValidGender, isValidAddress, isNewAccout } = this.state
-
+        console.log(isNewAccout)
 
         return (
             <>
@@ -250,7 +256,7 @@ class Register extends Component {
 
                             <div className='content-right col-sm-5 col-12  my-3 d-flex flex-column gap-3 py-3 '>
                                 <div className='brand d-sm-none'>duyhungapp</div>
-                                {isNewAccout === true ?
+                                {isNewAccout === false ?
                                     <div className='form-group'>
                                         <label className='form-label'>Email</label>
                                         <input onChange={(event) => this.handleOnchaneInput(event, 'email')} type='email'

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import { canserOrder } from '../../../services/userService';
+import { canserOrder } from '../../../services/garaService';
 
 
 class ModelComfimCanserOrder extends Component {
@@ -56,7 +56,7 @@ class ModelComfimCanserOrder extends Component {
     render() {
 
         let dataModel = this.props.dataModel
-        console.log('check props', this.props)
+
 
         return (
             <>

@@ -21,6 +21,7 @@ import VerifyEmail from "../components/customer/vetifyEmail";
 import ManageBookingGara from "../components/Gara/manageBooking";
 import ManageOrder from "../components/Gara/manageOrder.js";
 import MyOrder from "../components/customer/gara/MyOrder.js";
+import AllGara from "../components/home/listGara/allGara.js";
 class AppRouter extends Component {
 
 
@@ -48,31 +49,19 @@ class AppRouter extends Component {
                         <Route exact path="/">
                             <HomePage />
                         </Route>
-                        <Route exact path="/RegisterGara">
-                            <RegisterGara />
+
+                        <Route exact path="/allGara">
+                            <AllGara />
                         </Route>
-                        <Route exact path="/mygara">
-                            <ManageGara />
-                        </Route>
-                        <Route exact path="/pickcar">
-                            <PickCar />
-                        </Route>
-                        <Route exact path="/setSchedule">
-                            <ManageSchedule />
-                        </Route>
-                        <Route exact path="/manageBooking">
-                            <ManageBookingGara />
-                        </Route>
-                        <Route exact path="/manageOrder">
-                            <ManageOrder />
-                        </Route>
-                        <Route exact path="/myOrder">
-                            <MyOrder /> 
-                        </Route>
+
+
+
+
+
 
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />
 
-                        <PrivateRole path='/detailGara/:id' exact component={DetailGara} />
+                        <Route path='/detailGara/:id' exact component={DetailGara} />
 
                         <Route path="*" >
                             404not fout

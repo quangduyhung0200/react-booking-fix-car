@@ -19,7 +19,10 @@ import NavigateGara from './components/nav/Nav_Gara';
 import NavigateAdmim from './components/nav/Nav_Admin';
 import NavigateStaff from './components/nav/Nav_staff';
 import AdminRouter from './routes/adminRole';
-
+import Navigate_Guest from './components/nav/Nav_Guest'
+import CustommerRouter from './routes/customerRouter';
+import GaraRouter from './routes/garaRouter';
+import StaffRouter from './routes/staffRouter';
 function App() {
 
   let windowHeight = window.innerHeight
@@ -57,7 +60,8 @@ function App() {
                 />
                 <div className='loading-text'>loading data</div>
               </div>
-            </> :
+            </>
+            :
 
             <>
               {user && user.isAuthenticated === true && user.account.role[0].id === 2 ?
@@ -66,7 +70,7 @@ function App() {
                     <NavigateGara />
                   </div>
                   <div className='app-container'>
-                    <AppRouter />
+                    <GaraRouter />
                   </div>
                 </>
                 :
@@ -77,7 +81,7 @@ function App() {
                         <NavigateStaff />
                       </div>
                       <div className='app-container'>
-                        <AppRouter />
+                        <StaffRouter />
                       </div>
                     </>
                     :
@@ -93,13 +97,29 @@ function App() {
                         </>
                         :
                         <>
-                          <div className='nav-container'>
-                            <Navigate />
-                          </div>
-                          <div className='app-container'>
-                            <AppRouter />
-                          </div> </>
+                          {user && user.isAuthenticated === true && user.account.role[0].id === 1 ?
+                            <>
+                              <div className='nav-container'>
+                                <Navigate />
+                              </div>
+                              <div className='app-container'>
+                                <CustommerRouter />
+                              </div>
+                            </>
+                            :
+                            <>
+                              <div className='nav-container'>
+                                <Navigate_Guest />
+                              </div>
+                              <div className='app-container'>
+                                <AppRouter />
+                              </div>
+                            </>
+                          }
+                        </>
+
                       }
+
                     </>
                   }
 
@@ -110,9 +130,6 @@ function App() {
           }
 
 
-
-
-          {/* Same as */}
 
         </Router>
       </Scrollbars>

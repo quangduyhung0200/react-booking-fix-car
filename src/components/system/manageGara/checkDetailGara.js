@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { getGaraInfo } from '../../../services/userService';
+import { getGaraInfo } from '../../../services/guestService';
 import { Buffer } from "buffer";
 import './checkDetailGara.scss'
-import { accepGara } from '../../../services/userService';
+import { accepGara } from '../../../services/staffService';
 import { UserContext } from "../../../context/userContext"
 import { userLogout } from '../../../services/userService';
 import { toast } from 'react-toastify';
@@ -33,7 +33,7 @@ class CheckDetailGara extends Component {
             })
 
             let data = await getGaraInfo(id)
-            console.log('check data: ', data)
+
             let imageBase64 = ''
             if (data.DT.avata.data) {
 
@@ -46,7 +46,7 @@ class CheckDetailGara extends Component {
             coppyState.phone = data.DT.phone
             coppyState.provind = data.DT.provindGaraData.name
             coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.descriptionHTML
+            coppyState.descriptionHTML = data.DT.contenHTML
             coppyState.userId = data.DT.userId
 
 
@@ -104,6 +104,7 @@ class CheckDetailGara extends Component {
                             </div>
                         </div>
                         <div className='detail-info-docter col-12'>
+
                             {this.state.descriptionHTML &&
                                 < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
                         </div>
