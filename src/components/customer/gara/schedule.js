@@ -28,13 +28,17 @@ class GaraSchedule extends Component {
 
 
 
+        let allday2 = await getAllDay(this.props.garaId)
+        let allday3 = allday2.DT
         let allday = this.getArrDay()
+        const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
 
-        if (allday && allday.length > 0) {
-
+        let res = await readAllScheduleByDate(this.props.garaId, allday[0].value / 1000)
+        if (res.EC === 0) {
             this.setState({
-                allDay: allday,
-
+                allAvailbleTime: res.DT ? res.DT : [],
+                garaId: this.props.garaId,
+                allDay: results2
             })
         }
         if (this.props.garaId !== '') {

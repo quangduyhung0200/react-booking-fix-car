@@ -14,6 +14,12 @@ const createCar = async (nameCar, avata, descriptions, selectedCarCompany) => {
 const updateCar = async (id, nameCar, avata, descriptions, carCompanyId) => {
     return axios.put(`/api/v1/car/update`, { id, nameCar, avata, descriptions, carCompanyId });
 }
+const readHanndBook = async (page, limit, staffId) => {
+    return axios.get(`/api/v1/handBook/read?page=${page}&limit=${limit}&staffId=${staffId}`);
+}
+
+
+
 export {
-    feactAllUser, feactAllGara, accepGara, createCar, updateCar
+    feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook
 }

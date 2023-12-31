@@ -23,6 +23,7 @@ import ManageOrder from "../components/Gara/manageOrder.js";
 import MyOrder from "../components/customer/gara/MyOrder.js";
 import ManageCar from "../components//system//manageCar/manageCar.js"
 import checkDetailGara from "../components/system/manageGara/checkDetailGara";
+import ManageHandBook from "../components/Staff/manageHandBook.js"
 class StaffRouter extends Component {
 
 
@@ -59,6 +60,7 @@ class StaffRouter extends Component {
                         <PrivateRole path='/schedule' component={ManageSchedule} />
                         <PrivateRole path='/checkdetailGara/:id' component={checkDetailGara} />
                         <PrivateRole path='/detailGara/:id' component={DetailGara} />
+                        <PrivateRole path='/addnewHanndBook' component={ManageHandBook} />
 
 
 

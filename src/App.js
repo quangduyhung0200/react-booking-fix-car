@@ -28,6 +28,7 @@ function App() {
   let windowHeight = window.innerHeight
 
   const { user } = React.useContext(UserContext);
+  console.log('this user: ', user)
   return (
     <>
 

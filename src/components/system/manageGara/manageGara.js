@@ -17,9 +17,8 @@ class ManageGara extends Component {
             currenpage: 1,
             currenlimit: 5,
             totalpage: 0,
-            showModel: false,
-            showModelUser: false,
-            dataModel: {}
+
+
         }
     }
 
