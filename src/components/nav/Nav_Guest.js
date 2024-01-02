@@ -32,8 +32,7 @@ class Navigate_Guest extends Component {
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>Home</NavLink>
                                     <NavLink to="/allGara" exact className='nav-link'>Allgara</NavLink>
-
-
+                                    <NavLink to="/allHandBook" exact className='nav-link'>AllHandBook</NavLink>
 
 
 

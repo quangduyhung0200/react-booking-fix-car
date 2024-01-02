@@ -1,0 +1,21 @@
+.HandBook-Detail-Container {
+    .introduction {
+        min-height: 500px;
+
+        .avata {
+            border: 1px solid #ddd;
+            background-size: contain;
+            background-repeat: no-repeat
+        }
+
+        .title {
+            .up {}
+
+            .down {}
+        }
+    }
+
+    .body {
+        background-color: #f5f4f4;
+    }
+}

@@ -18,8 +18,12 @@ const readHanndBook = async (page, limit, staffId) => {
     return axios.get(`/api/v1/handBook/read?page=${page}&limit=${limit}&staffId=${staffId}`);
 }
 
+const createHandbook = async (data) => {
+    return axios.post(`/api/v1/handBook/create`, { ...data })
+}
+
 
 
 export {
-    feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook
+    feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook, createHandbook
 }

@@ -30,7 +30,13 @@ instance.interceptors.response.use(function (response) {
     switch (status) {
         // authentication (token related issues)
         case 401: {
-            if (window.location.pathname !== '/vetyfy-booking' && window.location.pathname !== '/' && window.location.pathname !== '/login' && window.location.pathname !== '/resgister' && window.location.pathname !== '/allGara') {
+
+            console.log('path name: ',)
+            if (window.location.pathname !== '/vetyfy-booking' && window.location.pathname !== '/' && window.location.pathname !== '/login'
+                && window.location.pathname !== '/resgister' && window.location.pathname !== '/allGara' && window.location.pathname.split("/")[1] !== 'detailHandBook'
+                && window.location.pathname.split("/")[1] !== 'detailGara' && window.location.pathname !== '/allHandBook' && window.location.pathname.split("/")[1] !== 'allHandBook') {
+
+
                 toast.error('you dont have authentication to accest')
                 window.location.href = '/login'
 

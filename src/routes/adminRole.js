@@ -15,12 +15,14 @@ import ManageCar from "../components/system/manageCar/manageCar";
 import ManageGara from "../components/system/manageGara/manageGara";
 import ManageSchedule from "../components/system/ManageSchedule/ManageSchedule";
 import DetailGara from "../components/customer/gara/garaDetail";
-import checkDetailGara from "../components/system/manageGara/checkDetailGara";
+import CheckDetailGara from "../components/system/manageGara/checkDetailGara";
 import MyOrder from "../components/customer/gara/MyOrder.js";
 import VerifyEmail from "../components/customer/vetifyEmail";
 import PickCar from "../components/Gara/pickCar";
 import ManageBookingGara from "../components/Gara/manageBooking";
 import ManageOrder from "../components/Gara/manageOrder.js";
+import checkDetailHandBook from "../components/system/manageHandbook/checkDetailHandBook.js";
+import ManageGaraHandBookHasNotPass from "../components/system/manageHandbook/manageHandBook.js";
 class AdminRouter extends Component {
 
 
@@ -55,10 +57,10 @@ class AdminRouter extends Component {
                         <PrivateRole path='/gara' component={ManageGara} />
                         <PrivateRole path='/car' component={ManageCar} />
                         <PrivateRole path='/schedule' component={ManageSchedule} />
-                        <PrivateRole path='/checkdetailGara/:id' component={checkDetailGara} />
+                        <PrivateRole path='/checkdetailGara/:id' component={CheckDetailGara} />
                         <PrivateRole path='/detailGara/:id' component={DetailGara} />
-
-
+                        <PrivateRole path='/manage-handBook' component={ManageGaraHandBookHasNotPass} />
+                        <PrivateRole path='/checkdetailHandBook/:id' component={checkDetailHandBook} />
 
 
 

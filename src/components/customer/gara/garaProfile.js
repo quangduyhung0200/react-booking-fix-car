@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-import { getAllGara } from '../../../services/guestService';
+import { getAllGara, getGaraInfo } from '../../../services/guestService';
 import './garaProfile.scss'
 import { Buffer } from 'buffer';
 import _ from 'lodash';
@@ -13,7 +13,8 @@ class ProfileGara extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataProfile: []
+            dataProfile: [],
+
 
         }
     }
@@ -23,6 +24,19 @@ class ProfileGara extends Component {
         this.setState({
             dataProfile: data.DT
         })
+        console.log(this.props.dataModelProfile)
+        if (this.props.dataModelProfile !== undefined) {
+            let data = await getGaraInfo(this.props.dataModelProfile)
+            console.log(data)
+            let a = []
+            a[0] = data.DT
+
+
+            this.setState({
+                dataProfile: a
+            })
+        }
+
 
     }
 
@@ -42,10 +56,28 @@ class ProfileGara extends Component {
             })
 
         }
+        if (prevProps.dataModelProfile !== this.props.dataModelProfile) {
+            let data = await getGaraInfo(this.props.dataModelProfile)
+            console.log(data)
+            let a = []
+            a[0] = data.DT
+
+
+            this.setState({
+                dataProfile: a
+            })
+
+        }
+
+    }
+    handOnclick = () => {
+        alert('click')
     }
     render() {
-        console.log(this.state.dataProfile)
+
         let { dataProfile } = this.state
+        // console.log(dataProfile)
+
         return (
             <>
                 <div className='profile-gara container '>
@@ -59,33 +91,35 @@ class ProfileGara extends Component {
                             }
                             return (
                                 <>
+
                                     <div className='gara-childe row' key={`chile-${index}`}>
-                                        <div className='avata col-2' style={{ backgroundImage: `url(${imageBase64 ? imageBase64 : ''})` }}>
+                                        <div onClick={() => this.handOnclick()} className='group-1 col-7 row'>
+                                            <div className='avata col-3' style={{ backgroundImage: `url(${imageBase64 ? imageBase64 : ''})` }}>
 
-                                        </div>
-                                        <div className='content-right col-4'>
-                                            <h4 className='up'>
-                                                {item.nameGara}
-                                            </h4>
+                                            </div>
+                                            <div className='content-right col-9'>
+                                                <h4 className='up'>
+                                                    {item.nameGara}
+                                                </h4>
 
-                                            <div className='down'>
-                                                {item.description}
+                                                <div className='down'>
+                                                    {item.description}
+
+                                                </div>
 
                                             </div>
 
                                         </div>
-                                        <div className='content-mid col-1' >
+                                        <div className='group-2 col-5'>
+                                            <div className='content-left col-12' >
 
-                                            <button className='btn btn-warning'>Xem thêm</button>
+                                                <GaraSchedule
+                                                    dataGara={item.provindGaraData}
+                                                    garaId={item.id} />
 
+                                            </div>
                                         </div>
-                                        <div className='content-left col-5' >
 
-                                            <GaraSchedule
-                                                dataGara={item.provindGaraData}
-                                                garaId={item.id} />
-
-                                        </div>
                                     </div>
 
                                 </>)

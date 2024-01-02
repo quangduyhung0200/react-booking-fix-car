@@ -149,7 +149,7 @@ class RegisterGara extends Component {
                 {this.state.isOpen === true && <><Lightbox
                     mainSrc={this.state.previewimg}
                     onCloseRequest={() => this.setState({ isOpen: false })} />
-                    <div>Asdadsasd</div></>
+                </>
 
                 }
                 <div className='register-container container'>

@@ -84,6 +84,17 @@ const getGarabyProvindCarCompanyCar = async (provindId, carCompanyId, carId) => 
 const getAllDay = async (garaId) => {
     return axios.get(`/api/v1/gara/getAllDay?garaId=${garaId}`);
 }
+const getTopHandBook = async (limit) => {
+    return axios.get(`/api/v1/handbook/getTopHandBook?limit=${limit}`);
+}
+const getTopHandBookRelateto = async (limit, id) => {
+    return axios.get(`/api/v1/handbook/getHandBookRelateto?limit=${limit}&handbookId=${id}`);
+}
+const searchHandBook = async (text) => {
+    return axios.get(`/api/v1/gara/searchHandBook?text=${text}`);
+}
+
+
 
 
 
@@ -91,5 +102,6 @@ const getAllDay = async (garaId) => {
 export {
     getAllGender, registerUser, getUserAccount, getAllProvind, getGaraInfo, getTopGara, feactAllCar, feactAllCarCompany, getDataPickCar, getDataCarById, getAllPrice,
     getAllPayment, getAllService, readAllScheduleByDate, readAllCarByGara, readAllServiceCarGara, readAllServiceCarGaraPaymentPrice,
-    postBooking, veryfyBooking, getAllCommentByGara, getAllGara, getAllGarabyProvind, getGarabyProvindCarCompanyCar, getAllDay
+    postBooking, veryfyBooking, getAllCommentByGara, getAllGara, getAllGarabyProvind, getGarabyProvindCarCompanyCar, getAllDay, getTopHandBook,
+    getTopHandBookRelateto, searchHandBook
 }

@@ -22,6 +22,8 @@ import ManageBookingGara from "../components/Gara/manageBooking";
 import ManageOrder from "../components/Gara/manageOrder.js";
 import MyOrder from "../components/customer/gara/MyOrder.js";
 import AllGara from "../components/home/listGara/allGara.js";
+import detailHandBook from "../components/customer/handBook/detailHandBook.js";
+import AllHandBook from "../components/home/listHandBook/allHandBook.js";
 class AppRouter extends Component {
 
 
@@ -53,12 +55,15 @@ class AppRouter extends Component {
                         <Route exact path="/allGara">
                             <AllGara />
                         </Route>
+                        <Route exact path="/AllHandBook">
+                            <AllHandBook />
+                        </Route>
 
 
 
 
 
-
+                        <Route path='/detailHandBook/:id' exact component={detailHandBook} />
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />
 
                         <Route path='/detailGara/:id' exact component={DetailGara} />

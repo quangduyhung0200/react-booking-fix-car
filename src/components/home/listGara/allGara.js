@@ -321,8 +321,7 @@ class AllGara extends Component {
                 let data = await getDataPickCar(selectedOption.value)
                 let dataCar = this.buildDataSelectCar(res.DT)
                 let dataCarAll = this.buildDataSelectCarAll(data.DT)
-                console.log('data provind:', dataCar)
-                console.log('data all car:', dataCarAll)
+
                 const results2 = dataCarAll.filter(({ value: id1 }) => dataCar.some(({ value: id2, }) => +id2 === +id1));
                 results2.unshift({
                     label: 'ALL',
@@ -403,7 +402,7 @@ class AllGara extends Component {
 
     }
     handlSearch = () => {
-        console.log(this.state)
+
         let data = {
             selectCar: this.state.selectCar === '' ? { label: 'ALL', value: 0 } : this.state.selectCar,
             selectCarCompany: this.state.selectCarCompany === '' ? { label: 'ALL', value: 0 } : this.state.selectCarCompany,

@@ -239,7 +239,7 @@ class Register extends Component {
 
         let { genderArr, address, gender, phone, userName, comfimPassword, email, password, isValidEmail,
             isValidUserName, isValidphone, isValidConfigPassword, isValidPassword, isValidGender, isValidAddress, isNewAccout } = this.state
-        console.log(isNewAccout)
+  
 
         return (
             <>

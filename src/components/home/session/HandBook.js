@@ -3,7 +3,7 @@ import Carousel from 'react-multi-carousel';
 import garaImage1 from '../../../assets/img/image/garacar1.jpeg'
 import garaImage2 from '../../../assets/img/image/gara2.webp'
 import garaImage3 from '../../../assets/img/image/gara3.jpeg'
-
+import { getTopHandBook } from '../../../services/guestService';
 import './HandBook.scss'
 import { Buffer } from 'buffer';
 import { withRouter } from 'react-router';
@@ -12,19 +12,27 @@ class HandBook extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            arrHandBook: []
         }
     }
     async componentDidMount() {
-
+        let data = await getTopHandBook(10)
+        if (data.EC === 0) {
+            this.setState({
+                arrHandBook: data.DT
+            })
+        }
     }
 
-    handlOnclickGara = (item) => {
-        this.props.history.push(`/detailGara/${item.id}`)
+    handlOnclickHandBook = (item) => {
+        this.props.history.push(`/detailHandBook/${item.id}`)
+    }
+    handOnclickMoreInfo = () => {
+        this.props.history.push(`/allHandBook`)
     }
     render() {
 
-        let { arrDocter } = this.state
+        let { arrHandBook } = this.state
         const responsive = {
             desktop: {
                 breakpoint: { max: 3000, min: 1024 },
@@ -48,7 +56,7 @@ class HandBook extends Component {
                     <div className='session-container'>
                         <div className='session-header'>
                             <h3 className='content-left'>Cẩm nang</h3>
-                            <div className='content-right'> <button className='btn btn-warning'>Xem thêm</button></div>
+                            <div className='content-right'> <button onClick={() => this.handOnclickMoreInfo()} className='btn btn-warning'>Xem thêm</button></div>
                         </div>
                         <div className='session-content'>
                             <Carousel
@@ -69,20 +77,28 @@ class HandBook extends Component {
                                 dotListClass="custom-dot-list-style"
                                 itemClass="carousel-item-padding-40-px"
                             >
+                                {arrHandBook && arrHandBook.length > 0 &&
+                                    arrHandBook.map((item, index) => {
+                                        let imageBase64 = ''
+                                        if (item.avata) {
 
-                                <>
-                                    <div className='silde-child' >
-                                        <img
-                                            className="img-child w-100 h-100"
-                                            src={garaImage1}
-                                            alt="First slide"
-                                        // onClick={() => this.handlOnclickGara()}
-                                        />
+                                            imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
+                                        }
+                                        return (<>
+                                            <div className='silde-child' >
+                                                <img
+                                                    className="img-child w-100 h-100"
+                                                    src={imageBase64}
+                                                    alt="First slide"
+                                                    onClick={() => this.handlOnclickHandBook(item)}
+                                                />
 
-                                    </div>
-                                    <h5 className='name-child'>aaaaaaaaaaaa, Địa chỉ:</h5>
-                                </>
+                                            </div>
+                                            <h5 className='name-child'>{item.title}</h5>
+                                        </>
+                                        )
 
+                                    })}
 
 
 

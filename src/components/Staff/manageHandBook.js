@@ -60,7 +60,10 @@ class ManageHandBook extends Component {
         }
     }
 
+    handOnclickAddnewHandBook = () => {
 
+        this.props.history.push(`/addNewHandBook/${this.context.user.account.id}`)
+    }
     render() {
 
         let { listHandBook } = this.state
@@ -71,7 +74,7 @@ class ManageHandBook extends Component {
                         gara
                     </div>
                     <div className='m-p-body row'>
-                        <button className='button btn btn-danger'>create</button>
+                        <button onClick={() => this.handOnclickAddnewHandBook()} className='button btn btn-danger'>create</button>
                         <div className='col-12'>
                             <table className="table-patient table table-hover table-bordered my-3">
                                 <thead>
@@ -79,10 +82,8 @@ class ManageHandBook extends Component {
                                         <th scope="col">ID</th>
                                         <th scope="col">USER NAME</th>
                                         <th scope="col">title</th>
-                                        <th scope="col">hinh nen</th>
-
                                         <th scope="col">ngay viet</th>
-
+                                        <th scope="col">trang thai</th>
                                         <th scope="col">action</th>
                                     </tr>
                                 </thead>
@@ -105,9 +106,11 @@ class ManageHandBook extends Component {
                                                     <td>{item.id}</td>
                                                     <td>{item.StaffHandbookData.userName}</td>
                                                     <td>{item.title}</td>
-                                                    <td>{imageBase64}</td>
+
+
 
                                                     <td>{s}</td>
+                                                    <td>{item.status === 'S1' ? 'cam nang dang duoc phe duyet' : 'cam nang da duoc phe duyet'}</td>
 
 
                                                     <td><button className='button btn btn-primary'>view</button>

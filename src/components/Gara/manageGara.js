@@ -36,7 +36,7 @@ class ManageGara extends Component {
 
         if (data && data.EC === 0) {
 
-            let data1 = await readAllCarByGara(this.context.user.account.id)
+            let data1 = await readAllCarByGara(data.DT.id)
 
             let imageBase64 = ''
             if (data.DT.avata.data) {

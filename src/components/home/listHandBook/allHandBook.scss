@@ -1,0 +1,127 @@
+.home-header-banner-allHandBook {
+
+    .content-up {
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .title {}
+
+        .search {}
+
+        border-bottom: 1px solid #ddd;
+    }
+
+    .content-down-new {
+
+        background-color: rgb(238, 247, 247);
+
+        .silde-child {
+            background: white;
+
+
+
+
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+            border: 1px solid #ddd;
+
+            margin-left: 50px !important;
+            margin-top: 20px;
+            border: none;
+
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1),
+                0 8px 16px rgba(0, 0, 0, .1);
+            box-sizing: border-box;
+
+
+
+
+            .img-child {}
+
+
+        }
+
+        .silde-child:hover {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            animation-name: example;
+            animation-duration: 0.25s;
+            border-left: 8px solid rgb(170, 157, 157);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+        }
+
+        .name-child {
+            flex-direction: column;
+            margin-left: 50px !important;
+            text-align: center;
+            justify-content: center;
+            padding-bottom: 20px;
+
+        }
+
+        border-bottom: 1px solid #ddd;
+    }
+
+
+    .content-down-search {
+        background-color: rgb(238, 247, 247);
+        margin-top: 50px;
+
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+
+        .avata {
+
+
+
+            border: 1px solid #ddd;
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 200px;
+            border: 1px solid #ddd;
+
+
+            border: none;
+
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1),
+                0 8px 16px rgba(0, 0, 0, .1);
+            box-sizing: border-box;
+
+
+
+        }
+
+
+
+        .introaction {
+            margin-left: 20px;
+
+            .title {}
+
+
+
+            .athur {
+                margin-bottom: 100px;
+            }
+
+
+        }
+    }
+
+    .content-down-search:hover {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        animation-name: example;
+        animation-duration: 0.25s;
+        border-left: 8px solid rgb(170, 157, 157);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+
+    .content-down-search2 {
+        min-height: 400px;
+        background-color: rgb(238, 247, 247);
+        background: url(../../../assets/img/image/backgroup2.jpg) no-repeat;
+        background-size: contain;
+    }
+}

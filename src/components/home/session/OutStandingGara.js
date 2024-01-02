@@ -3,10 +3,11 @@ import Carousel from 'react-multi-carousel';
 import garaImage1 from '../../../assets/img/image/garacar1.jpeg'
 import garaImage2 from '../../../assets/img/image/gara2.webp'
 import garaImage3 from '../../../assets/img/image/gara3.jpeg'
-import { getTopGara } from '../../../services/guestService';
+import { getTopGara, getGaraInfo } from '../../../services/guestService';
 import './OutStandingGara.scss'
 import { Buffer } from 'buffer';
 import { withRouter } from 'react-router';
+
 
 class OutStandingGara extends Component {
     constructor(props) {
@@ -18,9 +19,21 @@ class OutStandingGara extends Component {
     async componentDidMount() {
         let res = await getTopGara(10)
 
+        let data = []
+
+        for (let i = 0; i < res.DT.acount.length; i++) {
+
+            let res1 = await getGaraInfo(res.DT.acount[i].curenId)
+
+
+            if (res1.EC === 0) {
+                data[i] = res1.DT
+
+            }
+        }
         if (res && res.EC === 0) {
             this.setState({
-                arrDocter: res.DT
+                arrDocter: data
             })
         }
     }
@@ -33,6 +46,7 @@ class OutStandingGara extends Component {
     render() {
 
         let { arrDocter } = this.state
+        console.log(arrDocter)
         const responsive = {
             desktop: {
                 breakpoint: { max: 3000, min: 1024 },
