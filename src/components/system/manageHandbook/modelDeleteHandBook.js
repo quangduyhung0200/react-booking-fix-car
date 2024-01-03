@@ -2,15 +2,9 @@ import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { feactAllCarCompany } from '../../../services/guestService';
-import CommonUtils from '../../../utils/CommonUtils';
-import { createCar, updateCar } from '../../../services/staffService';
-import { toast } from 'react-toastify';
-import { Buffer } from 'buffer';
-import _ from 'lodash';
-import Lightbox from 'react-image-lightbox';
 
-class Modelconfimdelede extends Component {
+
+class ModelconfimdeledeHandbook extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,13 +27,10 @@ class Modelconfimdelede extends Component {
     async componentDidUpdate(prevProps, prevState, snapshot) {
 
     }
-    handleClose = () => {
-        this.props.handleClose()
 
-    }
 
     render() {
-        console.log(this.props)
+
         return (
             <div>
 
@@ -64,4 +55,4 @@ class Modelconfimdelede extends Component {
 }
 
 
-export default Modelconfimdelede;
+export default ModelconfimdeledeHandbook;

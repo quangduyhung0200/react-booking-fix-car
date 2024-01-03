@@ -21,9 +21,16 @@ const readHanndBook = async (page, limit, staffId) => {
 const createHandbook = async (data) => {
     return axios.post(`/api/v1/handBook/create`, { ...data })
 }
+const updateHandbook = async (data) => {
+    return axios.put(`/api/v1/handBook/update`, { ...data })
+}
+const getAllGarabyPageStaff = async (page, limit) => {
+    return axios.get(`/api/v1/gara/getAllGarabyPage?page=${page}&limit=${limit}`)
+}
+
 
 
 
 export {
-    feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook, createHandbook
+    feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook, createHandbook, updateHandbook, getAllGarabyPageStaff
 }

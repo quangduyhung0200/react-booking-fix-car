@@ -45,10 +45,12 @@ class NavigateAdmim extends Component {
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>admin</NavLink>
                                     <NavLink to="/user" exact className='nav-link'>manage user</NavLink>
-                                    <NavLink to="/gara" exact className='nav-link'>manage gara</NavLink>
+                                    <NavLink to="/ManageGarahasntPass" exact className='nav-link'>manage gara un sucrip</NavLink>
+                                    <NavLink to="/ManageGara" exact className='nav-link'>manage gara</NavLink>
                                     <NavLink to="/car" exact className='nav-link'>manage car</NavLink>
-                                    <NavLink to="/schedule" exact className='nav-link'>manage schedule</NavLink>
+                                    <NavLink to="/setSchedule" exact className='nav-link'>manage schedule</NavLink>
                                     <NavLink to="/booking" exact className='nav-link'>manage booking</NavLink>
+                                    <NavLink to="/manage-handBookuncensorship" exact className='nav-link'>manage handBook un censorship</NavLink>
                                     <NavLink to="/manage-handBook" exact className='nav-link'>manage handBook</NavLink>
 
 

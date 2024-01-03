@@ -6,7 +6,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
 import ReactDatePicker from 'react-datepicker';
-
+import { getAllGara } from '../../services/guestService';
 import { getAllTime, createBulkScheduleGara } from '../../services/garaService';
 import { getDataGara } from '../../services/garaService';
 import { UserContext } from "../../context/userContext"
@@ -20,10 +20,14 @@ class ManageSchedule extends Component {
         this.state = {
             currenGara: '',
             allDay: [],
-            numberCarPerTime: '',
+
             currenDate: new Date(),
             timeArr: [],
             allAvailbleTime: [],
+            listGara: [],
+            selectGara: '',
+            groupId: '',
+            maxOrder: ''
 
         }
     }
@@ -53,38 +57,58 @@ class ManageSchedule extends Component {
         let timeData = await getAllTime()
         if (timeData && timeData.EC === 0) {
             this.setState({
-                timeArr: timeData.DT
+                timeArr: timeData.DT,
+                groupId: this.context.user.account.role[0].id
             })
         }
-        let dataGara = await getDataGara(this.context.user.account.id)
+        if (this.context.user.account.role[0].id !== 4) {
+            let dataGara = await getDataGara(this.context.user.account.id)
 
-        this.setState({
-            currenGara: dataGara.DT.id
-        })
-        if (dataGara && dataGara.EC === 0) {
-            let allday = this.getArrDay()
-            if (allday && allday.length > 0) {
-
-                this.setState({
-                    allDay: allday,
-
-                })
-            }
-
-            let timedatabyday = await readAllScheduleByDate(dataGara.DT.id, allday[0].value / 1000)
             this.setState({
-                allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : []
+                currenGara: dataGara.DT.id
             })
-            if (timedatabyday && timedatabyday.EC === 0) {
-                let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+            if (dataGara && dataGara.EC === 0) {
+                let fomatDate = moment(new Date(this.state.currenDate)).startOf('day').unix()
+
+
+
+                let timedatabyday = await readAllScheduleByDate(dataGara.DT.id, fomatDate)
                 this.setState({
-                    timeArr: time
+                    allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : [],
+                    maxOrder: timedatabyday.EC !== 1 ? timedatabyday.DT[0].maxOrder : ''
                 })
+                if (timedatabyday && timedatabyday.EC === 0) {
+                    let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+                    this.setState({
+                        timeArr: time
+
+                    })
+
+                }
+                else {
+                    let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+
+                    this.setState({
+                        timeArr: time
+
+                    })
+                }
+
+
 
             }
-
-
         }
+        else {
+            let allGara = await getAllGara()
+            if (allGara.EC === 0) {
+                let listGara = this.buidDataInputSeclect(allGara.DT)
+                this.setState({
+                    listGara: listGara
+                })
+            }
+        }
+
+
 
     }
     buidDatatimepick = (timePick, allTime) => {
@@ -103,7 +127,17 @@ class ManageSchedule extends Component {
         return resuf
     }
     buidDataInputSeclect = (inputData) => {
+        let resuf = []
+        if (inputData.length > 0) {
+            inputData.map(item => {
+                let obj = {};
+                obj.label = item.nameGara;
+                obj.value = item.id
 
+                resuf.push(obj)
+            })
+        }
+        return resuf
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
 
@@ -116,23 +150,66 @@ class ManageSchedule extends Component {
             currenDate: date
         })
         let datenew = moment(new Date(date)).startOf('day').unix()
-        let dataGara = await getDataGara(this.context.user.account.id)
-        if (dataGara && dataGara.EC === 0) {
+        if (this.state.groupId === 4) {
 
-            let timedatabyday = await readAllScheduleByDate(dataGara.DT.id, datenew)
+
+            let timedatabyday = await readAllScheduleByDate(this.state.selectGara.value, datenew)
+
             this.setState({
-                allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : []
+                allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : [],
+                maxOrder: timedatabyday.EC !== 1 ? timedatabyday.DT[0].maxOrder : ''
             })
             if (timedatabyday && timedatabyday.EC === 0) {
                 let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+
                 this.setState({
                     timeArr: time
+
                 })
 
+            } else {
+                let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+
+                this.setState({
+                    timeArr: time
+
+                })
             }
 
 
+
         }
+        else {
+            let dataGara = await getDataGara(this.context.user.account.id)
+            if (dataGara && dataGara.EC === 0) {
+
+                let timedatabyday = await readAllScheduleByDate(dataGara.DT.id, datenew)
+                this.setState({
+                    allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : [],
+                    maxOrder: timedatabyday.EC !== 1 ? timedatabyday.DT[0].maxOrder : ''
+                })
+                if (timedatabyday && timedatabyday.EC === 0) {
+                    let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+                    this.setState({
+                        timeArr: time
+
+                    })
+
+                }
+                else {
+                    let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+
+                    this.setState({
+                        timeArr: time
+
+                    })
+                }
+
+
+
+            }
+        }
+
 
 
 
@@ -155,11 +232,13 @@ class ManageSchedule extends Component {
 
     }
     handlSaveSchedule = async () => {
+        console.log(this.state.selectGara.value)
         let timeArr = this.state.timeArr
 
         let currenDate = this.state.currenDate
         let selectTime = ''
         let resuf = []
+
         if (!currenDate) {
             toast.error('invalit date')
             return
@@ -175,21 +254,28 @@ class ManageSchedule extends Component {
 
                     obj.date = fomatDate;
                     obj.timeType = schedule.id
-                    obj.maxOrder = this.state.numberCarPerTime
+                    obj.maxOrder = this.state.maxOrder
                     resuf.push(obj)
 
                 })
             }
 
-            else {
-                toast.error('invalit time')
-                return
+
+            if (this.state.groupId === 4) {
+                let res = await createBulkScheduleGara({
+                    arrSchedule: resuf,
+                    garaId: this.state.selectGara.value,
+                    fomatDate: fomatDate
+                })
             }
-            let res = await createBulkScheduleGara({
-                arrSchedule: resuf,
-                garaId: this.state.currenGara,
-                fomatDate: fomatDate
-            })
+            else {
+                let res = await createBulkScheduleGara({
+                    arrSchedule: resuf,
+                    garaId: this.state.currenGara,
+                    fomatDate: fomatDate
+                })
+            }
+
 
         }
 
@@ -199,12 +285,54 @@ class ManageSchedule extends Component {
     }
     handlOnchane = (event) => {
         this.setState({
-            numberCarPerTime: event.target.value
+            maxOrder: event.target.value
         })
 
     }
-    render() {
+    handleChangeGara = async (selectedOption) => {
 
+
+
+        let fomatDate = moment(new Date(this.state.currenDate)).startOf('day').unix()
+        let timedatabyday = await readAllScheduleByDate(selectedOption.value, fomatDate)
+
+        this.setState({
+            allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : [],
+            maxOrder: timedatabyday.EC !== 1 ? timedatabyday.DT[0].maxOrder : ''
+        })
+        if (timedatabyday && timedatabyday.EC === 0) {
+            let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+            this.setState({
+                timeArr: time
+
+            })
+
+        }
+        else {
+            let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+
+            this.setState({
+                timeArr: time
+
+            })
+        }
+
+
+
+
+
+
+
+        this.setState({
+            selectGara: selectedOption,
+        })
+
+
+
+    }
+    render() {
+        console.log(this.state)
+        let { groupId } = this.state
         return (
             <>
 
@@ -215,18 +343,29 @@ class ManageSchedule extends Component {
                     <div className='container'>
                         <div className='row'>
 
-                            <div className='col-12 form-group text-center'>
-                                <label className=''>chon ngay</label>
-                                <ReactDatePicker
-                                    onChange={this.handleChangedatePick}
-                                    className='form-control'
-                                    value={this.state.currenDate}
-                                    selected={this.state.currenDate}
-                                    minDate={new Date((new Date()).valueOf())}
+                            <div className='col-12 form-group text-center row'>
+                                {groupId === 4 && <div className='col-6'>   <label className=''>chon gara</label>
+                                    <Select
+                                        placeholder={'CHON gara'}
+                                        value={this.state.selectGara}
+                                        onChange={this.handleChangeGara}
+                                        options={this.state.listGara}
+
+                                    /></div>}
+
+                                <div className={groupId === 4 ? 'col-6' : 'col-12'}>
+                                    <label className=''>chon ngay</label>
+                                    <ReactDatePicker
+                                        onChange={this.handleChangedatePick}
+                                        className='form-control'
+                                        value={this.state.currenDate}
+                                        selected={this.state.currenDate}
+                                        minDate={new Date((new Date()).valueOf())}
 
 
 
-                                />
+                                    /></div>
+
                             </div>
 
                             <div className='pick-hour-container col-12'>
@@ -249,6 +388,7 @@ class ManageSchedule extends Component {
                                         onChange={(event) => this.handlOnchane(event)}
                                         type='number' className='form-control'
                                         placeholder='chon so '
+                                        value={this.state.maxOrder}
                                         required>
 
                                     </input>

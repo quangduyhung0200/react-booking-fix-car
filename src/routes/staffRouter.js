@@ -25,7 +25,10 @@ import ManageCar from "../components//system//manageCar/manageCar.js"
 import checkDetailGara from "../components/system/manageGara/checkDetailGara";
 import ManageHandBook from "../components/Staff/manageHandBook.js"
 import AddNewHandBook from "../components/Staff/addNewHandBook.js";
-
+import UpdateHandBook from "../components/Staff/updateHandBook.js";
+import UpadateGara from "../components/Gara/updateGara.js";
+import ManageGaraStaff from "../components/Staff/manageGara.js"
+import ManageGaraFromStaffNotYetPass from "../components/system/manageGara/manageGara.js"
 class StaffRouter extends Component {
 
 
@@ -64,7 +67,10 @@ class StaffRouter extends Component {
                         <PrivateRole path='/detailGara/:id' component={DetailGara} />
                         <PrivateRole path='/manageHandBook' component={ManageHandBook} />
                         <PrivateRole path='/addNewHandBook' component={AddNewHandBook} />
-
+                        <PrivateRole path='/updateHandbook' component={UpdateHandBook} />
+                        <PrivateRole path='/UpadateGara/:id' component={UpadateGara} />
+                        <PrivateRole path='/ManageGara' component={ManageGaraStaff} />
+                        <PrivateRole path='/ManageGarahasntPass' component={ManageGaraFromStaffNotYetPass} />
 
 
 

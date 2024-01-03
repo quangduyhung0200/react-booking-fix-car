@@ -5,19 +5,24 @@ import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from "../../context/userContext"
 import ReactPaginate from 'react-paginate';
-import { readHanndBook } from '../../services/staffService';
+import { feactAllGara, readHanndBook } from '../../services/staffService';
 import { Buffer } from 'buffer';
-
-class ManageHandBook extends Component {
+import { getAllGarabyPageStaff } from '../../services/staffService';
+import ModelconfimdeledeGara from '../system/manageGara/modelDelete';
+import { deleteGara } from '../../services/adminService';
+class ManageGaraStaff extends Component {
     constructor(props) {
         super(props);
         this.state = {
 
 
-            listHandBook: [],
+            listGara: [],
             currenpage: 1,
             currenlimit: 5,
             totalpage: 0,
+            groupId: "",
+            dataModel: {},
+            isShowModel: false
 
 
         }
@@ -34,11 +39,13 @@ class ManageHandBook extends Component {
 
     };
     async componentDidMount() {
-        let data = await readHanndBook(this.state.currenpage, this.state.currenlimit, this.context.user.account.id)
+        let data = await getAllGarabyPageStaff(this.state.currenpage, this.state.currenlimit)
         if (data && data.EC === 0) {
+            let groupId = this.context.user.account.role[0].id
             let coppystate = { ...this.state }
-            coppystate.listHandBook = data.DT.user
+            coppystate.listGara = data.DT.user
             coppystate.totalpage = data.DT.totalPage
+            coppystate.groupId = groupId
             this.setState({
                 ...coppystate
             })
@@ -47,10 +54,10 @@ class ManageHandBook extends Component {
     }
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevState.currenpage !== this.state.currenpage) {
-            let data = await readHanndBook(this.state.currenpage, this.state.currenlimit, this.context.user.account.id)
+            let data = await getAllGarabyPageStaff(this.state.currenpage, this.state.currenlimit)
             if (data && data.EC === 0) {
                 let coppystate = { ...this.state }
-                coppystate.listHandBook = data.DT.user
+                coppystate.listGara = data.DT.user
                 coppystate.totalpage = data.DT.totalPage
                 this.setState({
                     ...coppystate
@@ -60,17 +67,56 @@ class ManageHandBook extends Component {
         }
     }
     handOnlcickUpdate = (item) => {
-        this.props.history.push(`/updateHandbook/${item.id}`)
+        this.props.history.push(`/UpadateGara/${item.id}`)
 
     }
 
-    handOnclickAddnewHandBook = () => {
+    handOnlcickView = (item) => {
+        this.props.history.push(`/detailGara/${item.id}`)
+    }
+    handOnlcickDelete = (item) => {
+        this.setState({
+            dataModel: item,
+            isShowModel: true
+        })
+    }
+    handleClose = () => {
+        this.setState({
+            dataModel: {},
+            isShowModel: false
+        })
 
-        this.props.history.push(`/addNewHandBook?id=${this.context.user.account.id}`)
+
+
+    }
+    comfirmDeleteUser = async () => {
+
+        let res = await deleteGara(this.state.dataModel)
+
+        if (res && res.EC === 0) {
+            toast.success('delete succes')
+
+            this.setState({
+                isShowModel: false,
+
+            })
+        }
+
+        let data = await getAllGarabyPageStaff(this.state.currenpage, this.state.currenlimit)
+        if (data && data.EC === 0) {
+            let coppystate = { ...this.state }
+            coppystate.listGara = data.DT.user
+            coppystate.totalpage = data.DT.totalPage
+            this.setState({
+                ...coppystate
+            })
+
+        }
+
     }
     render() {
 
-        let { listHandBook } = this.state
+        let { listGara, groupId } = this.state
         return (
             <>
                 <div className='manage-patient-container container'>
@@ -78,47 +124,43 @@ class ManageHandBook extends Component {
                         gara
                     </div>
                     <div className='m-p-body row'>
-                        <button onClick={() => this.handOnclickAddnewHandBook()} className='button btn btn-danger'>create</button>
+
                         <div className='col-12'>
                             <table className="table-patient table table-hover table-bordered my-3">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">USER NAME</th>
-                                        <th scope="col">title</th>
-                                        <th scope="col">ngay viet</th>
+                                        <th scope="col">gara NAME</th>
+                                        <th scope="col">description</th>
                                         <th scope="col">trang thai</th>
+                                        <th scope="col">sodien thaoi</th>
+                                        <th scope="col">dia chi</th>
                                         <th scope="col">action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listHandBook && listHandBook.length > 0 &&
-                                        listHandBook.map((item, index) => {
-                                            let imageBase64 = ''
-                                            if (item.avata) {
+                                    {listGara && listGara.length > 0 &&
+                                        listGara.map((item, index) => {
 
-                                                imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
-                                            }
-                                            let str = item.createdAt;
-                                            let endDate = Date.parse(str);
-                                            let s = new Date(endDate).toLocaleDateString("vi")
 
 
                                             return (
-                                                <tr key={`child-${item.id}`}>
+                                                <tr key={`child-${index}`}>
 
                                                     <td>{item.id}</td>
-                                                    <td>{item.StaffHandbookData.userName}</td>
-                                                    <td>{item.title}</td>
+                                                    <td>{item.nameGara}</td>
+                                                    <td>{item.description}</td>
 
 
 
-                                                    <td>{s}</td>
-                                                    <td>{item.status === 'S1' ? 'cam nang dang duoc phe duyet' : 'cam nang da duoc phe duyet'}</td>
+                                                    <td>{item.status === 'S1' ? 'gara dang duoc phe duyet' : 'gara da duoc phe duyet'}</td>
+                                                    <td>{item.phone}</td>
+                                                    <td>{item.address}, Tỉnh: {item.provindGaraData.name}</td>
 
 
-                                                    <td><button className='button btn btn-primary'>view</button>
+                                                    <td><button onClick={() => this.handOnlcickView(item)} className='button btn btn-primary'>view</button>
                                                         <button onClick={() => this.handOnlcickUpdate(item)} className='button btn btn-warning'>update</button>
+                                                        {groupId === 4 && <button onClick={() => this.handOnlcickDelete(item)} className='button btn btn-warning'>delete</button>}
                                                     </td>
                                                 </tr>
 
@@ -158,13 +200,19 @@ class ManageHandBook extends Component {
                     </div>
 
                 </div>
+                <ModelconfimdeledeGara
+                    show={this.state.isShowModel}
+                    handleClose={this.handleClose}
+                    comfirmDeleteUser={this.comfirmDeleteUser}
+                    dataModel={this.state.dataModel} />
+
 
             </>
 
         )
     }
 }
-ManageHandBook.contextType = UserContext
+ManageGaraStaff.contextType = UserContext
 
 
-export default withRouter(ManageHandBook);
+export default withRouter(ManageGaraStaff);

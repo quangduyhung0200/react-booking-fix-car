@@ -2,15 +2,17 @@ import axios from "../setup/axios"
 const getAllGender = async () => {
     return await axios.get(`/api/v1/gender/read`)
 }
-const registerUser = async (address, gender, phone, userName, comfimPassword, email, password) => {
+const registerUser = async (datainput) => {
     return await axios.post(`/api/v1/register/user`, {
-        address: address,
-        gender: gender,
-        phone: phone,
-        userName: userName,
-        comfimPassword: comfimPassword,
-        email: email,
-        password: password
+        address: datainput.address,
+        gender: datainput.gender,
+        phone: datainput.phone,
+        userName: datainput.userName,
+        comfimPassword: datainput.comfimPassword,
+        email: datainput.email,
+        password: datainput.password,
+        groupId: datainput.group,
+        avata: datainput.avata
     })
 }
 

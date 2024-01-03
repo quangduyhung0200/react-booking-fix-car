@@ -2,26 +2,36 @@ import React, { Component } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
-import './manageGara.scss'
+
 import ReactPaginate from 'react-paginate';
-import { feactAllGara } from '../../../services/staffService';
+import { readHanndBook } from '../../../services/staffService';
 import { Buffer } from "buffer";
 import { withRouter } from 'react-router-dom';
-class ManageGaraFromStaffNotYetPass extends Component {
+import ModelconfimdeledeHandbook from './modelDeleteHandBook';
+import { deleteHandbook } from '../../../services/adminService';
+import { toast } from 'react-toastify';
+import { getAllHandbook } from '../../../services/adminService';
+class ManageHandbook extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
 
-            listGara: [],
+            listHandBook: [],
             currenpage: 1,
             currenlimit: 5,
             totalpage: 0,
+            isShowModel: false,
+            dataModel: {}
 
 
         }
     }
+    showModelAddNew = () => {
 
+        this.props.history.push(`/addNewHandBook`)
+
+    }
     handlePageClick = async (event) => {
 
         let coppystate = { ...this.state }
@@ -35,11 +45,11 @@ class ManageGaraFromStaffNotYetPass extends Component {
     };
     async componentDidMount() {
         let { currenpage, currenlimit } = this.state
-        let respons = await feactAllGara(currenpage, currenlimit)
+        let respons = await getAllHandbook(currenpage, currenlimit)
 
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
-            coppystate.listGara = respons.DT.user
+            coppystate.listHandBook = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
             this.setState({
                 ...coppystate
@@ -50,11 +60,11 @@ class ManageGaraFromStaffNotYetPass extends Component {
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevState.currenpage !== this.state.currenpage) {
             let { currenpage, currenlimit } = this.state
-            let respons = await feactAllGara(currenpage, currenlimit)
+            let respons = await getAllHandbook(currenpage, currenlimit)
 
             if (respons && respons.EC === 0) {
                 let coppystate = { ...this.state }
-                coppystate.listUser = respons.DT.user
+                coppystate.listHandBook = respons.DT.user
                 coppystate.totalpage = respons.DT.totalPage
                 this.setState({
                     ...coppystate
@@ -63,21 +73,66 @@ class ManageGaraFromStaffNotYetPass extends Component {
             }
         }
     }
-    handlViewDetailGara = (item) => {
+    handlViewDetailHandBook = (item) => {
 
-        this.props.history.push(`/checkdetailGara/${item.id}`)
+        // this.props.history.push(`/checkdetailHandBook/${item.id}`)
 
+    }
+    handClickUpdate = (item) => {
+        this.props.history.push(`/updateHandbook/${item.id}`)
+    }
+    handOnclickDelete = (item) => {
+        this.setState({
+            isShowModel: true,
+            dataModel: item
+        })
+    }
+    handleClose = () => {
+        this.setState({
+            isShowModel: false,
+            dataModel: {}
+        })
+    }
+    comfirmDeleteUser = async () => {
+        console.log(this.state.dataModel)
+        let res = await deleteHandbook(this.state.dataModel)
+
+        if (res && res.EC === 0) {
+            toast.success('delete succes')
+
+            this.setState({
+                showModel: false,
+
+            })
+        }
+        let { currenpage, currenlimit } = this.state
+        let respons = await getAllHandbook(currenpage, currenlimit)
+
+        if (respons && respons.EC === 0) {
+            let coppystate = { ...this.state }
+            coppystate.listHandBook = respons.DT.user
+            coppystate.totalpage = respons.DT.totalPage
+            this.setState({
+                ...coppystate
+            })
+
+        }
     }
     render() {
 
-        let { listGara } = this.state
+        let { listHandBook } = this.state
 
         return (
             <>
                 <>
                     <div className='manage-patient-container container'>
-                        <div className='m-p-title'>
-                            gara
+                        <div className='user-header'>
+                            <div className='tiltle'><h3>Tabble handbook</h3>
+                            </div>
+                            <div className='action'>
+                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                                <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Add New handbook <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
+                            </div>
                         </div>
                         <div className='m-p-body row'>
 
@@ -86,37 +141,42 @@ class ManageGaraFromStaffNotYetPass extends Component {
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">gara NAME</th>
-                                            <th scope="col">address</th>
-                                            <th scope="col">provindId</th>
+                                            <th scope="col">handbook tile </th>
 
-                                            <th scope="col">phone</th>
-                                            <th scope="col">description</th>
+                                            <th scope="col">staffId</th>
+
+                                            <th scope="col">ngay viet</th>
+
                                             <th scope="col">action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {listGara && listGara.length > 0 ?
+                                        {listHandBook && listHandBook.length > 0 ?
                                             <>
                                                 {
-                                                    listGara.map((item, index) => {
+                                                    listHandBook.map((item, index) => {
+
+
+                                                        let str = item.createdAt;
+                                                        let endDate = Date.parse(str);
+                                                        let s = new Date(endDate).toLocaleDateString("vi")
 
 
                                                         return (
                                                             <tr key={`row-${index}`}>
 
                                                                 <td>{item.id}</td>
-                                                                <td>{item.nameGara}</td>
-                                                                <td>{item.address}</td>
-                                                                <td>{item.provindGaraData.name}</td>
-
-                                                                <td>{item.phone}</td>
-                                                                <td>{item.description}</td>
+                                                                <td>{item.title}</td>
+                                                                <td>{item.staffId}</td>
+                                                                <td>{s}</td>
 
 
-                                                                <td><button onClick={() => this.handlViewDetailGara(item)} className='button btn btn-primary'>view</button>
-                                                                    <button className='button btn btn-primary'>accep</button>
-                                                                    <button className='button btn btn-danger'>denice</button></td>
+
+
+
+                                                                <td><button onClick={() => this.handlViewDetailHandBook(item)} className='button btn btn-primary'>view</button>
+                                                                    <button onClick={() => this.handClickUpdate(item)} className='button btn btn-primary'>update</button>
+                                                                    <button onClick={() => this.handOnclickDelete(item)} className='button btn btn-danger'>delete</button></td>
                                                             </tr>
                                                         )
 
@@ -163,6 +223,12 @@ class ManageGaraFromStaffNotYetPass extends Component {
                         </div>
 
                     </div>
+                    <ModelconfimdeledeHandbook
+                        show={this.state.isShowModel}
+                        handleClose={this.handleClose}
+                        comfirmDeleteUser={this.comfirmDeleteUser}
+                        dataModel={this.state.dataModel}
+                    />
 
                 </>
 
@@ -175,4 +241,4 @@ class ManageGaraFromStaffNotYetPass extends Component {
 
 
 
-export default withRouter(ManageGaraFromStaffNotYetPass);
+export default withRouter(ManageHandbook);

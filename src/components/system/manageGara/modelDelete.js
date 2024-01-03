@@ -10,17 +10,11 @@ import { Buffer } from 'buffer';
 import _ from 'lodash';
 import Lightbox from 'react-image-lightbox';
 
-class Modelconfimdelede extends Component {
+class ModelconfimdeledeGara extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nameCar: '',
-            listCarCompany: [],
-            carCompanyId: '',
-            avata: '',
-            descriptions: '',
-            id: '',
-            previewimg: '',
+
         }
     }
     async componentDidMount() {
@@ -64,4 +58,4 @@ class Modelconfimdelede extends Component {
 }
 
 
-export default Modelconfimdelede;
+export default ModelconfimdeledeGara;

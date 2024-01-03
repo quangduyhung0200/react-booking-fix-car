@@ -36,17 +36,13 @@ class CheckDetailHandBook extends Component {
 
             let data = await getHandBookById(id)
 
-            let imageBase64 = ''
-            if (data.DT.avata.data) {
 
-                imageBase64 = new Buffer(data.DT.avata.data, 'base64').toString('binary')
-            }
             let coppyState = { ...this.state }
 
             coppyState.createdAt = data.DT.createdAt
             coppyState.title = data.DT.title
 
-            coppyState.avata = imageBase64
+            coppyState.avata = data.DT.avata
             coppyState.descriptionHTML = data.DT.contentHTML
             coppyState.handbookId = data.DT.id
             coppyState.staffName = data.DT.StaffHandbookData.userName
@@ -74,17 +70,23 @@ class CheckDetailHandBook extends Component {
     render() {
 
 
-
+        console.log(this.state)
         let str = this.state.createdAt;
         let endDate = Date.parse(str);
         let s = new Date(endDate).toLocaleDateString("vi")
+        let imageBase64 = ''
+        if (this.state.avata.data) {
+
+            imageBase64 = new Buffer(this.state.avata.data, 'base64').toString('binary')
+        }
+
         return (
             <>
 
                 <div className='HandBook-Detail-Container container'>
                     <div className='row'>
                         <div className='introduction col-12 row'>
-                            <div className='avata col-md-6 col-12' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})`, height: '50vh' }}>
+                            <div className='avata col-md-6 col-12' style={{ backgroundImage: `url(${imageBase64 ? imageBase64 : ''})`, height: '50vh' }}>
 
                             </div>
                             <div className='title col-md-6 col-12'>

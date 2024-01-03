@@ -123,7 +123,7 @@ class PickCar extends Component {
             coppyState.phone = data.DT.phone
             coppyState.provind = data.DT.provindGaraData.name
             coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.descriptionHTML
+            coppyState.descriptionHTML = data.DT.contenHTML
             coppyState.userId = data.DT.id
             coppyState.garaId = data.DT.id
 

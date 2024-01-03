@@ -7,7 +7,7 @@ import './manageGara.scss'
 import GaraSchedule from '../customer/gara/schedule';
 import { readAllCarByGara } from '../../services/guestService';
 import ReactPaginate from 'react-paginate';
-
+import Comment from '../customer/gara/comment';
 class ManageGara extends Component {
 
     constructor(props) {
@@ -24,6 +24,8 @@ class ManageGara extends Component {
             userId: '',
             garaId: '',
             listCar: [],
+            rate: '',
+            status: ''
 
 
         }
@@ -50,12 +52,12 @@ class ManageGara extends Component {
             coppyState.phone = data.DT.phone
             coppyState.provind = data.DT.provindGaraData.name
             coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.descriptionHTML
+            coppyState.descriptionHTML = data.DT.contenHTML
             coppyState.userId = data.DT.userId
             coppyState.garaId = data.DT.id
             coppyState.listCar = data1.DT
-
-
+            coppyState.rate = data.DT.rateId
+            coppyState.status = data.DT.status
 
             this.setState({
                 ...coppyState
@@ -88,6 +90,9 @@ class ManageGara extends Component {
     handlViewCar = async (item) => {
 
     }
+    handOnclickUpdate = () => {
+        this.props.history.push(`/UpadateGara/${this.state.garaId}`)
+    }
     render() {
 
         let { listCar } = this.state
@@ -95,6 +100,7 @@ class ManageGara extends Component {
         return (
             <>
                 <div className='Docter-Detail-Container container'>
+                    {this.state.status === 'S2' ? <div>Gara da duoc thong qua va hien thi tren trang chu</div> : <div>gara chua duoc thogn qua </div>}
                     <div className='row'>
                         <div className='introduction col-12 row'>
                             <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
@@ -108,6 +114,9 @@ class ManageGara extends Component {
                                 <div className='down col-12'>
                                     {this.state.description}
                                 </div>
+                            </div>
+                            <div className='down col-12'>
+                                <button onClick={() => this.handOnclickUpdate()} className='btn btn-primary'>update</button>
                             </div>
                         </div>
                         <div className='schedule-docter col-12 row '>
@@ -177,6 +186,9 @@ class ManageGara extends Component {
                     </div>
 
                 </div >
+                <Comment
+                    currenGaraId={this.state.garaId}
+                    rate={this.state.rate} />
             </>
         )
     }
