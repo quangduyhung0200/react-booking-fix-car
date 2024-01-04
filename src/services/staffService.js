@@ -27,10 +27,38 @@ const updateHandbook = async (data) => {
 const getAllGarabyPageStaff = async (page, limit) => {
     return axios.get(`/api/v1/gara/getAllGarabyPage?page=${page}&limit=${limit}`)
 }
+const getAllBookingbyPageStaff = async (page, limit) => {
+    return axios.get(`/api/v1/booking/getAllBookingbypage?page=${page}&limit=${limit}`)
+}
+const getAllStatus = async () => {
+    return axios.get(`/api/v1/status/getAllStatus`)
+}
+
+const updateBooking = async (data) => {
+    return axios.put(`/api/v1/booking/updateStatus`, { ...data })
+}
+
+const searchBooking = async (data) => {
+    return axios.get(`/api/v1/booking/searchBooking?user=${data.user}&gara=${data.gara}&car=${data.car}&service=${data.service}&date=${data.date}&price=${data.price}&status=${data.status}&`)
+}
+
+const searchUser = async (data) => {
+    return axios.get(`/api/v1/user/searchUser?user=${data.user}&group=${data.group}`)
+}
+const searchGaranocenser = async (data) => {
+    return axios.get(`/api/v1/gara/searchGaranocenser?gara=${data.gara}&provind=${data.provind}`)
+}
+const searchGara = async (data) => {
+    return axios.get(`/api/v1/gara/searchGara?gara=${data.gara}&provind=${data.provind}`)
+}
+
+
+
 
 
 
 
 export {
-    feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook, createHandbook, updateHandbook, getAllGarabyPageStaff
+    feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook, createHandbook, updateHandbook, getAllGarabyPageStaff,
+    getAllBookingbyPageStaff, getAllStatus, updateBooking, searchBooking, searchUser, searchGaranocenser, searchGara
 }

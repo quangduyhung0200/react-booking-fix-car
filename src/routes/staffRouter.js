@@ -29,6 +29,7 @@ import UpdateHandBook from "../components/Staff/updateHandBook.js";
 import UpadateGara from "../components/Gara/updateGara.js";
 import ManageGaraStaff from "../components/Staff/manageGara.js"
 import ManageGaraFromStaffNotYetPass from "../components/system/manageGara/manageGara.js"
+import detailHandBook from "../components/customer/handBook/detailHandBook.js";
 class StaffRouter extends Component {
 
 
@@ -62,7 +63,7 @@ class StaffRouter extends Component {
                         <PrivateRole path='/user' component={ManageUser} />
                         <PrivateRole path='/gara' component={ManageGara} />
                         <PrivateRole path='/car' component={ManageCar} />
-                        <PrivateRole path='/schedule' component={ManageSchedule} />
+
                         <PrivateRole path='/checkdetailGara/:id' component={checkDetailGara} />
                         <PrivateRole path='/detailGara/:id' component={DetailGara} />
                         <PrivateRole path='/manageHandBook' component={ManageHandBook} />
@@ -71,9 +72,9 @@ class StaffRouter extends Component {
                         <PrivateRole path='/UpadateGara/:id' component={UpadateGara} />
                         <PrivateRole path='/ManageGara' component={ManageGaraStaff} />
                         <PrivateRole path='/ManageGarahasntPass' component={ManageGaraFromStaffNotYetPass} />
-
-
-
+                        <PrivateRole path='/detailHandbook/:id' component={detailHandBook} />
+                        <PrivateRole path="/setSchedule" component={ManageSchedule} />
+                        <PrivateRole path='/manage-PickCar' component={PickCar} />
 
 
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />

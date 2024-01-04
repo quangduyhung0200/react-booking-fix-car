@@ -68,6 +68,9 @@ class ManageHandBook extends Component {
 
         this.props.history.push(`/addNewHandBook?id=${this.context.user.account.id}`)
     }
+    handlViewHandbook = (item) => {
+        this.props.history.push(`/detailHandbook/${item.id}`)
+    }
     render() {
 
         let { listHandBook } = this.state
@@ -117,7 +120,7 @@ class ManageHandBook extends Component {
                                                     <td>{item.status === 'S1' ? 'cam nang dang duoc phe duyet' : 'cam nang da duoc phe duyet'}</td>
 
 
-                                                    <td><button className='button btn btn-primary'>view</button>
+                                                    <td><button onClick={() => this.handlViewHandbook(item)} className='button btn btn-primary'>view</button>
                                                         <button onClick={() => this.handOnlcickUpdate(item)} className='button btn btn-warning'>update</button>
                                                     </td>
                                                 </tr>

@@ -5,16 +5,21 @@ import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from "../../context/userContext"
 import ReactPaginate from 'react-paginate';
-import { feactAllGara, readHanndBook } from '../../services/staffService';
+import { feactAllGara, readHanndBook, } from '../../services/staffService';
 import { Buffer } from 'buffer';
-import { getAllGarabyPageStaff } from '../../services/staffService';
+import { getAllGarabyPageStaff, searchGara } from '../../services/staffService';
 import ModelconfimdeledeGara from '../system/manageGara/modelDelete';
 import { deleteGara } from '../../services/adminService';
+import Select from 'react-select';
+import { getAllProvind } from '../../services/guestService';
 class ManageGaraStaff extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            show: true,
+            search: '',
+            listProvind: [],
+            selectProvind: {},
 
             listGara: [],
             currenpage: 1,
@@ -26,6 +31,26 @@ class ManageGaraStaff extends Component {
 
 
         }
+    }
+    buildDataSelectProvind = (inputData) => {
+
+        let resuf = []
+
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+
+
+                obj.label = item.name
+                obj.value = item.id
+                resuf.push(obj);
+
+            })
+
+
+        }
+
+        return resuf
     }
     handlePageClick = async (event) => {
 
@@ -40,12 +65,24 @@ class ManageGaraStaff extends Component {
     };
     async componentDidMount() {
         let data = await getAllGarabyPageStaff(this.state.currenpage, this.state.currenlimit)
+
+
+        let provind = await getAllProvind()
+
+
+
+
+
+
+
+
         if (data && data.EC === 0) {
             let groupId = this.context.user.account.role[0].id
             let coppystate = { ...this.state }
             coppystate.listGara = data.DT.user
             coppystate.totalpage = data.DT.totalPage
             coppystate.groupId = groupId
+            coppystate.listProvind = this.buildDataSelectProvind(provind.DT)
             this.setState({
                 ...coppystate
             })
@@ -114,6 +151,29 @@ class ManageGaraStaff extends Component {
         }
 
     }
+    handOnchaneGaraName = async (event) => {
+        this.setState({
+            search: event.target.value
+        })
+    }
+    Search = async () => {
+        let datainput = {
+            gara: this.state.search,
+            provind: this.state.selectProvind.value ? this.state.selectProvind.value : 0
+        }
+        let data = await searchGara(datainput)
+        if (data.EC === 0) {
+            this.setState({
+                listGara: data.DT,
+                show: false
+            })
+        }
+    }
+    handleChangeProvind = async (selectedOption) => {
+        this.setState({
+            selectProvind: selectedOption
+        })
+    }
     render() {
 
         let { listGara, groupId } = this.state
@@ -122,6 +182,33 @@ class ManageGaraStaff extends Component {
                 <div className='manage-patient-container container'>
                     <div className='m-p-title'>
                         gara
+                    </div>
+                    <div className='tiltle col-12'><h3>Tabble user</h3>
+                    </div>
+                    <div className='actionform col-12 row'>
+                        <div className='col-12'>
+                            <label class="form-label">nhao ten nguoi dung</label>
+                            <input onChange={(event) => this.handOnchaneGaraName(event)} type="text" class="form-control" />
+                        </div>
+                        <div className='col-4'>
+                            <label>chon group</label>
+                            <Select
+
+                                placeholder={'CHON gara'}
+                                value={this.state.selectProvind}
+                                onChange={this.handleChangeProvind}
+                                options={this.state.listProvind}
+
+                            />
+                        </div>
+                        <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+                        </div>
+
+
+
+
+
+
                     </div>
                     <div className='m-p-body row'>
 
@@ -174,7 +261,7 @@ class ManageGaraStaff extends Component {
 
                     <div className='user-footer'>
 
-                        <ReactPaginate
+                        {this.state.show === true && <ReactPaginate
                             nextLabel="next >"
                             onPageChange={this.handlePageClick}
                             pageRangeDisplayed={3}
@@ -193,7 +280,7 @@ class ManageGaraStaff extends Component {
                             containerClassName="pagination"
                             activeClassName="active"
                             renderOnZeroPageCount={null}
-                        />
+                        />}
 
 
 

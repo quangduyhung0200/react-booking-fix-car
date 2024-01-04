@@ -48,7 +48,8 @@ class NavigateStaff extends Component {
                                     <NavLink to="/manageHandBook" exact className='nav-link'>manage handBook</NavLink>
                                     <NavLink to="/ManageGara" exact className='nav-link'>ManageGara</NavLink>
                                     <NavLink to="/ManageGarahasntPass" exact className='nav-link'>ManageGaraNocenso</NavLink>
-
+                                    <NavLink to="/setSchedule" exact className='nav-link'>manage schedule</NavLink>
+                                    <NavLink to="/manage-PickCar" exact className='nav-link'>manage PickCar</NavLink>
 
                                 </Nav>
 

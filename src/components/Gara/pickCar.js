@@ -11,6 +11,7 @@ import { getDataCarById } from '../../services/guestService';
 import { getDataPickCar, } from '../../services/guestService';
 import { feactAllCarCompany } from '../../services/guestService';
 import DetailCar from '../customer/car/carDetail'
+import { getAllGara } from '../../services/guestService';
 import _ from 'lodash';
 
 
@@ -39,7 +40,9 @@ class PickCar extends Component {
             selectPayment: '',
             listService: [],
             selectService: '',
-            garaId: ''
+            garaId: '',
+            listGara: [],
+            selectGara: ''
         }
     }
     async componentDidMount() {
@@ -107,31 +110,59 @@ class PickCar extends Component {
         }
         // let data1 = await getDataCarById(2)
 
+        if (this.context.user.account.role[0].id === 4 || this.context.user.account.role[0].id === 3) {
 
-        let data = await getDataGara(this.context.user.account.id)
+            let data = await getAllGara()
+            if (data && data.EC === 0) {
+                let imageBase64 = ''
+                if (data.DT[0].avata) {
 
-        if (data && data.EC === 0) {
-            let imageBase64 = ''
-            if (data.DT.avata) {
+                    imageBase64 = new Buffer(data.DT[0].avata.data, 'base64').toString('binary')
+                }
+                let coppyState = { ...this.state }
+                coppyState.address = data.DT[0].address
+                coppyState.description = data.DT[0].description
+                coppyState.nameGara = data.DT[0].nameGara
+                coppyState.phone = data.DT[0].phone
 
-                imageBase64 = new Buffer(data.DT.avata, 'base64').toString('binary')
+                coppyState.avata = imageBase64
+                coppyState.descriptionHTML = data.DT[0].contenHTML
+                coppyState.userId = data.DT[0].id
+                coppyState.garaId = data.DT[0].id
+                coppyState.listGara = data.DT
+
+                this.setState({
+                    ...coppyState
+                })
             }
-            let coppyState = { ...this.state }
-            coppyState.address = data.DT.address
-            coppyState.description = data.DT.description
-            coppyState.nameGara = data.DT.nameGara
-            coppyState.phone = data.DT.phone
-            coppyState.provind = data.DT.provindGaraData.name
-            coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.contenHTML
-            coppyState.userId = data.DT.id
-            coppyState.garaId = data.DT.id
-
-
-            this.setState({
-                ...coppyState
-            })
         }
+        else {
+            let data = await getDataGara(this.context.user.account.id)
+
+            if (data && data.EC === 0) {
+                let imageBase64 = ''
+                if (data.DT.avata) {
+
+                    imageBase64 = new Buffer(data.DT.avata, 'base64').toString('binary')
+                }
+                let coppyState = { ...this.state }
+                coppyState.address = data.DT.address
+                coppyState.description = data.DT.description
+                coppyState.nameGara = data.DT.nameGara
+                coppyState.phone = data.DT.phone
+                coppyState.provind = data.DT.provindGaraData.name
+                coppyState.avata = imageBase64
+                coppyState.descriptionHTML = data.DT.contenHTML
+                coppyState.userId = data.DT.userId
+                coppyState.garaId = data.DT.id
+
+
+                this.setState({
+                    ...coppyState
+                })
+            }
+        }
+
 
     }
     handlOnchaneSelect = async (event, name) => {
@@ -218,10 +249,39 @@ class PickCar extends Component {
 
         let res = await deletePickCar(garaId, carId, serviceId)
     }
+    handlOnchaneSelectGara = async (event) => {
+        let data = await getDataGara(event.target.value)
+
+        if (data && data.EC === 0) {
+            let imageBase64 = ''
+            if (data.DT.avata) {
+
+                imageBase64 = new Buffer(data.DT.avata, 'base64').toString('binary')
+            }
+            let coppyState = { ...this.state }
+            coppyState.address = data.DT.address
+            coppyState.description = data.DT.description
+            coppyState.nameGara = data.DT.nameGara
+            coppyState.phone = data.DT.phone
+
+            coppyState.avata = imageBase64
+            coppyState.descriptionHTML = data.DT.contenHTML
+            coppyState.userId = data.DT.userId
+            coppyState.garaId = data.DT.id
+
+
+            this.setState({
+                ...coppyState
+            })
+        }
+        this.setState({
+            selectGara: event.target.value
+        })
+    }
     render() {
 
-        let { listCarCompany, listCar, listPrice, listPayment, listService } = this.state
-
+        let { listCarCompany, listCar, listPrice, listPayment, listService, listGara } = this.state
+        console.log(this.state)
         return (
             <>
                 <div className='Docter-Detail-Container container'>
@@ -240,6 +300,33 @@ class PickCar extends Component {
                                 </div>
                             </div>
                         </div>
+                        {this.context.user.account.role[0].id === 4 && <div className='col-4'>
+                            <p>chon gara</p>
+                            <select onChange={(event) => this.handlOnchaneSelectGara(event)} >
+                                {listGara && listGara.length > 0 &&
+                                    listGara.map((item, index) => {
+                                        return (
+                                            <option key={`chile-${index}`} value={item.userId}> {item.nameGara} </option>
+                                        )
+                                    })}
+
+
+                            </select>
+                        </div>}
+                        {this.context.user.account.role[0].id === 3 && <div className='col-4'>
+                            <p>chon gara</p>
+                            <select onChange={(event) => this.handlOnchaneSelectGara(event)} >
+                                {listGara && listGara.length > 0 &&
+                                    listGara.map((item, index) => {
+                                        return (
+                                            <option key={`chile-${index}`} value={item.userId}> {item.nameGara} </option>
+                                        )
+                                    })}
+
+
+                            </select>
+                        </div>}
+
                         <div className='schedule-docter col-12 row '>
                             <div className='col-4'>
                                 <p>chon hang xe</p>

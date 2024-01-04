@@ -4,15 +4,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
 import './manageGara.scss'
 import ReactPaginate from 'react-paginate';
-import { feactAllGara } from '../../../services/staffService';
+import { feactAllGara, searchGaranocenser } from '../../../services/staffService';
 import { Buffer } from "buffer";
 import { withRouter } from 'react-router-dom';
+import Select from 'react-select';
+import { getAllProvind } from '../../../services/guestService';
 class ManageGaraFromStaffNotYetPass extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            show: true,
+            search: '',
+            listProvind: [],
+            selectProvind: {},
             listGara: [],
             currenpage: 1,
             currenlimit: 5,
@@ -21,7 +26,26 @@ class ManageGaraFromStaffNotYetPass extends Component {
 
         }
     }
+    buildDataSelectProvind = (inputData) => {
 
+        let resuf = []
+
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+
+
+                obj.label = item.name
+                obj.value = item.id
+                resuf.push(obj);
+
+            })
+
+
+        }
+
+        return resuf
+    }
     handlePageClick = async (event) => {
 
         let coppystate = { ...this.state }
@@ -36,11 +60,12 @@ class ManageGaraFromStaffNotYetPass extends Component {
     async componentDidMount() {
         let { currenpage, currenlimit } = this.state
         let respons = await feactAllGara(currenpage, currenlimit)
-
+        let provind = await getAllProvind()
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
             coppystate.listGara = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
+            coppystate.listProvind = this.buildDataSelectProvind(provind.DT)
             this.setState({
                 ...coppystate
             })
@@ -68,6 +93,29 @@ class ManageGaraFromStaffNotYetPass extends Component {
         this.props.history.push(`/checkdetailGara/${item.id}`)
 
     }
+    handleChangeProvind = async (selectedOption) => {
+        this.setState({
+            selectProvind: selectedOption
+        })
+    }
+    handOnchaneGaraName = async (event) => {
+        this.setState({
+            search: event.target.value
+        })
+    }
+    Search = async () => {
+        let datainput = {
+            gara: this.state.search,
+            provind: this.state.selectProvind.value ? this.state.selectProvind.value : 0
+        }
+        let data = await searchGaranocenser(datainput)
+        if (data.EC === 0) {
+            this.setState({
+                listGara: data.DT,
+                show: false
+            })
+        }
+    }
     render() {
 
         let { listGara } = this.state
@@ -78,6 +126,33 @@ class ManageGaraFromStaffNotYetPass extends Component {
                     <div className='manage-patient-container container'>
                         <div className='m-p-title'>
                             gara
+                        </div>
+                        <div className='tiltle col-12'><h3>Tabble user</h3>
+                        </div>
+                        <div className='actionform col-12 row'>
+                            <div className='col-12'>
+                                <label class="form-label">nhao ten nguoi dung</label>
+                                <input onChange={(event) => this.handOnchaneGaraName(event)} type="text" class="form-control" />
+                            </div>
+                            <div className='col-4'>
+                                <label>chon group</label>
+                                <Select
+
+                                    placeholder={'CHON gara'}
+                                    value={this.state.selectProvind}
+                                    onChange={this.handleChangeProvind}
+                                    options={this.state.listProvind}
+
+                                />
+                            </div>
+                            <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+                            </div>
+
+
+
+
+
+
                         </div>
                         <div className='m-p-body row'>
 
@@ -136,8 +211,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
                         </div>
 
                         <div className='user-footer'>
-
-                            <ReactPaginate
+                            {this.state.show === true && <ReactPaginate
                                 nextLabel="next >"
                                 onPageChange={this.handlePageClick}
                                 pageRangeDisplayed={3}
@@ -157,6 +231,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
                                 activeClassName="active"
                                 renderOnZeroPageCount={null}
                             />
+                            }
 
 
 

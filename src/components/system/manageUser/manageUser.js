@@ -4,16 +4,21 @@ import { toast } from 'react-toastify';
 import './manageUser.scss'
 import ModelUser from './modelUser';
 import ModelconfimdeledeUser from './modelDelete';
-
+import Select from 'react-select';
 import { deleteUser } from '../../../services/adminService';
 import _ from 'lodash';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { feactAllUser } from '../../../services/staffService';
+import { feactAllUser, searchUser } from '../../../services/staffService';
+import { getAllGroup } from '../../../services/adminService';
 class ManageUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            show: true,
+            search: '',
+            listGroup: [],
+            selectGroup: {},
             listUser: [],
             currenpage: 1,
             currenlimit: 5,
@@ -36,14 +41,35 @@ class ManageUser extends Component {
 
 
     };
+    buildDataSelectGroup = (inputData) => {
+
+        let resuf = []
+
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+
+
+                obj.label = item.name
+                obj.value = item.id
+                resuf.push(obj);
+
+            })
+
+
+        }
+
+        return resuf
+    }
     async componentDidMount() {
         let { currenpage, currenlimit } = this.state
         let respons = await feactAllUser(currenpage, currenlimit)
-
+        let group = await getAllGroup()
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
             coppystate.listUser = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
+            coppystate.listGroup = this.buildDataSelectGroup(group.DT)
             this.setState({
                 ...coppystate
             })
@@ -150,6 +176,29 @@ class ManageUser extends Component {
 
         }
     }
+    handOnchaneNameUser = (event) => {
+        this.setState({
+            search: event.target.value
+        })
+    }
+    Search = async () => {
+        let datainput = {
+            user: this.state.search,
+            group: this.state.selectGroup.value ? this.state.selectGroup.value : 0
+        }
+        let data = await searchUser(datainput)
+        if (data.EC === 0) {
+            this.setState({
+                listUser: data.DT,
+                show: false
+            })
+        }
+    }
+    handleChangeGroup = (selectedOption) => {
+        this.setState({
+            selectGroup: selectedOption
+        })
+    }
     render() {
 
         let { listUser } = this.state
@@ -157,11 +206,36 @@ class ManageUser extends Component {
             <>
                 <div className='container'>
                     <div className='manage-user-container'>
-                        <div className='user-header'>
-                            <div className='tiltle'><h3>Tabble user</h3>
+                        <div className='user-header row'>
+                            <div className='tiltle col-12'><h3>Tabble user</h3>
+                            </div>
+                            <div className='actionform col-12 row'>
+                                <div className='col-12'>
+                                    <label class="form-label">nhao ten nguoi dung</label>
+                                    <input onChange={(event) => this.handOnchaneNameUser(event)} type="text" class="form-control" />
+                                </div>
+                                <div className='col-4'>
+                                    <label>chon group</label>
+                                    <Select
+
+                                        placeholder={'CHON gara'}
+                                        value={this.state.selectGroup}
+                                        onChange={this.handleChangeGroup}
+                                        options={this.state.listGroup}
+
+                                    />
+                                </div>
+                                <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+                                </div>
+
+
+
+
+
+
                             </div>
                             <div className='action'>
-                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3 '>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
                                 <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Add New user <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
                             </div>
                         </div>
@@ -208,7 +282,7 @@ class ManageUser extends Component {
                         </div>
 
                         <div className='user-footer'>
-                            <ReactPaginate
+                            {this.state.show === true && <ReactPaginate
                                 nextLabel="next >"
                                 onPageChange={this.handlePageClick}
                                 pageRangeDisplayed={3}
@@ -227,14 +301,14 @@ class ManageUser extends Component {
                                 containerClassName="pagination"
                                 activeClassName="active"
                                 renderOnZeroPageCount={null}
-                            />
+                            />}
 
 
 
                         </div>
 
-                    </div>
-                </div>
+                    </div >
+                </div >
                 <ModelUser
                     onHide={this.onHideModelUser}
                     show={this.state.showModelUser}

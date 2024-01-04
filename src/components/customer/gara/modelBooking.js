@@ -43,7 +43,8 @@ class ModelBooking extends Component {
             timeid: '',
             time: '',
             date: '',
-            serviceCheck: []
+            serviceCheck: [],
+            priceId: ''
 
 
         }
@@ -213,7 +214,8 @@ class ModelBooking extends Component {
             this.setState({
                 selectService: selectedOption,
                 price: res.DT.priceData.value,
-                payment: res.DT.paymentData.value
+                payment: res.DT.paymentData.value,
+                priceId: res.DT.priceId
 
             })
         }
@@ -232,6 +234,7 @@ class ModelBooking extends Component {
         resuf.timetype = data.timeid
         resuf.carId = data.selectCarId.value
         resuf.serviceId = data.selectService.value
+        resuf.priceId = data.priceId
         return resuf
 
 
@@ -239,6 +242,7 @@ class ModelBooking extends Component {
     }
     handlSaveBooking = async () => {
         let data = this.buidDataSave(this.state)
+
         let res = await postBooking(data)
 
     }

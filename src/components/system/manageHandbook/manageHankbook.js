@@ -75,7 +75,7 @@ class ManageHandbook extends Component {
     }
     handlViewDetailHandBook = (item) => {
 
-        // this.props.history.push(`/checkdetailHandBook/${item.id}`)
+        this.props.history.push(`/detailHandbook/${item.id}`)
 
     }
     handClickUpdate = (item) => {

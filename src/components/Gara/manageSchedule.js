@@ -61,7 +61,9 @@ class ManageSchedule extends Component {
                 groupId: this.context.user.account.role[0].id
             })
         }
-        if (this.context.user.account.role[0].id !== 4) {
+
+        if (this.context.user.account.role[0].id !== 4 && this.context.user.account.role[0].id !== 3) {
+
             let dataGara = await getDataGara(this.context.user.account.id)
 
             this.setState({
@@ -150,7 +152,7 @@ class ManageSchedule extends Component {
             currenDate: date
         })
         let datenew = moment(new Date(date)).startOf('day').unix()
-        if (this.state.groupId === 4) {
+        if (this.state.groupId === 4 || this.state.groupId === 3) {
 
 
             let timedatabyday = await readAllScheduleByDate(this.state.selectGara.value, datenew)
@@ -194,7 +196,6 @@ class ManageSchedule extends Component {
                         timeArr: time
 
                     })
-
                 }
                 else {
                     let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
@@ -261,7 +262,7 @@ class ManageSchedule extends Component {
             }
 
 
-            if (this.state.groupId === 4) {
+            if (this.state.groupId === 4 || this.state.groupId === 3) {
                 let res = await createBulkScheduleGara({
                     arrSchedule: resuf,
                     garaId: this.state.selectGara.value,
@@ -344,6 +345,14 @@ class ManageSchedule extends Component {
                         <div className='row'>
 
                             <div className='col-12 form-group text-center row'>
+                                {groupId === 3 && <div className='col-6'>   <label className=''>chon gara</label>
+                                    <Select
+                                        placeholder={'CHON gara'}
+                                        value={this.state.selectGara}
+                                        onChange={this.handleChangeGara}
+                                        options={this.state.listGara}
+
+                                    /></div>}
                                 {groupId === 4 && <div className='col-6'>   <label className=''>chon gara</label>
                                     <Select
                                         placeholder={'CHON gara'}
@@ -353,7 +362,7 @@ class ManageSchedule extends Component {
 
                                     /></div>}
 
-                                <div className={groupId === 4 ? 'col-6' : 'col-12'}>
+                                <div className={groupId === 4 || groupId === 3 ? 'col-6' : 'col-12'}>
                                     <label className=''>chon ngay</label>
                                     <ReactDatePicker
                                         onChange={this.handleChangedatePick}
