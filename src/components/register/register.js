@@ -223,7 +223,7 @@ class Register extends Component {
 
             }
             if (data && data.EC === 1) {
-                toast.error(data.EM)
+                toast.success(data.EM)
             }
             if (data && data.EC === 2) {
                 toast.error(data.EM)

@@ -21,7 +21,7 @@ class ManageUser extends Component {
             selectGroup: {},
             listUser: [],
             currenpage: 1,
-            currenlimit: 5,
+            currenlimit: 10,
             totalpage: 0,
             showModel: false,
             showModelUser: false,
@@ -207,15 +207,17 @@ class ManageUser extends Component {
                 <div className='container'>
                     <div className='manage-user-container'>
                         <div className='user-header row'>
-                            <div className='tiltle col-12'><h3>Tabble user</h3>
+                            <div className='tiltle col-12'><h3>Quản lý người dùng</h3>
+
                             </div>
-                            <div className='actionform col-12 row'>
-                                <div className='col-12'>
-                                    <label class="form-label">nhao ten nguoi dung</label>
-                                    <input onChange={(event) => this.handOnchaneNameUser(event)} type="text" class="form-control" />
+                            <hr></hr>
+                            <div className='col-12 row'>
+                                <div className='col-4'>
+                                    <label class="form-group fw-bold">Nhập tên người dùng</label>
+                                    <input onChange={(event) => this.handOnchaneNameUser(event)} type="text" class="form-control" placeholder='Nhập bất kỳ...' />
                                 </div>
                                 <div className='col-4'>
-                                    <label>chon group</label>
+                                    <label className='form-group fw-bold'>Chọn group</label>
                                     <Select
 
                                         placeholder={'CHON gara'}
@@ -225,28 +227,29 @@ class ManageUser extends Component {
 
                                     />
                                 </div>
-                                <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+                                <div className='col-4 justify-content-center'>
+                                    <button onClick={() => this.Search()} className='button btn btn-primary mt-4 '>tim kiem</button>
                                 </div>
 
 
 
-
-
-
                             </div>
-                            <div className='action'>
-                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3 '>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
-                                <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Add New user <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
+                            <hr></hr>
+                            <div className='justify-content-center'>
+
+                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3 '>Làm mới trang web <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                                <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Thêm người dùng mới <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
                             </div>
                         </div>
                         <div className='user-body'>
-                            <table className="table table-hover table-bordered my-3">
+                            <table className="table table-hover table-bordered  table-responsive table-primary">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">USER NAME</th>
-                                        <th scope="col">EMAIL</th>
-                                        <th scope="col">GROUP</th>
+                                        <th scope="col">Tên người dùng</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Nhóm quyền</th>
+                                        <th scope="col">Số điện thoại</th>
                                         <th scope="col">action</th>
                                     </tr>
                                 </thead>
@@ -262,7 +265,8 @@ class ManageUser extends Component {
                                                             <td>{item.userName}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.groupData ? item.groupData.name : ''}</td>
-                                                            <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary'>update</button>
+                                                            <td>{item.phone}</td>
+                                                            <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary mx-2'>update</button>
                                                                 <button onClick={() => this.handlDeletetUser(item)} className='btn btn-danger'>delete</button></td>
                                                         </tr>
                                                     )
@@ -273,7 +277,7 @@ class ManageUser extends Component {
                                                 })
                                             }
                                         </> : <>
-                                            <tr><td>not fout user</td></tr>
+                                            <tr>Không có dữ liệu</tr>
                                         </>
 
                                     }

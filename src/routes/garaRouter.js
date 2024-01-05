@@ -22,6 +22,7 @@ import ManageBookingGara from "../components/Gara/manageBooking";
 import ManageOrder from "../components/Gara/manageOrder.js";
 import MyOrder from "../components/customer/gara/MyOrder.js";
 import UpadateGara from "../components/Gara/updateGara.js";
+import DetailAccount from "../components/customer/manageAccount/manageAccount.js"
 class GaraRouter extends Component {
 
 
@@ -57,6 +58,7 @@ class GaraRouter extends Component {
                         <PrivateRole exact path="/manageOrder" component={ManageOrder} />
                         <PrivateRole exact path="/myOrder" component={MyOrder} />
                         <PrivateRole exact path='/UpadateGara/:id' component={UpadateGara} />
+                        <PrivateRole path="/Account" component={DetailAccount} />
 
 
 

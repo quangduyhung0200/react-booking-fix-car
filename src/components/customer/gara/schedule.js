@@ -37,20 +37,9 @@ class GaraSchedule extends Component {
         if (res.EC === 0) {
             this.setState({
                 allAvailbleTime: res.DT ? res.DT : [],
-                garaId: this.props.garaId,
+
                 allDay: results2
             })
-        }
-        if (this.props.garaId !== '') {
-            let allday = this.getArrDay()
-            let res = await readAllScheduleByDate(this.props.garaId, allday[0].value / 1000)
-            if (res.EC === 0) {
-                this.setState({
-                    allAvailbleTime: res.DT ? res.DT : [],
-                    garaId: this.props.garaId
-                })
-            }
-
         }
 
 
@@ -87,22 +76,31 @@ class GaraSchedule extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
+
+
         if (prevProps.garaId !== this.props.garaId) {
 
             let allday2 = await getAllDay(this.props.garaId)
+
             let allday3 = allday2.DT
             let allday = this.getArrDay()
-            const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
 
+            const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
             let res = await readAllScheduleByDate(this.props.garaId, allday[0].value / 1000)
-            if (res.EC === 0) {
-                this.setState({
-                    allAvailbleTime: res.DT ? res.DT : [],
-                    garaId: this.props.garaId,
-                    allDay: results2
-                })
-            }
+
+            this.setState({
+                allAvailbleTime: res.DT ? res.DT : [],
+
+                allDay: results2
+            })
+
+
+
+
+
+
         }
+
 
 
     }
@@ -147,6 +145,7 @@ class GaraSchedule extends Component {
         let { allDay } = this.state
 
         let { allAvailbleTime } = this.state
+
         return (
             <>
                 <div className='docter-schedule-container'>
@@ -195,6 +194,7 @@ class GaraSchedule extends Component {
                     </div>
                 </div>
                 <ModelBooking
+                    garaId={this.props.garaId}
                     isOpentTogger={this.state.isOpentTogger}
                     closeBookingModel={this.closeBookingModel}
                     dataModelSchedule={this.state.dataModelSchedule}

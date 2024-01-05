@@ -52,13 +52,37 @@ const searchGara = async (data) => {
     return axios.get(`/api/v1/gara/searchGara?gara=${data.gara}&provind=${data.provind}`)
 }
 
+const searchCar = async (data) => {
+    return axios.get(`/api/v1/car/searchCar?car=${data.car}&carcompany=${data.carcompany}`)
+}
 
 
+const createCarCompany = async (data) => {
+    return axios.post(`/api/v1/carCompany/createCarCompany`, { ...data })
+}
 
+const updateCarCompany = async (data) => {
+    return axios.put(`/api/v1/carCompany/updateCarCompany`, { ...data })
+}
+
+const searchCarCompany = async (data) => {
+    return axios.get(`/api/v1/carCompany/searchCarcompany?carcompany=${data.carcompany}`)
+}
+
+
+const getAllCommentbypage = async (page, limit) => {
+    return axios.get(`/api/v1/comment/getComentbypage?page=${page}&limit=${limit}`)
+}
+
+
+const searchComment = async (data) => {
+    return axios.get(`/api/v1/comment/searchComment?gara=${data.gara}&user=${data.user}&rate=${data.rate}`)
+}
 
 
 
 export {
     feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook, createHandbook, updateHandbook, getAllGarabyPageStaff,
-    getAllBookingbyPageStaff, getAllStatus, updateBooking, searchBooking, searchUser, searchGaranocenser, searchGara
+    getAllBookingbyPageStaff, getAllStatus, updateBooking, searchBooking, searchUser, searchGaranocenser, searchGara, searchCar, createCarCompany, updateCarCompany,
+    searchCarCompany, getAllCommentbypage, searchComment
 }

@@ -59,6 +59,7 @@ class Navigate extends Component {
                                     <NavDropdown title="Dropdown" id="basic-nav-dropdown">
 
                                         <Link className='nav-link' to="/RegisterGara">RegisterGara</Link>
+                                        <Link className='nav-link' to="/Account">trang co nhan</Link>
 
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item>

@@ -43,11 +43,25 @@ class ModelBooking extends Component {
             timeid: '',
             time: '',
             date: '',
+            phone: '',
             serviceCheck: [],
-            priceId: ''
+            priceId: '',
+            isValidEmail: true,
+            isValidUserName: true,
+            isValidphone: true,
+
+
+            isValidCar: true,
+            isValidAddress: true,
+            isValidService: true,
+            isValidReson: true
+
 
 
         }
+    }
+    isNumeric = (value) => {
+        return /^-?\d+$/.test(value);
     }
     async componentDidMount() {
         let data = await getAllService()
@@ -122,18 +136,121 @@ class ModelBooking extends Component {
             ...coppyState
         })
     }
-    handleChangedatePick = (date) => {
+    vetyfyData = () => {
+
+        let { customerName, customerEmail, phone, customerAddress, customerReson, selectCarId, selectService, isValidReson, isValidCar } = this.state
+        let re = /\S+@\S+\.\S+/;
+        let coppyStatea = { ...this.state }
+        coppyStatea.isValidEmail = true
+        coppyStatea.isValidUserName = true
+        coppyStatea.isValidCar = true
+        coppyStatea.isValidService = true
+        coppyStatea.isValidAddress = true
+        coppyStatea.isValidphone = true
 
 
-    }
 
-    buildTimeBooking = (data) => {
+        this.setState({
+            ...coppyStatea
+        })
 
-    }
-    buildDocterName = (data) => {
 
-    }
-    handlConfierButton = async () => {
+        if (!customerName) {
+
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidUserName = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+        if (this.isNumeric(phone) === false) {
+
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidphone = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+        if (!phone) {
+
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidphone = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+        if (!customerEmail) {
+
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidEmail = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+        if (!re.test(customerEmail)) {
+
+            toast.error('ples enter email address')
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidEmail = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+
+
+        if (!customerAddress) {
+
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidAddress = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+
+
+        if (!customerReson) {
+
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidReson = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+        if (!selectCarId.value) {
+
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidCar = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+        if (!selectService.value) {
+
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidService = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
+
+
+
+
+
+
+
+
+        return true
+
 
 
     }
@@ -235,15 +352,34 @@ class ModelBooking extends Component {
         resuf.carId = data.selectCarId.value
         resuf.serviceId = data.selectService.value
         resuf.priceId = data.priceId
+        resuf.phone = data.phone
         return resuf
 
 
 
     }
     handlSaveBooking = async () => {
-        let data = this.buidDataSave(this.state)
+        let check = this.vetyfyData()
+        if (check) {
 
-        let res = await postBooking(data)
+            let data = this.buidDataSave(this.state)
+
+            let res = await postBooking(data)
+            if (res.EC === 0) {
+                toast.success('dat lich thanh cong, vui long kiem tra email de xac nhan')
+                this.props.closeBookingModel()
+            }
+            if (res.EC === 1) {
+                toast.success('thong tin banj nhap co ve bi sai, vui long kiem tra lai')
+            }
+            if (res.EC === 2) {
+                toast.success('thogn tin nay da duoc dat truoc do, vui long kiem tra lai')
+            }
+
+        }
+        else {
+            toast.error('ghi thieu thong tin')
+        }
 
     }
     render() {
@@ -252,6 +388,8 @@ class ModelBooking extends Component {
 
         let { garaName, garaAddress, garaDescription, garaProvind, garaAvata } = this.state
 
+        let { customerName, customerEmail, phone, customerAddress, customerReson, selectCarId, selectService, isValidEmail, isValidUserName, isValidphone, isValidCar, isValidAddress
+            , isValidService, isValidReson } = this.state
         if (garaAvata.data) {
 
             imageBase64 = new Buffer(garaAvata.data, 'base64').toString('binary')
@@ -302,16 +440,27 @@ class ModelBooking extends Component {
                                 <label>ho ten</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'customerName')}
-                                    type='text' className='form-control'
+                                    type='text'
+                                    className={isValidUserName === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder='descriptions '
                                     value={this.state.customerName} required></input>
+                            </div>
+                            <div className='col-12   col-sm-6 from-group'>
+                                <label>so dien thoai</label>
+                                <input
+                                    onChange={(event) => this.handlOnchaneInput(event.target.value, 'phone')}
+                                    type='text'
+                                    className={isValidphone === true ? 'form-control' : 'form-control is-invalid'}
+                                    placeholder='descriptions '
+                                    value={this.state.phone} required></input>
                             </div>
 
                             <div className='col-12   col-sm-6 from-group'>
                                 <label>email</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'customerEmail')}
-                                    type='email' className='form-control'
+                                    type='email'
+                                    className={isValidEmail === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder='descriptions '
                                     value={this.state.customerEmail} required></input>
                             </div>
@@ -320,7 +469,8 @@ class ModelBooking extends Component {
                                 <label>dia chi</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'customerAddress')}
-                                    type='text' className='form-control'
+                                    type='text'
+                                    className={isValidAddress === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder='descriptions '
                                     value={this.state.customerAddress} required></input>
                             </div>
@@ -329,14 +479,16 @@ class ModelBooking extends Component {
                                 <label>mieu ta tinh tinh hinh xe</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'customerReson')}
-                                    type='text' className='form-control'
+                                    type='text'
+                                    className={isValidReson === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder='descriptions '
                                     value={this.state.customerReson} required></input>
                             </div>
 
                             <div className='col-12 col-sm-6 from-group'>
-                                <label>list car</label>
+                                <label className={isValidCar === true ? '' : 'is-invalid'}>list car</label>
                                 <Select
+                                    className={isValidCar === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder={'CHON XE'}
                                     value={this.state.selectCarId}
                                     onChange={this.handleChange}
@@ -347,12 +499,16 @@ class ModelBooking extends Component {
                             <div className='col-12 col-sm-6 from-group'>
                                 <label>list service</label>
                                 <Select
+                                    className={isValidService === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder={'CHON dich vu'}
                                     value={this.state.selectService}
                                     onChange={this.handleChangeService}
                                     options={this.state.listService}
 
                                 />
+                            </div>
+                            <div className='col-12 col-sm-6 from-group'>
+
                             </div>
                             <div className='col-12   col-sm-6 from-group'>
                                 <label>gia tien</label>

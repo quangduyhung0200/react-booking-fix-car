@@ -1,0 +1,18 @@
+.Car-Detail-Container {
+    .introduction {
+        display: flex;
+
+        .content-left {
+            border-radius: 0;
+            height: 300px;
+            width: 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+        }
+
+        .content-right {
+            width: 70%;
+        }
+    }
+}

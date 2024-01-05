@@ -20,11 +20,11 @@ class ProfileGara extends Component {
     }
     async componentDidMount() {
 
-        let data = await getAllGara()
-        this.setState({
-            dataProfile: data.DT
-        })
-        console.log(this.props.dataModelProfile)
+        // let data = await getAllGara()
+        // this.setState({
+        //     dataProfile: data.DT
+        // })
+
         if (this.props.dataModelProfile !== undefined) {
             let data = await getGaraInfo(this.props.dataModelProfile)
             console.log(data)
@@ -51,6 +51,7 @@ class ProfileGara extends Component {
             let allgara2 = allGara.DT
 
             const results = allgara2.filter(({ id: id1 }) => selectId.some(({ id: id2 }) => +id2 === +id1));
+
             this.setState({
                 dataProfile: results
             })
@@ -93,7 +94,7 @@ class ProfileGara extends Component {
                                 <>
 
                                     <div className='gara-childe row' key={`chile-${index}`}>
-                                        <div onClick={() => this.handOnclick()} className='group-1 col-7 row'>
+                                        <div onClick={() => this.handOnclick()} className='group-1 col-12 row'>
                                             <div className='avata col-3' style={{ backgroundImage: `url(${imageBase64 ? imageBase64 : ''})` }}>
 
                                             </div>
@@ -110,15 +111,7 @@ class ProfileGara extends Component {
                                             </div>
 
                                         </div>
-                                        <div className='group-2 col-5'>
-                                            <div className='content-left col-12' >
 
-                                                <GaraSchedule
-                                                    dataGara={item.provindGaraData}
-                                                    garaId={item.id} />
-
-                                            </div>
-                                        </div>
 
                                     </div>
 

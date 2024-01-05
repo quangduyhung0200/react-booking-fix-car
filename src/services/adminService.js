@@ -29,9 +29,31 @@ const deleteHandbook = async (handbook) => {
 const deleteGara = async (gara) => {
     return axios.delete(`/api/v1/gara/delete`, { data: { id: gara.id } });
 }
+const getAllStaff = async () => {
+    return axios.get(`/api/v1/staff/readAllStaff`);
+}
+
+const searchHandbookUncensor = async (data) => {
+    return axios.get(`/api/v1/handbook/searchHandbookUncensor?title=${data.title}&staff=${data.staff}`)
+}
+const searchHandbook = async (data) => {
+    return axios.get(`/api/v1/handbook/searchHandbook?title=${data.title}&staff=${data.staff}`)
+}
+
+const getCarCompanyByPage = async (page, limit) => {
+    return axios.get(`/api/v1/carCompany/getCarCompanyByPage?page=${page}&limit=${limit}`)
+}
+
+const deleteCarCompany = async (carcompany) => {
+    return axios.delete(`/api/v1/carCompany/deleteCarCompany`, { data: { id: carcompany.id } });
+}
+const deleteComment = async (comment) => {
+    return axios.delete(`/api/v1/comment/deleteComment`, { data: { id: comment.id, garaId: comment.garaId } });
+}
 
 
 
 export {
-    deleteCar, getHandBookById, accepHandBook, getAllGroup, updateUser, getAllHandbook, deleteUser, deleteHandbook, deleteGara
+    deleteCar, getHandBookById, accepHandBook, getAllGroup, updateUser, getAllHandbook, deleteUser, deleteHandbook, deleteGara, getAllStaff,
+    searchHandbookUncensor, searchHandbook, getCarCompanyByPage, deleteCarCompany, deleteComment
 }

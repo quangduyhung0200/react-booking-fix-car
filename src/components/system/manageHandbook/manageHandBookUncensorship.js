@@ -6,16 +6,21 @@ import moment from 'moment';
 import ReactPaginate from 'react-paginate';
 import { readHanndBook } from '../../../services/staffService';
 import { Buffer } from "buffer";
+import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
+import { getAllStaff, searchHandbookUncensor } from '../../../services/adminService';
 class ManageGaraHandBookHasNotPass extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            show: true,
+            listStaff: [],
+            selectStaff: {},
+            search: '',
             listHandBook: [],
             currenpage: 1,
-            currenlimit: 1,
+            currenlimit: 10,
             totalpage: 0,
 
 
@@ -33,14 +38,36 @@ class ManageGaraHandBookHasNotPass extends Component {
 
 
     };
+    buildDataSelectStaff = (inputData) => {
+
+        let resuf = []
+
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+
+
+                obj.label = item.userName
+                obj.value = item.id
+                resuf.push(obj);
+
+            })
+
+
+        }
+
+        return resuf
+    }
     async componentDidMount() {
         let { currenpage, currenlimit } = this.state
         let respons = await readHanndBook(currenpage, currenlimit, 'ALL')
-
+        let staff = await getAllStaff()
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
             coppystate.listHandBook = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
+            coppystate.listStaff = this.buildDataSelectStaff(staff.DT)
+
             this.setState({
                 ...coppystate
             })
@@ -68,6 +95,31 @@ class ManageGaraHandBookHasNotPass extends Component {
         this.props.history.push(`/checkdetailHandBook/${item.id}`)
 
     }
+    handleChangeStaff = (selectedOption) => {
+        this.setState({
+            selectStaff: selectedOption
+        })
+    }
+    handOnchaneTitle = (event) => {
+        this.setState({
+            search: event.target.value
+        })
+    }
+    Search = async () => {
+        let datainput = {
+            title: this.state.search,
+            staff: this.state.selectStaff.value ? this.state.selectStaff.value : 0
+        }
+        let data = await searchHandbookUncensor(datainput)
+        if (data.EC === 0) {
+            this.setState({
+                listHandBook: data.DT,
+                show: false
+            })
+        }
+
+
+    }
     render() {
 
         let { listHandBook } = this.state
@@ -80,7 +132,31 @@ class ManageGaraHandBookHasNotPass extends Component {
                             gara
                         </div>
                         <div className='m-p-body row'>
+                            <div className='actionform col-12 row'>
+                                <div className='col-12'>
+                                    <label class="form-label">nhao ten nhan vien</label>
+                                    <input onChange={(event) => this.handOnchaneTitle(event)} type="text" class="form-control" />
+                                </div>
+                                <div className='col-4'>
+                                    <label>chon cong ty</label>
+                                    <Select
 
+                                        placeholder={'CHON gara'}
+                                        value={this.state.selectStaff}
+                                        onChange={this.handleChangeStaff}
+                                        options={this.state.listStaff}
+
+                                    />
+                                </div>
+                                <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+                                </div>
+
+
+
+
+
+
+                            </div>
                             <div className='col-12'>
                                 <table className="table-patient table table-hover table-bordered my-3">
                                     <thead>
@@ -104,6 +180,7 @@ class ManageGaraHandBookHasNotPass extends Component {
 
                                                         let str = item.createdAt;
                                                         let endDate = Date.parse(str);
+
                                                         let s = new Date(endDate).toLocaleDateString("vi")
 
 
@@ -112,7 +189,7 @@ class ManageGaraHandBookHasNotPass extends Component {
 
                                                                 <td>{item.id}</td>
                                                                 <td>{item.title}</td>
-                                                                <td>{item.staffId}</td>
+                                                                <td>{item.StaffHandbookData.userName}</td>
                                                                 <td>{s}</td>
 
 
@@ -142,7 +219,7 @@ class ManageGaraHandBookHasNotPass extends Component {
 
                         <div className='user-footer'>
 
-                            <ReactPaginate
+                            {this.state.show === true && <ReactPaginate
                                 nextLabel="next >"
                                 onPageChange={this.handlePageClick}
                                 pageRangeDisplayed={3}
@@ -161,7 +238,7 @@ class ManageGaraHandBookHasNotPass extends Component {
                                 containerClassName="pagination"
                                 activeClassName="active"
                                 renderOnZeroPageCount={null}
-                            />
+                            />}
 
 
 

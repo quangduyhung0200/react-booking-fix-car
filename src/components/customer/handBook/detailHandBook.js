@@ -10,6 +10,7 @@ import Carousel from 'react-multi-carousel';
 import { withRouter } from 'react-router-dom';
 import { getTopHandBook, getTopHandBookRelateto } from '../../../services/guestService';
 import ProfileGara from '../gara/garaProfile';
+import GaraSchedule from "./../../customer/gara/schedule.js"
 
 class DetailHandBook extends Component {
     constructor(props) {
@@ -143,9 +144,11 @@ class DetailHandBook extends Component {
                         </div>
 
                         {garaId && garaId !== 0 ? <>
-                            <div className='gara-with-handbook col-12'>
+                            <div className='gara-with-handbook col-12 row m-y-5' >
                                 <h3>Đặt lịch tại gara ngay </h3>
-                                <ProfileGara dataModelProfile={this.state.garaId} />
+                                <div className='col-6'>        <ProfileGara dataModelProfile={this.state.garaId} /></div>
+                                <div className='col-6'>        <GaraSchedule garaId={this.state.garaId} /></div>
+
                             </div>
                         </> :
                             <><div className='gara-with-handbook col-12'>
@@ -156,7 +159,7 @@ class DetailHandBook extends Component {
                         }
 
 
-
+                        <hr></hr>
                         <div className='session-header'>
                             <h3 className='content-left'>Một số bài viết liên quan</h3>
                             <div className='content-right'> <button className='btn btn-warning'>Xem thêm</button></div>

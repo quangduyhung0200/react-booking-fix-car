@@ -21,6 +21,7 @@ import VerifyEmail from "../components/customer/vetifyEmail";
 import ManageBookingGara from "../components/Gara/manageBooking";
 import ManageOrder from "../components/Gara/manageOrder.js";
 import MyOrder from "../components/customer/gara/MyOrder.js";
+import DetailAccount from "../components/customer/manageAccount/manageAccount.js"
 class CustommerRouter extends Component {
 
 
@@ -51,6 +52,7 @@ class CustommerRouter extends Component {
                         <PrivateRole exact path="/RegisterGara" component={RegisterGara} />
 
                         <PrivateRole exact path="/myOrder" component={MyOrder} />
+                        <PrivateRole path="/Account" component={DetailAccount} />
 
 
 

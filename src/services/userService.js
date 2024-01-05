@@ -64,6 +64,13 @@ const createComment = async (data) => {
     return axios.post(`/api/v1/comment/create`, { ...data });
 }
 
+const searchOrder = async (data) => {
+    return axios.get(`/api/v1/order/searchOrder?gara=${data.gara}&status=${data.status}`);
+}
+
+const getUserById = async (userId) => {
+    return axios.get(`/api/v1/getUserbyId?id=${userId}`);
+}
 
 
 
@@ -81,5 +88,5 @@ export {
 
 
 
-    getAllOrderUser, createComment,
+    getAllOrderUser, createComment, searchOrder, getUserById
 }

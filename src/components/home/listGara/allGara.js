@@ -9,6 +9,8 @@ import Select from 'react-select';
 import HomeFooter from '../homeFooter/homeFooter';
 import { getAllProvind, feactAllCarCompany, feactAllCar, getAllGarabyProvind, getDataPickCar } from '../../../services/guestService';
 import _ from 'lodash';
+import { getGarabyProvindCarCompanyCar } from '../../../services/guestService';
+import GaraSchedule from "./../../customer/gara/schedule.js"
 class AllGara extends Component {
     constructor(props) {
         super(props);
@@ -401,21 +403,34 @@ class AllGara extends Component {
 
 
     }
-    handlSearch = () => {
+    handlSearch = async () => {
 
-        let data = {
+        let data2 = {
             selectCar: this.state.selectCar === '' ? { label: 'ALL', value: 0 } : this.state.selectCar,
             selectCarCompany: this.state.selectCarCompany === '' ? { label: 'ALL', value: 0 } : this.state.selectCarCompany,
             selectProvind: this.state.selectProvind === '' ? { label: 'ALL', value: 0 } : this.state.selectProvind
         }
+        let data = await getGarabyProvindCarCompanyCar(data2.selectProvind.value, data2.selectCarCompany.value, data2.selectCar.value)
+        let selectId = data.DT
+        let allGara = await getAllGara()
+        let allgara2 = allGara.DT
+
+        const results = allgara2.filter(({ id: id1 }) => selectId.some(({ id: id2 }) => +id2 === +id1));
+
+
+        let listGaraId = results.map(item => item.id)
+
+
+
         this.setState({
-            dataModel: data
+            dataModel: listGaraId
         })
     }
     render() {
 
 
-
+        let { dataModel } = this.state
+        console.log(dataModel)
         return (
 
 
@@ -467,7 +482,25 @@ class AllGara extends Component {
 
                 </div>
                 <div className='container'>
-                    <div className='content-down'>  <ProfileGara dataModel={this.state.dataModel} /></div>
+                    {dataModel && dataModel.length > 0 &&
+                        dataModel.map((item, index) => {
+                            return (
+
+                                <>    <div className='row '>
+                                    <div className='col-6'>
+                                        <ProfileGara dataModelProfile={item} />
+                                    </div>
+                                    <div className='col-6'>
+
+                                        <GaraSchedule garaId={item} /></div>
+                                </div>
+                                    <hr></hr>
+
+                                </>
+
+                            )
+                        })}
+
 
                 </div>
                 <HomeFooter /></>

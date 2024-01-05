@@ -43,25 +43,43 @@ class NavigateAdmim extends Component {
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
-                                    <NavLink to="/" exact className='nav-link'>admin</NavLink>
-                                    <NavLink to="/user" exact className='nav-link'>manage user</NavLink>
-                                    <NavLink to="/ManageGarahasntPass" exact className='nav-link'>manage gara un sucrip</NavLink>
-                                    <NavLink to="/ManageGara" exact className='nav-link'>manage gara</NavLink>
-                                    <NavLink to="/car" exact className='nav-link'>manage car</NavLink>
-                                    <NavLink to="/setSchedule" exact className='nav-link'>manage schedule</NavLink>
-                                    <NavLink to="/manage-booking" exact className='nav-link'>manage booking</NavLink>
-                                    <NavLink to="/manage-handBookuncensorship" exact className='nav-link'>manage handBook un censorship</NavLink>
-                                    <NavLink to="/manage-handBook" exact className='nav-link'>manage handBook</NavLink>
-                                    <NavLink to="/manage-PickCar" exact className='nav-link'>manage PickCar</NavLink>
-
+                                    <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
                                 </Nav>
+                                <NavDropdown title="Quản lý người dùng" id="basic-nav-dropdown">
+                                    <NavLink to="/user" exact className='nav-link'>Quản lý người dùng</NavLink>
+                                    <NavLink to="/manage-comment" exact className='nav-link'>Quản lý comment người dùng</NavLink>
 
+                                </NavDropdown>
+                                <NavDropdown title="Quản lý gara" id="basic-nav-dropdown">
+                                    <NavLink to="/ManageGarahasntPass" exact className='nav-link'>Quản lý gara chưa được phê duyệt</NavLink>
+                                    <NavLink to="/ManageGara" exact className='nav-link'>Quản lý gara đang hoạt động</NavLink>
+                                    <NavLink to="/manage-PickCar" exact className='nav-link'>Quản lý chọn xe cho gara</NavLink>
+                                    <NavLink to="/setSchedule" exact className='nav-link'>Quản lý đặt lịch sửa xe cho gara</NavLink>
+
+
+                                </NavDropdown>
+                                <NavDropdown title="Quản lý xe" id="basic-nav-dropdown">
+                                    <NavLink to="/car" exact className='nav-link'>Quản lý xe</NavLink>
+                                    <NavLink to="/manage-carCompany" exact className='nav-link'>Quản lý công ty xe</NavLink>
+
+
+                                </NavDropdown>
+                                <NavDropdown title="Quản lý đơn hàng" id="basic-nav-dropdown">
+                                    <NavLink to="/manage-booking" exact className='nav-link'>Quản lý đơn đặt lịch</NavLink>
+
+                                </NavDropdown>
+                                <NavDropdown title="Quản lý cẩm nang" id="basic-nav-dropdown">
+
+                                    <NavLink to="/manage-handBookuncensorship" exact className='nav-link'>Quản lý cẩm nang chưa phê duyệt</NavLink>
+                                    <NavLink to="/manage-handBook" exact className='nav-link'>Quản lý cẩm nang</NavLink>
+
+                                </NavDropdown>
                                 <Nav className='nav-link'>
                                     <Nav.Item  >Wellcome  {user.account.userName}</Nav.Item>
 
                                 </Nav>
-                                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="#action/3.1">Change Password</NavDropdown.Item>
+                                <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
+                                    <NavDropdown.Item href="/Account">Quản lý tài khoản</NavDropdown.Item>
 
 
                                     <NavDropdown.Divider />
@@ -70,6 +88,7 @@ class NavigateAdmim extends Component {
 
                                     </NavDropdown.Item>
                                 </NavDropdown>
+
 
 
                             </Navbar.Collapse>

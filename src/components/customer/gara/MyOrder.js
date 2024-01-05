@@ -5,11 +5,18 @@ import moment from 'moment';
 import { getAllOrderUser } from '../../../services/userService';
 import { template } from 'lodash';
 import CreateComent from './modelAddComent';
+import Select from 'react-select';
+import { getAllGara } from '../../../services/guestService';
+import { getAllStatus } from '../../../services/staffService';
+import { searchOrder } from '../../../services/userService';
 class MyOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            listGara: [],
+            selectGara: {},
+            listStatus: [],
+            selectStatus: {},
             currenDate: new Date(),
             garaId: '',
             dataBooking: {},
@@ -18,15 +25,56 @@ class MyOrder extends Component {
             dateModel: {}
         }
     }
+    buidDataInputSeclectGara = (inputData) => {
+        let resuf = []
+
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+
+
+                obj.label = item.nameGara
+                obj.value = item.id;
+                resuf.push(obj);
+
+            })
+
+
+        }
+
+        return resuf
+    }
+    buidDataInputSeclectStatus = (inputData) => {
+        let resuf = []
+
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+
+
+                obj.label = item.description
+                obj.value = item.status;
+                resuf.push(obj);
+
+            })
+
+
+        }
+
+        return resuf
+    }
     async componentDidMount() {
 
 
 
 
-
+        let gara = await getAllGara()
+        let status = await getAllStatus()
         let res = await getAllOrderUser(this.context.user.account.id)
         this.setState({
             dataBooking: res.DT,
+            listGara: this.buidDataInputSeclectGara(gara.DT),
+            listStatus: this.buidDataInputSeclectStatus(status.DT)
 
         })
 
@@ -74,7 +122,28 @@ class MyOrder extends Component {
         })
     }
 
-
+    handleChangeGara = (selectedOption) => {
+        this.setState({
+            selectGara: selectedOption
+        })
+    }
+    handleChangeStatus = (selectedOption) => {
+        this.setState({
+            selectStatus: selectedOption
+        })
+    }
+    Search = async () => {
+        let datainput = {
+            gara: this.state.selectGara.value ? this.state.selectGara.value : 0,
+            status: this.state.selectStatus.value ? this.state.selectStatus.value : 0
+        }
+        let res = await searchOrder(datainput)
+        if (res.EC === 0) {
+            this.setState({
+                dataBooking: res.DT
+            })
+        }
+    }
     render() {
 
         let dataBooking = this.state.dataBooking
@@ -82,7 +151,41 @@ class MyOrder extends Component {
             <>
                 <div className='manage-patient-container'>
                     <div className='m-p-title'>
-                        Quan ly benh nhan kham benh
+                        Quan ly don hang cua toi
+                    </div>
+                    <div className='actionform col-12 row'>
+
+                        <div className='col-4'>
+                            <label>chon cong ty</label>
+                            <Select
+
+                                placeholder={'CHON gara'}
+                                value={this.state.selectGara}
+                                onChange={this.handleChangeGara}
+                                options={this.state.listGara}
+
+                            />
+                        </div>
+                        <div className='col-4'>
+                            <label>chon cong ty</label>
+                            <Select
+
+                                placeholder={'CHON gara'}
+                                value={this.state.selectStatus}
+                                onChange={this.handleChangeStatus}
+                                options={this.state.listStatus}
+
+                            />
+                        </div>
+
+                        <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+                        </div>
+
+
+
+
+
+
                     </div>
                     <div className='m-p-body row'>
 
@@ -90,27 +193,33 @@ class MyOrder extends Component {
                             <table style={{ width: '100%' }} className='table-patient'>
                                 <tbody>
                                     <tr>
-                                        <th >STT</th>
+                                        <th >ID</th>
                                         <th>thoi  gian</th>
-                                        <th>HO VA TEN</th>
-                                        <th>email</th>
-                                        <th>DIA CHI</th>
+                                        <th>gara</th>
+                                        <th>dia chi</th>
+
+                                        <th>so dien thoai gara</th>
+
                                         <th>trang thai don hang</th>
                                         <th>ACTION</th>
                                     </tr>
                                     {dataBooking && dataBooking.length > 0 &&
                                         dataBooking.map((item, index) => {
+
+                                            let s = new Date(item.date * 1000).toLocaleDateString("vi")
                                             return (
 
                                                 <tr key={`child-${index}`}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{item.timeDataBooking.timValue}</td>
-                                                    <td>{item.bookingData.userName}</td>
-                                                    <td>{item.bookingData.email}</td>
-                                                    <td>{item.bookingData.address}</td>
-                                                    <td>{item.status === 'S2' ? 'don hang dang doi gara xac nhan' : item.status === 'S3' ? 'don hang dng tien hanh' : item.status === 'S4' ? 'don hang da hoan thnah' : item.status === 'S5' ? 'don hang da duoc danh gia' : 'don hang da that bai'}</td>
-                                                    <td><button className={item.status === 'S4' ? 'btn btn-primary mx-3' : 'btn btn-primary mx-3 disabled'}
-                                                        onClick={() => this.hanldOnclickConfid(item)}>xacs nhan hoan thanh don hang</button>
+                                                    <td>{item.id}</td>
+                                                    <td>{item.timeDataBooking.timValue} ngay {s}</td>
+                                                    <td>{item.bookingDataGara.nameGara}</td>
+                                                    <td>{item.bookingDataGara.address}, Tỉnh {item.bookingDataGara.provindGaraData.name}</td>
+                                                    <td>{item.bookingDataGara.phone}</td>
+
+                                                    <td>{item.statusBooking.description}</td>
+                                                    <td>
+                                                        {item.status === 'S4' && <button className='btn btn-primary mx-3'
+                                                            onClick={() => this.hanldOnclickConfid(item)}>xacs nhan hoan thanh don hang</button>}
                                                     </td>
                                                 </tr>
                                             )

@@ -9,6 +9,8 @@ import { Buffer } from "buffer";
 import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
 import { getAllProvind } from '../../../services/guestService';
+import { accepGara } from '../../../services/staffService';
+import { toast } from 'react-toastify';
 class ManageGaraFromStaffNotYetPass extends Component {
 
     constructor(props) {
@@ -116,6 +118,31 @@ class ManageGaraFromStaffNotYetPass extends Component {
             })
         }
     }
+    handlAcepGara = async (user) => {
+        let respons = await accepGara(user.id)
+        if (respons && respons.EC === 0) {
+
+            toast.success('da xet duyet thanh cong')
+            let { currenpage, currenlimit } = this.state
+            let respons = await feactAllGara(currenpage, currenlimit)
+
+            if (respons && respons.EC === 0) {
+                let coppystate = { ...this.state }
+                coppystate.listUser = respons.DT.user
+                coppystate.totalpage = respons.DT.totalPage
+                this.setState({
+                    ...coppystate
+                })
+
+            }
+
+
+        }
+
+    }
+    handlRefesh = () => {
+        window.location.reload()
+    }
     render() {
 
         let { listGara } = this.state
@@ -123,50 +150,51 @@ class ManageGaraFromStaffNotYetPass extends Component {
         return (
             <>
                 <>
-                    <div className='manage-patient-container container'>
-                        <div className='m-p-title'>
-                            gara
-                        </div>
-                        <div className='tiltle col-12'><h3>Tabble user</h3>
-                        </div>
-                        <div className='actionform col-12 row'>
-                            <div className='col-12'>
-                                <label class="form-label">nhao ten nguoi dung</label>
-                                <input onChange={(event) => this.handOnchaneGaraName(event)} type="text" class="form-control" />
+                    <div className='manage-garauncenser-container container'>
+
+                        <div className='tiltle col-12'>
+                            <h3>Quản lý xét duyệt gara</h3>
+                            <hr></hr>
+                            <div className='actionform col-12 row'>
+                                <div className='col-4'>
+                                    <label class="fw-bold">Nhập tên gara</label>
+                                    <input onChange={(event) => this.handOnchaneGaraName(event)} type="text" class="form-control" />
+                                </div>
+                                <div className='col-4'>
+                                    <label className='fw-bold'>Chọn tỉnh thành</label>
+                                    <Select
+
+                                        placeholder={'CHON gara'}
+                                        value={this.state.selectProvind}
+                                        onChange={this.handleChangeProvind}
+                                        options={this.state.listProvind}
+
+                                    />
+                                </div >
+                                <div className='col-4'>
+                                    <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4 '>tim kiem</button>
+                                </div>
+                                <hr></hr>
+                                <div className='action my-2'>
+                                    <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+
+                                </div>
                             </div>
-                            <div className='col-4'>
-                                <label>chon group</label>
-                                <Select
-
-                                    placeholder={'CHON gara'}
-                                    value={this.state.selectProvind}
-                                    onChange={this.handleChangeProvind}
-                                    options={this.state.listProvind}
-
-                                />
-                            </div>
-                            <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
-                            </div>
-
-
-
-
-
-
                         </div>
+
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3">
+                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">gara NAME</th>
-                                            <th scope="col">address</th>
-                                            <th scope="col">provindId</th>
+                                            <th scope="col">Tên gara</th>
+                                            <th scope="col">Địa chỉ</th>
+                                            <th scope="col">Tỉnh thành</th>
 
-                                            <th scope="col">phone</th>
-                                            <th scope="col">description</th>
+                                            <th scope="col">Số điện thoại</th>
+                                            <th scope="col">Miêu tả</th>
                                             <th scope="col">action</th>
                                         </tr>
                                     </thead>
@@ -189,9 +217,9 @@ class ManageGaraFromStaffNotYetPass extends Component {
                                                                 <td>{item.description}</td>
 
 
-                                                                <td><button onClick={() => this.handlViewDetailGara(item)} className='button btn btn-primary'>view</button>
-                                                                    <button className='button btn btn-primary'>accep</button>
-                                                                    <button className='button btn btn-danger'>denice</button></td>
+                                                                <td><button onClick={() => this.handlViewDetailGara(item)} className='button btn btn-primary mx-2'>Xem chi tiết</button>
+                                                                    <button onClick={() => this.handlAcepGara(item)} className='button btn btn-primary mx-2'>Chấp thuận </button>
+                                                                    <button className='button btn btn-danger'>Từ chối</button></td>
                                                             </tr>
                                                         )
 
@@ -201,7 +229,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr><td>not fout user</td></tr>
+                                                <tr>Không có dữ liệu</tr>
                                             </>
 
                                         }

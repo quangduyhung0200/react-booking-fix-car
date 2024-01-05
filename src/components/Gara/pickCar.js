@@ -3,17 +3,18 @@ import React, { Component } from 'react';
 import { UserContext } from "../../context/userContext"
 import { getDataGara } from '../../services/garaService';
 import { Buffer } from 'buffer';
-import Select from 'react-select';
+
 import { deletePickCar } from '../../services/garaService';
 import { registerCartoGara } from '../../services/garaService';
 import { getAllPrice, getAllPayment, getAllService } from '../../services/guestService';
-import { getDataCarById } from '../../services/guestService';
+
 import { getDataPickCar, } from '../../services/guestService';
 import { feactAllCarCompany } from '../../services/guestService';
 import DetailCar from '../customer/car/carDetail'
 import { getAllGara } from '../../services/guestService';
 import _ from 'lodash';
-
+import './PickCar.scss'
+import { toast } from 'react-toastify';
 
 
 class PickCar extends Component {
@@ -240,6 +241,12 @@ class PickCar extends Component {
         let dataSave = this.buidDataSave(this.state)
 
         let res = await registerCartoGara(dataSave)
+        if (res.EC === 0) {
+            toast.success('Thêm thành công dữ liệu')
+        }
+        else {
+            toast.error(res.EM)
+        }
 
     }
     handlOnclickDeletePickCar = async () => {
@@ -248,6 +255,12 @@ class PickCar extends Component {
         let serviceId = this.state.selectService === '' ? 1 : this.state.selectService;
 
         let res = await deletePickCar(garaId, carId, serviceId)
+        if (res.EC === 0) {
+            toast.success('Xóa thành công dữ liệu')
+        }
+        else {
+            toast.error(res.EM)
+        }
     }
     handlOnchaneSelectGara = async (event) => {
         let data = await getDataGara(event.target.value)
@@ -284,7 +297,7 @@ class PickCar extends Component {
         console.log(this.state)
         return (
             <>
-                <div className='Docter-Detail-Container container'>
+                <div className='PickCar-Container container'>
                     <div className='row'>
                         <div className='introduction col-12 row'>
                             <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
@@ -300,37 +313,41 @@ class PickCar extends Component {
                                 </div>
                             </div>
                         </div>
-                        {this.context.user.account.role[0].id === 4 && <div className='col-4'>
-                            <p>chon gara</p>
-                            <select onChange={(event) => this.handlOnchaneSelectGara(event)} >
-                                {listGara && listGara.length > 0 &&
-                                    listGara.map((item, index) => {
-                                        return (
-                                            <option key={`chile-${index}`} value={item.userId}> {item.nameGara} </option>
-                                        )
-                                    })}
+                        <hr></hr>
+                        <div className='pick-Gara'>
+                            {this.context.user.account.role[0].id === 4 && <div className='col-4'>
+                                <p className='fw-bold'>Chọn gara</p>
+                                <select className='form-control' onChange={(event) => this.handlOnchaneSelectGara(event)} >
+                                    {listGara && listGara.length > 0 &&
+                                        listGara.map((item, index) => {
+                                            return (
+                                                <option key={`chile-${index}`} value={item.userId}> {item.nameGara} </option>
+                                            )
+                                        })}
 
 
-                            </select>
-                        </div>}
-                        {this.context.user.account.role[0].id === 3 && <div className='col-4'>
-                            <p>chon gara</p>
-                            <select onChange={(event) => this.handlOnchaneSelectGara(event)} >
-                                {listGara && listGara.length > 0 &&
-                                    listGara.map((item, index) => {
-                                        return (
-                                            <option key={`chile-${index}`} value={item.userId}> {item.nameGara} </option>
-                                        )
-                                    })}
+                                </select>
+                            </div>}
+                            {this.context.user.account.role[0].id === 3 && <div className='col-4'>
+                                <p className='fw-bold'>Chọn gara</p>
+                                <select className='form-control' onChange={(event) => this.handlOnchaneSelectGara(event)} >
+                                    {listGara && listGara.length > 0 &&
+                                        listGara.map((item, index) => {
+                                            return (
+                                                <option key={`chile-${index}`} value={item.userId}> {item.nameGara} </option>
+                                            )
+                                        })}
 
 
-                            </select>
-                        </div>}
+                                </select>
+                            </div>}
+                        </div>
 
+                        <hr className='my-2'></hr>
                         <div className='schedule-docter col-12 row '>
                             <div className='col-4'>
-                                <p>chon hang xe</p>
-                                <select onChange={(event) => this.handlOnchaneSelect(event, 'selectCarCompany')} >
+                                <p className='fw-bold'>Chọn hãng xe</p>
+                                <select className='form-control' onChange={(event) => this.handlOnchaneSelect(event, 'selectCarCompany')} >
                                     {listCarCompany && listCarCompany.length > 0 &&
                                         listCarCompany.map((item, index) => {
                                             return (
@@ -342,8 +359,8 @@ class PickCar extends Component {
                                 </select>
                             </div>
                             <div className='col-4'>
-                                <p>chon xe</p>
-                                <select onChange={(event) => this.handlOnchaneSelect(event, 'selectCar')} >
+                                <p className='fw-bold'>Chọn xe</p>
+                                <select className='form-control' onChange={(event) => this.handlOnchaneSelect(event, 'selectCar')} >
                                     {listCar && listCar.length > 0 &&
                                         listCar.map((item, index) => {
                                             return (
@@ -352,20 +369,10 @@ class PickCar extends Component {
                                         })}
                                 </select>
                             </div>
+
                             <div className='col-4'>
-                                <p>chon so tien toi thieu</p>
-                                <select onChange={(event) => this.handlOnchaneSelect(event, 'selectPrice')} >
-                                    {listPrice && listPrice.length > 0 &&
-                                        listPrice.map((item, index) => {
-                                            return (
-                                                <option key={`chile-${index}`} value={item.id}> {item.value} </option>
-                                            )
-                                        })}
-                                </select>
-                            </div>
-                            <div className='col-6'>
-                                <p>chon phuong thuc thanh toan</p>
-                                <select onChange={(event) => this.handlOnchaneSelect(event, 'selectPayment')} >
+                                <p className='fw-bold'>Chọn phương thức thành toán</p>
+                                <select className='form-control' onChange={(event) => this.handlOnchaneSelect(event, 'selectPayment')} >
                                     {listPayment && listPayment.length > 0 &&
                                         listPayment.map((item, index) => {
                                             return (
@@ -375,8 +382,8 @@ class PickCar extends Component {
                                 </select>
                             </div>
                             <div className='col-6'>
-                                <p>chon dich vu muon chon</p>
-                                <select onChange={(event) => this.handlOnchaneSelect(event, 'selectService')} >
+                                <p className='fw-bold'>Chọn số dịch vụ</p>
+                                <select className='form-control' onChange={(event) => this.handlOnchaneSelect(event, 'selectService')} >
                                     {listService && listService.length > 0 &&
                                         listService.map((item, index) => {
                                             return (
@@ -385,14 +392,28 @@ class PickCar extends Component {
                                         })}
                                 </select>
                             </div>
+                            <div className='col-6'>
+                                <p className='fw-bold'>Chọn số tiền cho dịch vụ này</p>
+                                <select className='form-control' onChange={(event) => this.handlOnchaneSelect(event, 'selectPrice')} >
+                                    {listPrice && listPrice.length > 0 &&
+                                        listPrice.map((item, index) => {
+                                            return (
+                                                <option key={`chile-${index}`} value={item.id}> {item.value} </option>
+                                            )
+                                        })}
+                                </select>
+                            </div>
 
 
                         </div>
-                        <div className='detail-info-docter col-12'>
+                        <hr></hr>
+                        <div className='detail-Car col-12'>
                             <DetailCar carId={this.state.selectCar} />
                         </div>
-                        <div><button onClick={() => this.handlOnclickSavePickCar()} className='btn btn-primary'>save</button>
-                            <button onClick={() => this.handlOnclickDeletePickCar()} className='btn btn-primary'>khong chon xe nay nua</button></div>
+                        <hr></hr>
+                        <div className='action'>
+                            <button onClick={() => this.handlOnclickSavePickCar()} className='btn btn-primary mx-3'>Lưu thông tin</button>
+                            <button onClick={() => this.handlOnclickDeletePickCar()} className='btn btn-warning'>Xóa thông tin đang chọn</button></div>
                     </div>
 
                 </div >

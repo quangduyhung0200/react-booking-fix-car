@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from "../../context/userContext"
 import ReactPaginate from 'react-paginate';
-import { feactAllGara, readHanndBook, } from '../../services/staffService';
+import './manageGara.scss'
 import { Buffer } from 'buffer';
 import { getAllGarabyPageStaff, searchGara } from '../../services/staffService';
 import ModelconfimdeledeGara from '../system/manageGara/modelDelete';
@@ -174,54 +174,65 @@ class ManageGaraStaff extends Component {
             selectProvind: selectedOption
         })
     }
+    handlRefesh = () => {
+        window.location.reload()
+    }
     render() {
 
         let { listGara, groupId } = this.state
         return (
             <>
-                <div className='manage-patient-container container'>
-                    <div className='m-p-title'>
-                        gara
-                    </div>
-                    <div className='tiltle col-12'><h3>Tabble user</h3>
-                    </div>
-                    <div className='actionform col-12 row'>
-                        <div className='col-12'>
-                            <label class="form-label">nhao ten nguoi dung</label>
-                            <input onChange={(event) => this.handOnchaneGaraName(event)} type="text" class="form-control" />
+                <div className='manage-gara-container container'>
+
+                    <div className='tiltle '>
+                        <h3>Quản lý gara</h3>
+                        <hr></hr>
+                        <div className='actionform col-12 row'>
+                            <div className='col-4'>
+                                <label class="fw-bold">Nhập tên gara</label>
+                                <input onChange={(event) => this.handOnchaneGaraName(event)} type="text" class="form-control" />
+                            </div>
+                            <div className='col-4'>
+                                <label class="fw-bold">Chọn tỉnh thành</label>
+                                <Select
+
+                                    placeholder={'CHON gara'}
+                                    value={this.state.selectProvind}
+                                    onChange={this.handleChangeProvind}
+                                    options={this.state.listProvind}
+
+                                />
+                            </div>
+                            <div className='col-4'>
+                                <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>Tìm kiếm</button>
+                            </div>
+
+
+
+
+                            <div className='action my-2'>
+                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+
+                            </div>
+
                         </div>
-                        <div className='col-4'>
-                            <label>chon group</label>
-                            <Select
-
-                                placeholder={'CHON gara'}
-                                value={this.state.selectProvind}
-                                onChange={this.handleChangeProvind}
-                                options={this.state.listProvind}
-
-                            />
-                        </div>
-                        <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
-                        </div>
-
-
-
-
-
-
                     </div>
+
                     <div className='m-p-body row'>
 
                         <div className='col-12'>
-                            <table className="table-patient table table-hover table-bordered my-3">
+                            <table className="table-patient table table-hover table-bordered my-3 table-primary">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">gara NAME</th>
-                                        <th scope="col">description</th>
-                                        <th scope="col">trang thai</th>
-                                        <th scope="col">sodien thaoi</th>
-                                        <th scope="col">dia chi</th>
+                                        <th scope="col">Tên gara</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Tỉnh thành</th>
+
+                                        <th scope="col">Số điện thoại</th>
+
+                                        <th scope="col">Miêu tả</th>
+                                        <th scope="col">Trạng thái</th>
                                         <th scope="col">action</th>
                                     </tr>
                                 </thead>
@@ -236,18 +247,18 @@ class ManageGaraStaff extends Component {
 
                                                     <td>{item.id}</td>
                                                     <td>{item.nameGara}</td>
-                                                    <td>{item.description}</td>
+                                                    <td>{item.address}</td>
 
 
 
-                                                    <td>{item.status === 'S1' ? 'gara dang duoc phe duyet' : 'gara da duoc phe duyet'}</td>
+
+                                                    <td>{item.provindGaraData.name}</td>
                                                     <td>{item.phone}</td>
-                                                    <td>{item.address}, Tỉnh: {item.provindGaraData.name}</td>
-
-
-                                                    <td><button onClick={() => this.handOnlcickView(item)} className='button btn btn-primary'>view</button>
-                                                        <button onClick={() => this.handOnlcickUpdate(item)} className='button btn btn-warning'>update</button>
-                                                        {groupId === 4 && <button onClick={() => this.handOnlcickDelete(item)} className='button btn btn-warning'>delete</button>}
+                                                    <td>{item.description}</td>
+                                                    <td>{item.status === 'S1' ? 'gara dang duoc phe duyet' : 'gara da duoc phe duyet'}</td>
+                                                    <td><button onClick={() => this.handOnlcickView(item)} className='button btn btn-primary mx-2'>view</button>
+                                                        <button onClick={() => this.handOnlcickUpdate(item)} className='button btn btn-warning mx-2'>update</button>
+                                                        {groupId === 4 && <button onClick={() => this.handOnlcickDelete(item)} className='button btn btn-danger'>delete</button>}
                                                     </td>
                                                 </tr>
 

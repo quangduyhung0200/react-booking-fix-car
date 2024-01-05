@@ -31,6 +31,8 @@ import UpadateGara from "../components/Gara/updateGara.js";
 import detailHandBook from "../components/customer/handBook/detailHandBook.js";
 import PickCar from "../components/Gara/pickCar";
 import ManageBookingStaff from "../components/system/manageBooking/manageBooking.js"
+import manageCarCompany from "../components/system/manageCarCompany/manageCarCompany.js";
+import manageComment from "../components/system/manageComment/manageComment.js";
 class AdminRouter extends Component {
 
 
@@ -79,6 +81,9 @@ class AdminRouter extends Component {
                         <PrivateRole path='/detailHandbook/:id' component={detailHandBook} />
                         <PrivateRole path='/manage-PickCar' component={PickCar} />
                         <PrivateRole path='/manage-booking' component={ManageBookingStaff} />
+                        <PrivateRole path='/manage-carCompany' component={manageCarCompany} />
+                        <PrivateRole path='/manage-comment' component={manageComment} />
+
 
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />
 

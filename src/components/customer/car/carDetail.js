@@ -5,6 +5,7 @@ import { Buffer } from "buffer";
 import { UserContext } from "../../../context/userContext"
 import { getDataCarById } from '../../../services/guestService';
 import { withRouter } from 'react-router-dom';
+import './carDetail.scss'
 class DetailCar extends Component {
     constructor(props) {
         super(props);
@@ -71,18 +72,18 @@ class DetailCar extends Component {
         return (
             <>
 
-                <div className='Docter-Detail-Container container'>
+                <div className='Car-Detail-Container container'>
                     <div className='row'>
-                        <div className='introduction col-12 row'>
-                            <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
+                        <div className='introduction'>
+                            <div className='content-left' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
 
                             </div>
-                            <div className='content-right col-10'>
-                                <div className='up col-12'>
+                            <div className='content-right'>
+                                <div className='up'>
                                     {this.state.nameCar}
                                 </div>
 
-                                <div className='down col-12'>
+                                <div className='down'>
                                     {this.state.descriptionL}
                                 </div>
                             </div>

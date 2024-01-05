@@ -10,12 +10,19 @@ import _ from 'lodash';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { feactAllCar } from '../../../services/guestService';
 import { deleteCar } from '../../../services/adminService';
+import Select from 'react-select';
+import { feactAllCarCompany } from '../../../services/guestService';
+import { searchCar } from '../../../services/staffService';
 class ManageCar extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            listUser: [],
+            show: true,
+            search: '',
+            listCarCompany: [],
+            selectCarCompany: {},
+            listCar: [],
             currenpage: 1,
             currenlimit: 5,
             totalpage: 0,
@@ -37,6 +44,26 @@ class ManageCar extends Component {
 
 
     }
+    buildDataSelectCarCompany = (inputData) => {
+
+        let resuf = []
+
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+
+
+                obj.label = item.name
+                obj.value = item.id
+                resuf.push(obj);
+
+            })
+
+
+        }
+
+        return resuf
+    }
     onHideModelUser = async () => {
         this.setState({
             showModelUser: false,
@@ -49,7 +76,7 @@ class ManageCar extends Component {
 
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
-            coppystate.listUser = respons.DT.user
+            coppystate.listCar = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
             this.setState({
                 ...coppystate
@@ -72,11 +99,13 @@ class ManageCar extends Component {
     async componentDidMount() {
         let { currenpage, currenlimit } = this.state
         let respons = await feactAllCar(currenpage, currenlimit)
-
+        let carCompany = await feactAllCarCompany()
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
-            coppystate.listUser = respons.DT.user
+            coppystate.listCar = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
+            coppystate.listCarCompany = this.buildDataSelectCarCompany(carCompany.DT)
+
             this.setState({
                 ...coppystate
             })
@@ -90,7 +119,7 @@ class ManageCar extends Component {
 
             if (respons && respons.EC === 0) {
                 let coppystate = { ...this.state }
-                coppystate.listUser = respons.DT.user
+                coppystate.listCar = respons.DT.user
                 coppystate.totalpage = respons.DT.totalPage
                 this.setState({
                     ...coppystate
@@ -143,7 +172,7 @@ class ManageCar extends Component {
 
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
-            coppystate.listUser = respons.DT.user
+            coppystate.listCar = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
             this.setState({
                 ...coppystate
@@ -151,9 +180,32 @@ class ManageCar extends Component {
 
         }
     }
+    handleChangeCarCompany = async (selectedOption) => {
+        this.setState({
+            selectCarCompany: selectedOption
+        })
+    }
+    handOnchaneCarName = async (event) => {
+        this.setState({
+            search: event.target.value
+        })
+    }
+    Search = async () => {
+        let datainput = {
+            car: this.state.search,
+            carcompany: this.state.selectCarCompany.value ? this.state.selectCarCompany.value : 0
+        }
+        let data = await searchCar(datainput)
+        if (data.EC === 0) {
+            this.setState({
+                listCar: data.DT,
+                show: false
+            })
+        }
+    }
     render() {
 
-        let { listUser } = this.state
+        let { listCar } = this.state
 
         return (
             <>
@@ -165,6 +217,31 @@ class ManageCar extends Component {
                             <button className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
                             <button onClick={() => { this.SetShowmodelUser() }} className='btn btn-success'>Add New user <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
                         </div>
+                    </div>
+                    <div className='actionform col-12 row'>
+                        <div className='col-12'>
+                            <label class="form-label">nhao ten nguoi dung</label>
+                            <input onChange={(event) => this.handOnchaneCarName(event)} type="text" class="form-control" />
+                        </div>
+                        <div className='col-4'>
+                            <label>chon cong ty</label>
+                            <Select
+
+                                placeholder={'CHON gara'}
+                                value={this.state.selectCarCompany}
+                                onChange={this.handleChangeCarCompany}
+                                options={this.state.listCarCompany}
+
+                            />
+                        </div>
+                        <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+                        </div>
+
+
+
+
+
+
                     </div>
                     <div className='user-body'>
                         <table className="table table-hover table-bordered my-3">
@@ -180,10 +257,10 @@ class ManageCar extends Component {
                             </thead>
                             <tbody>
 
-                                {listUser && listUser.length > 0 ?
+                                {listCar && listCar.length > 0 ?
                                     <>
                                         {
-                                            listUser.map((item, index) => {
+                                            listCar.map((item, index) => {
                                                 let imageBase64 = ''
                                                 if (item.avata) {
 
@@ -220,7 +297,7 @@ class ManageCar extends Component {
                     </div>
 
                     <div className='user-footer'>
-                        <ReactPaginate
+                        {this.state.show === true && <ReactPaginate
                             nextLabel="next >"
                             onPageChange={this.handlePageClick}
                             pageRangeDisplayed={3}
@@ -240,6 +317,7 @@ class ManageCar extends Component {
                             activeClassName="active"
                             renderOnZeroPageCount={null}
                         />
+                        }
 
 
 

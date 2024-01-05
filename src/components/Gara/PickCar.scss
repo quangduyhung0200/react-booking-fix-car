@@ -1,0 +1,41 @@
+.PickCar-Container {
+    background-color: rgb(235, 240, 240);
+
+    .introduction {
+
+
+
+        .content-left {
+
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 10px 20px;
+
+            background: center center no-repeat;
+
+        }
+
+        .content-right {
+
+
+
+            .up {
+                font-size: 20px;
+                font-weight: 600;
+                padding-top: 15px;
+            }
+
+            .down {
+                padding-top: 10px;
+            }
+        }
+
+
+    }
+
+    .pick-Gara {
+
+        padding-bottom: 20px;
+    }
+}

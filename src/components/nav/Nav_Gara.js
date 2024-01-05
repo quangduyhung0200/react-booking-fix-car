@@ -56,7 +56,8 @@ class NavigateGara extends Component {
 
                                 </Nav>
                                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                                    <NavLink to="" exact className='nav-link'>chanePassword</NavLink>
+                                    <Link className='nav-link' to="/Account">trang co nhan</Link>
+
                                     <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>
                                     <NavLink to="/pickcar" exact className='nav-link'>pickcar</NavLink>
                                     <NavLink to="/setSchedule" exact className='nav-link'>Schedule</NavLink>
