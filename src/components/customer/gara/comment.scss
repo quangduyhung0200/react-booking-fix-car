@@ -6,10 +6,18 @@
             pointer-events: none !important;
         }
 
+        padding: 0 50px;
 
-        .comment-header {}
+        .comment-header {
+            .day {
+                font-size: 13px;
+                font-weight: 300;
+            }
+        }
 
-        .comment-rate {}
+        .comment-rate {
+            margin-bottom: 20px;
+        }
 
         .comment-body {}
     }
@@ -18,6 +26,8 @@
         .style-module_starRatingWrap__q-lJC {
             pointer-events: none !important;
         }
+
+
     }
 
 

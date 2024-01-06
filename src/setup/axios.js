@@ -33,7 +33,7 @@ instance.interceptors.response.use(function (response) {
 
             console.log('path name: ',)
             if (window.location.pathname !== '/vetyfy-booking' && window.location.pathname !== '/' && window.location.pathname !== '/login'
-                && window.location.pathname !== '/resgister' && window.location.pathname !== '/allGara' && window.location.pathname.split("/")[1] !== 'detailHandBook'
+                && window.location.pathname !== '/resgister' && window.location.pathname !== '/allGara' && window.location.pathname.split("/")[1] !== 'detailHandbook'
                 && window.location.pathname.split("/")[1] !== 'detailGara' && window.location.pathname !== '/allHandBook' && window.location.pathname.split("/")[1] !== 'allHandBook') {
 
 

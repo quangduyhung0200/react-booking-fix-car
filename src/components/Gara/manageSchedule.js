@@ -233,13 +233,13 @@ class ManageSchedule extends Component {
 
     }
     handlSaveSchedule = async () => {
-
+        let groupId = this.state.groupId
         let timeArr = this.state.timeArr
 
         let currenDate = this.state.currenDate
         let selectTime = ''
         let resuf = []
-        if (!this.state.selectGara.value) {
+        if (!this.state.selectGara.value && groupId === 3 || !this.state.selectGara.value && groupId === 4) {
             toast.error('Chưa chọn gara')
             return
         }
@@ -289,6 +289,12 @@ class ManageSchedule extends Component {
                     garaId: this.state.currenGara,
                     fomatDate: fomatDate
                 })
+                if (res.EC === 0) {
+                    toast.success('Đăng ký lịch thành công')
+                }
+                else {
+                    toast.error('Có lỗi xảy ra')
+                }
             }
 
 

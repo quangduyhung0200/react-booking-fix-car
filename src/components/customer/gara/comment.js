@@ -50,29 +50,36 @@ class Comment extends Component {
                 <div className='container comment-container'>
                     <div className='row'>
                         <div className='comment-rate-final col-12 my-4'>
-                            <div>Danh gia tong quan cua ga ra</div>
-                            <div>Rate:   {this.state.ratetingGara}</div>
+
+                            <div className='fs-1'>Rate:   {Math.round(this.state.ratetingGara * 10) / 10}/5</div>
                             <Rating
                                 allowFraction={true}
                                 initialValue={this.state.ratetingGara}
                                 allowHover={false}
                                 disableFillHover={true}
-                                size={30}
+                                size={50}
 
 
 
                             /* Available Props */
                             />
                         </div>
+                        <hr></hr>
                         <div className='comment-customer'>
                             {listComment && listComment.length > 0 &&
                                 listComment.map((item, index) => {
+                                    let str = item.createdAt;
+                                    let endDate = Date.parse(str);
+                                    let s = new Date(endDate).toLocaleDateString("vi")
                                     return (
 
                                         <>
 
 
-                                            <div className='comment-header col-4'><h3>{item.UserComment.userName}</h3></div>
+                                            <div className='comment-header col-4 justify-content-between'>
+                                                <h5>{item.UserComment.userName} </h5>
+                                                <p class="day">Viết ngày {s}</p>
+                                            </div>
 
                                             <div className='comment-rate col-12'>
 
@@ -92,7 +99,7 @@ class Comment extends Component {
                                             <div className='comment-body mx-4'>
                                                 {item.comment}
                                             </div>
-
+                                            <hr></hr>
 
                                         </>
 

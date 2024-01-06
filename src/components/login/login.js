@@ -76,7 +76,9 @@ class Login extends Component {
     HandlCreateNewAccoute = () => {
         this.props.history.push(`/register`);
     }
-
+    handClickGohome = () => {
+        this.props.history.push(`/`);
+    }
     handlOnchanInput = (event, name) => {
         let valueInput = event.target.value
         let coppyState = { ...this.state }
@@ -186,7 +188,7 @@ class Login extends Component {
                                     <hr />
                                     <div className='return-home'>
 
-                                        <button>retrn home</button>
+                                        <button className='btn btn-primary' onClick={() => this.handClickGohome()}>Quay trở  về trang chủ</button>
                                     </div>
 
 

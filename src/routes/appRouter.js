@@ -63,7 +63,7 @@ class AppRouter extends Component {
 
 
 
-                        <Route path='/detailHandBook/:id' exact component={detailHandBook} />
+                        <Route path='/detailHandbook/:id' exact component={detailHandBook} />
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />
 
                         <Route path='/detailGara/:id' exact component={DetailGara} />

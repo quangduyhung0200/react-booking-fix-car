@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import Carousel from 'react-multi-carousel';
 import { withRouter } from 'react-router-dom';
 import { getTopHandBook, getTopHandBookRelateto } from '../../../services/guestService';
-
+import './manageAccount.scss'
 import { getUserById } from '../../../services/userService';
 import { add } from 'lodash';
 import ModelUser from '../../system/manageUser/modelUser';
@@ -117,7 +117,7 @@ class DetailAccount extends Component {
         return (
             <>
 
-                <div className='HandBook-Detail-Container container'>
+                <div className='Account-Detail-Container container'>
                     <div className='row'>
                         <div className='introduction col-12 row my-2'>
                             <div className='avata col-md-6 col-12'
@@ -130,29 +130,29 @@ class DetailAccount extends Component {
                                     Thong tin ca nhan
                                 </h3>
                                 <div className='down col-12'>
-                                    <span className='fst-italic'>ho ten: </span><span className='fw-bold'>{userName}</span>
+                                    <span className='fst-italic'>Họ và tên: </span><span className='fw-bold'>{userName}</span>
 
                                 </div>
 
                                 <div className='down col-12'>
-                                    <span className='fst-italic'>email: </span><span className='fw-bold'>{email}</span>
+                                    <span className='fst-italic'>Email: </span><span className='fw-bold'>{email}</span>
                                 </div>
                                 <div className='down col-12'>
-                                    <span className='fst-italic'>sodien thoai: </span><span className='fw-bold'>{phone}</span>
+                                    <span className='fst-italic'>Số điện thoại: </span><span className='fw-bold'>{phone}</span>
                                 </div>
                                 <div className='down col-12'>
-                                    <span className='fst-italic'>gioi tinh: </span><span className='fw-bold'>{gender.label}</span>
+                                    <span className='fst-italic'>Giới tính: </span><span className='fw-bold'>{gender.label}</span>
                                 </div>
                                 <div className='down col-12'>
-                                    <span className='fst-italic'>dia chi: </span><span className='fw-bold'>{address}</span>
+                                    <span className='fst-italic'>Địa chỉ: </span><span className='fw-bold'>{address}</span>
                                 </div>
                                 <div className='down col-12'>
-                                    <span className='fst-italic'>lien ket voi gara: </span><span className='fw-bold'>
+                                    <span className='fst-italic'>Liên kết với gara: </span><span className='fw-bold'>
                                         {garaId === 0 ? '' : <a href={`/detailGara/${garaId}`}>gara cua toi</a>}</span>
 
                                 </div>
                                 <div className='down col-12'>
-                                    <button onClick={() => this.OnclickUpdate()} className='btn btn-primary'>cap nhat thogn tin</button>
+                                    <button onClick={() => this.OnclickUpdate()} className='btn btn-primary'>Cập nhật thông tin</button>
                                 </div>
 
 

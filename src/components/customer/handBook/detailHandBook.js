@@ -41,7 +41,7 @@ class DetailHandBook extends Component {
             })
 
             let data = await getHandBookById(id)
-
+            console.log(data)
             let imageBase64 = ''
             if (data.DT.avata.data) {
 
@@ -66,29 +66,71 @@ class DetailHandBook extends Component {
             this.setState({
                 ...coppyState
             })
-
-        }
-        let res = await getTopHandBookRelateto(5, this.props.match.params.id)
-        if (res.EC === 0) {
-            this.setState({
-                listHandBook: res.DT
-            })
-        }
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-    }
-    handlAcepHandBook = async () => {
-        let respons = await accepHandBook(this.state.currenHandBookId)
-        if (respons && respons.EC === 0) {
-
-            toast.success('da xet duyet thanh cong')
-            this.props.history.push(`/gara`);
-
+            let res = await getTopHandBookRelateto(5, this.props.match.params.id)
+            if (res.EC === 0) {
+                this.setState({
+                    listHandBook: res.DT
+                })
+            }
 
         }
 
     }
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        // if (prevState.currenHandBookId !== this.state.currenHandBookId) {
+        //     let id = this.props.match.params.id;
+
+        //     this.setState({
+        //         currenHandBookId: id
+        //     })
+
+        //     let data = await getHandBookById(id)
+        //     console.log(data)
+        //     let imageBase64 = ''
+        //     if (data.DT.avata.data) {
+
+        //         imageBase64 = new Buffer(data.DT.avata.data, 'base64').toString('binary')
+        //     }
+        //     let coppyState = { ...this.state }
+
+        //     coppyState.createdAt = data.DT.createdAt
+        //     coppyState.title = data.DT.title
+        //     if (data.DT.GaraHandBook.id === null) {
+        //         coppyState.garaId = 0
+        //     } else {
+        //         coppyState.garaId = data.DT.GaraHandBook.id
+        //     }
+
+
+        //     coppyState.avata = imageBase64
+        //     coppyState.descriptionHTML = data.DT.contentHTML
+        //     coppyState.handbookId = data.DT.id
+        //     coppyState.staffName = data.DT.StaffHandbookData.userName
+
+        //     this.setState({
+        //         ...coppyState
+        //     })
+
+        // }
+        // let res = await getTopHandBookRelateto(5, this.props.match.params.id)
+        // if (res.EC === 0) {
+        //     this.setState({
+        //         listHandBook: res.DT
+        //     })
+        // }
+
+
+    }
+
+    handlOnclickHandBook = (item) => {
+
+        this.props.history.push(`/detailHandbook/${item.id}`)
+        window.location.reload()
+    }
+    handClickMoreinfo = () => {
+        this.props.history.push(`/allHandBook`)
+    }
+
     render() {
 
 
@@ -162,7 +204,7 @@ class DetailHandBook extends Component {
                         <hr></hr>
                         <div className='session-header'>
                             <h3 className='content-left'>Một số bài viết liên quan</h3>
-                            <div className='content-right'> <button className='btn btn-warning'>Xem thêm</button></div>
+                            <div className='content-right'> <button onClick={() => this.handClickMoreinfo()} className='btn btn-warning'>Xem thêm</button></div>
                         </div>
                         <div className='session-content'>
                             <Carousel

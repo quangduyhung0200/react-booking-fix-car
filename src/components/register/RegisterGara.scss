@@ -1,22 +1,35 @@
-.preView-image-container {
-    display: flex;
-    flex-direction: column;
+.register-body {
 
-    .preView-Image {
-        height: 150px;
-        width: 100%;
-        border: 1px solid red;
-        background: center center no-repeat;
-        background-size: contain;
-        cursor: pointer;
+    .register-body {
+        margin: 0 500px !important;
     }
 
-    .lable-upload {
+    .image {
 
 
-        padding: 5px;
-        border-radius: 3px;
-        background: #ddd;
-        cursor: pointer;
+        .preView-image-container {
+            display: flex;
+            flex-direction: column;
+
+
+            .preView-Image {
+                height: 150px;
+                width: 100%;
+                border: 1px solid red;
+                background: center center no-repeat;
+                background-size: contain;
+                cursor: pointer;
+            }
+
+            .lable-upload {
+
+
+                padding: 5px;
+                border-radius: 3px;
+                background: #ddd;
+                cursor: pointer;
+            }
+        }
     }
+
 }

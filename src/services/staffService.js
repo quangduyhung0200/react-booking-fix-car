@@ -83,11 +83,13 @@ const searchComment = async (data) => {
 const searchHandbookStaff = async (data) => {
     return axios.get(`/api/v1/handbook/searchHandbookStaff?title=${data.title}&staff=${data.staff}&status=${data.status}`)
 }
-
+const deniceGara = async (id) => {
+    return axios.put(`/api/v1/gara/deniceGara`, { id });
+}
 
 
 export {
     feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook, createHandbook, updateHandbook, getAllGarabyPageStaff,
     getAllBookingbyPageStaff, getAllStatus, updateBooking, searchBooking, searchUser, searchGaranocenser, searchGara, searchCar, createCarCompany, updateCarCompany,
-    searchCarCompany, getAllCommentbypage, searchComment, searchHandbookStaff
+    searchCarCompany, getAllCommentbypage, searchComment, searchHandbookStaff, deniceGara
 }

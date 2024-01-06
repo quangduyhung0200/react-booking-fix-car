@@ -45,7 +45,7 @@ class AllHandBook extends Component {
         }
     }
     handOnclickHandBook = (data) => {
-        alert('click')
+        this.props.history.push(`/detailHandbook/${data.id}`);
     }
     render() {
         let { listHandBookNew, listHandBookHot, listHandBookSearch } = this.state
@@ -75,7 +75,7 @@ class AllHandBook extends Component {
                 <div className='home-header-banner-allHandBook img-fluid'>
                     <div className=' container'>
                         <div className='content-up row'>
-                            <h3 className='title col-7'>Tim kiem bai viet</h3>
+                            <h3 className='title col-7'>Tìm kiếm bài viết</h3>
 
                             <div className='search col-4 row'>
                                 <input className='form-control' value={this.state.selectHandBook} onChange={(event) => this.handOnchane(event)} placeholder='nhap tu khoa' />

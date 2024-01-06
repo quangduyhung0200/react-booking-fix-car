@@ -27,13 +27,14 @@ import ManageHandbook from "../components/system/manageHandbook/manageHankbook.j
 import AddNewHandBook from "../components/Staff/addNewHandBook.js";
 import UpdateHandBook from "../components/Staff/updateHandBook.js";
 import ManageGaraStaff from "../components/Staff/manageGara.js";
-import UpadateGara from "../components/Gara/updateGara.js";
+
 import detailHandBook from "../components/customer/handBook/detailHandBook.js";
 import PickCar from "../components/Gara/pickCar";
 import ManageBookingStaff from "../components/system/manageBooking/manageBooking.js"
 import manageCarCompany from "../components/system/manageCarCompany/manageCarCompany.js";
 import manageComment from "../components/system/manageComment/manageComment.js";
 import DetailCar from "../components/customer/car/carDetail.js"
+import UpadateGaraAdmin from "../components/system/manageGara/updateGaraAdmin.js";
 class AdminRouter extends Component {
 
 
@@ -78,7 +79,7 @@ class AdminRouter extends Component {
                         <PrivateRole path='/updateHandbook' component={UpdateHandBook} />
                         <PrivateRole path='/ManageGara' component={ManageGaraStaff} />
                         <PrivateRole path='/ManageGarahasntPass' component={ManageGaraFromStaffNotYetPass} />
-                        <PrivateRole path='/UpadateGara/:id' component={UpadateGara} />
+                        <PrivateRole path='/UpadateGara/:id' component={UpadateGaraAdmin} />
                         <PrivateRole path='/detailHandbook/:id' component={detailHandBook} />
                         <PrivateRole path='/manage-PickCar' component={PickCar} />
                         <PrivateRole path='/manage-booking' component={ManageBookingStaff} />

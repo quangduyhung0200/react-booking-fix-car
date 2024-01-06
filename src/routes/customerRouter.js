@@ -22,14 +22,36 @@ import ManageBookingGara from "../components/Gara/manageBooking";
 import ManageOrder from "../components/Gara/manageOrder.js";
 import MyOrder from "../components/customer/gara/MyOrder.js";
 import DetailAccount from "../components/customer/manageAccount/manageAccount.js"
+import AllGara from "../components/home/listGara/allGara.js";
+import AllHandBook from "../components/home/listHandBook/allHandBook.js";
+import detailHandBook from "../components/customer/handBook/detailHandBook.js";
+import { getUserById } from "../services/userService.js";
+import UpadateGara from "../components/Gara/updateGara.js";
 class CustommerRouter extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+            garaId: ''
 
 
+        }
+    }
+    async componentDidMount() {
+        console.log('user', this.context.user.account.id)
+        let res = await getUserById(this.context.user.account.id)
+        if (res.EC === 0) {
+            this.setState({
+                garaId: res.DT.userGara ? res.DT.userGara.id : ''
+            })
+        }
+        console.log(res)
+    }
 
 
     render() {
 
-
+        let { garaId } = this.state
         return (
             <>
                 <>
@@ -54,12 +76,17 @@ class CustommerRouter extends Component {
                         <PrivateRole exact path="/myOrder" component={MyOrder} />
                         <PrivateRole path="/Account" component={DetailAccount} />
 
+                        <Route exact path="/allGara">
+                            <AllGara />
+                        </Route>
+                        <Route exact path="/AllHandBook">
+                            <AllHandBook />
+                        </Route>
 
+                        <Route path='/detailHandbook/:id' exact component={detailHandBook} />
 
-
-
-
-
+                        {garaId !== '' && <PrivateRole exact path="/mygara" component={ManageGara} />}
+                        {garaId !== '' && <PrivateRole exact path='/UpadateGara' component={UpadateGara} />}
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />
 
                         <Route path='/detailGara/:id' exact component={DetailGara} />
@@ -79,4 +106,5 @@ class CustommerRouter extends Component {
 
 
 }
+CustommerRouter.contextType = UserContext
 export default CustommerRouter

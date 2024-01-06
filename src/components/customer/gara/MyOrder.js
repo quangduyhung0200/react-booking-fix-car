@@ -9,6 +9,7 @@ import Select from 'react-select';
 import { getAllGara } from '../../../services/guestService';
 import { getAllStatus } from '../../../services/staffService';
 import { searchOrder } from '../../../services/userService';
+import './myOrder.scss'
 class MyOrder extends Component {
     constructor(props) {
         super(props);
@@ -146,49 +147,55 @@ class MyOrder extends Component {
             })
         }
     }
+    hanldOnclick = (data) => {
+        this.props.history.push(`/detailGara/${data.garaid}`)
+    }
     render() {
 
         let dataBooking = this.state.dataBooking
         return (
             <>
-                <div className='manage-patient-container'>
+                <div className='manage-order-container container'>
                     <div className='m-p-title'>
-                        Quan ly don hang cua toi
+                        <h3>Quản lý đơn đơn đặt hàng của tôi</h3>
+                        <hr></hr>
+                        <div className='actionform col-12 row'>
+
+                            <div className='col-4'>
+                                <label>Chọn gara</label>
+                                <Select
+
+
+                                    value={this.state.selectGara}
+                                    onChange={this.handleChangeGara}
+                                    options={this.state.listGara}
+
+                                />
+                            </div>
+                            <div className='col-4'>
+                                <label>Chọn trạng thái</label>
+                                <Select
+
+
+                                    value={this.state.selectStatus}
+                                    onChange={this.handleChangeStatus}
+                                    options={this.state.listStatus}
+
+                                />
+                            </div>
+
+                            <div className='col-4'>
+                                <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>tim kiem</button>
+                            </div>
+
+
+
+
+
+
+                        </div>
                     </div>
-                    <div className='actionform col-12 row'>
 
-                        <div className='col-4'>
-                            <label>chon cong ty</label>
-                            <Select
-
-                                placeholder={'CHON gara'}
-                                value={this.state.selectGara}
-                                onChange={this.handleChangeGara}
-                                options={this.state.listGara}
-
-                            />
-                        </div>
-                        <div className='col-4'>
-                            <label>chon cong ty</label>
-                            <Select
-
-                                placeholder={'CHON gara'}
-                                value={this.state.selectStatus}
-                                onChange={this.handleChangeStatus}
-                                options={this.state.listStatus}
-
-                            />
-                        </div>
-
-                        <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
-                        </div>
-
-
-
-
-
-
-                    </div>
                     <div className='m-p-body row'>
 
                         <div className='col-12'>
@@ -221,7 +228,9 @@ class MyOrder extends Component {
                                                     <td>{item.statusBooking.description}</td>
                                                     <td>
                                                         {item.status === 'S4' && <button className='btn btn-primary mx-3'
-                                                            onClick={() => this.hanldOnclickConfid(item)}>xacs nhan hoan thanh don hang</button>}
+                                                            onClick={() => this.hanldOnclickConfid(item)}>Xác nhận hoàn thành đơn hàng</button>}
+                                                        <button className='btn btn-primary mx-3'
+                                                            onClick={() => this.hanldOnclick(item)}>Đặt lại</button>
                                                     </td>
                                                 </tr>
                                             )

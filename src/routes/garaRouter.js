@@ -58,7 +58,7 @@ class GaraRouter extends Component {
                         <PrivateRole exact path="/manageBooking" component={ManageBookingGara} />
                         <PrivateRole exact path="/manageOrder" component={ManageOrder} />
                         <PrivateRole exact path="/myOrder" component={MyOrder} />
-                        <PrivateRole exact path='/UpadateGara/:id' component={UpadateGara} />
+                        <PrivateRole exact path='/UpadateGara' component={UpadateGara} />
                         <PrivateRole path="/Account" component={DetailAccount} />
                         <PrivateRole path='/detailCar/:id' component={DetailCar} />
 

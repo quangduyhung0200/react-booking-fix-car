@@ -81,7 +81,7 @@ class DetailGara extends Component {
         return (
             <>
 
-                <div className='Docter-Detail-Container container'>
+                <div className='Gara-Detail-Container container'>
                     <div className='row'>
                         <div className='introduction col-12 row'>
                             <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
@@ -95,9 +95,11 @@ class DetailGara extends Component {
                                 <div className='down col-12'>
                                     {this.state.description}
                                 </div>
+                                <div>                     <i class="fa fa-map-marker" aria-hidden="true"></i> {this.state.provind}</div>
+
                             </div>
                         </div>
-                        <div className='schedule-docter col-12 row '>
+                        <div className='schedule-gara col-12 row '>
                             <div className='conten-left col-6'>
 
                                 <GaraSchedule
@@ -108,7 +110,8 @@ class DetailGara extends Component {
                                 />
                             </div>
                             <div className='conten-right col-6'>
-                                <ExtralDataGara />
+                                <ExtralDataGara
+                                    garaId={this.state.currenGaraId} />
                             </div>
                         </div>
                         <div className='detail-info-docter col-12'>

@@ -1,3 +1,7 @@
+
+
+
+
 import React, { Component } from 'react';
 
 
@@ -7,19 +11,17 @@ import MdEditor from 'react-markdown-editor-lite';
 
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
-import { getAllProvind, getGaraInfo } from '../../services/guestService';
-import { UserContext } from "../../context/userContext"
-import CommonUtils from '../../utils/CommonUtils';
+import { getAllProvind, getGaraInfo } from '../../../services/guestService';
+import { UserContext } from "../../../context/userContext"
+import CommonUtils from '../../../utils/CommonUtils';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { registerGara } from '../../services/userService';
+
 import { Buffer } from 'buffer';
-import { updateGara } from '../../services/garaService';
-import { getUserById } from '../../services/userService';
-import { toast } from 'react-toastify';
+import { updateGara } from '../../../services/garaService';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-class UpadateGara extends Component {
+class UpadateGaraAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -61,19 +63,9 @@ class UpadateGara extends Component {
         return resuf
     }
     async componentDidMount() {
-
-        let res = await getUserById(this.context.user.account.id)
-        if (res.EC === 0) {
-            this.setState({
-                garaId: res.DT.userGara ? res.DT.userGara.id : ''
-            })
-        }
-
-
-    }
-    async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.garaId !== this.state.garaId) {
-            let id = this.state.garaId
+        console.log(this.props)
+        if (this.props.match.params.id) {
+            let id = this.props.match.params.id
             let dataGara = await getGaraInfo(id)
             let data = await getAllProvind()
             if (dataGara.EC === 0 && data.EC === 0) {
@@ -101,11 +93,12 @@ class UpadateGara extends Component {
                     ...coppystate
                 })
             }
+
+
         }
+
+
     }
-
-
-
     handlChaneSelectProvind = async (selectedOption, name) => {
 
         let stateName = name.name
@@ -150,10 +143,6 @@ class UpadateGara extends Component {
             }
             let data = { nameGara, contenMarkdown, contenHTML, addressGara, avata, phone, descpistion, id, garaId, provindId }
             let res = await updateGara(data)
-            if (res.EC === 0) {
-                toast.success('cap nhat thanh cong')
-                this.props.history.push('/mygara')
-            }
 
 
         }
@@ -276,6 +265,7 @@ class UpadateGara extends Component {
         )
     }
 }
-UpadateGara.contextType = UserContext
+UpadateGaraAdmin.contextType = UserContext
 
-export default UpadateGara;
+export default UpadateGaraAdmin;
+

@@ -7,6 +7,8 @@ import { UserContext } from "../../../context/userContext"
 import { userLogout } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
+import { deniceGara } from '../../../services/staffService';
+import ExtralDataGara from '../../customer/gara/extralDataGara';
 class CheckDetailGara extends Component {
     constructor(props) {
         super(props);
@@ -70,10 +72,21 @@ class CheckDetailGara extends Component {
         }
 
     }
+    deniceGara = async () => {
+        let respons = await deniceGara(this.state.userId)
+        if (respons && respons.EC === 0) {
+
+            toast.success('da xet duyet thanh cong')
+            this.props.history.push(`/ManageGara`);
+
+
+        }
+
+    }
     render() {
 
 
-
+        console.log(this.state)
 
         return (
             <>
@@ -95,13 +108,9 @@ class CheckDetailGara extends Component {
                             </div>
                         </div>
                         <div className='schedule-docter col-12 row '>
-                            <div className='conten-left col-6'>
 
-                                conten lefgt schedule
-                            </div>
-                            <div className='conten-right col-6'>
-                                gara extral info
-                            </div>
+                            <ExtralDataGara
+                                garaId={this.state.currenGaraId} />
                         </div>
                         <div className='detail-info-docter col-12'>
 
@@ -110,7 +119,7 @@ class CheckDetailGara extends Component {
                         </div>
                         <div className='active col-12'>
                             <button onClick={() => this.handlAcepGara()} className='mx-3 btn btn-primary'>accep</button>
-                            <button className='mx-3 btn btn-danger'>denice</button>
+                            <button onClick={() => this.deniceGara()} className='mx-3 btn btn-danger'>denice</button>
                         </div>
 
                     </div>

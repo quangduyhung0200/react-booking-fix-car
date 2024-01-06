@@ -9,6 +9,7 @@ import moment from 'moment';
 import { Link } from "react-router-dom";
 import GaraSchedule from './schedule';
 import { getGarabyProvindCarCompanyCar } from '../../../services/guestService';
+import { withRouter } from 'react-router';
 class ProfileGara extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +28,7 @@ class ProfileGara extends Component {
 
         if (this.props.dataModelProfile !== undefined) {
             let data = await getGaraInfo(this.props.dataModelProfile)
-            console.log(data)
+
             let a = []
             a[0] = data.DT
 
@@ -59,7 +60,7 @@ class ProfileGara extends Component {
         }
         if (prevProps.dataModelProfile !== this.props.dataModelProfile) {
             let data = await getGaraInfo(this.props.dataModelProfile)
-            console.log(data)
+
             let a = []
             a[0] = data.DT
 
@@ -72,7 +73,7 @@ class ProfileGara extends Component {
 
     }
     handOnclick = () => {
-        alert('click')
+        this.props.history.push(`/detailGara/${this.props.dataModelProfile}`)
     }
     render() {
 
@@ -139,4 +140,4 @@ class ProfileGara extends Component {
 
 
 
-export default ProfileGara;
+export default withRouter(ProfileGara);

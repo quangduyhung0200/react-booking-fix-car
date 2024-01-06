@@ -11,6 +11,7 @@ import Select from 'react-select';
 import { getAllProvind } from '../../../services/guestService';
 import { accepGara } from '../../../services/staffService';
 import { toast } from 'react-toastify';
+import { deniceGara } from '../../../services/staffService';
 class ManageGaraFromStaffNotYetPass extends Component {
 
     constructor(props) {
@@ -81,7 +82,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
 
             if (respons && respons.EC === 0) {
                 let coppystate = { ...this.state }
-                coppystate.listUser = respons.DT.user
+                coppystate.listGara = respons.DT.user
                 coppystate.totalpage = respons.DT.totalPage
                 this.setState({
                     ...coppystate
@@ -119,7 +120,8 @@ class ManageGaraFromStaffNotYetPass extends Component {
         }
     }
     handlAcepGara = async (user) => {
-        let respons = await accepGara(user.id)
+
+        let respons = await accepGara(user.userGara.id)
         if (respons && respons.EC === 0) {
 
             toast.success('da xet duyet thanh cong')
@@ -128,7 +130,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
 
             if (respons && respons.EC === 0) {
                 let coppystate = { ...this.state }
-                coppystate.listUser = respons.DT.user
+                coppystate.listGara = respons.DT.user
                 coppystate.totalpage = respons.DT.totalPage
                 this.setState({
                     ...coppystate
@@ -142,6 +144,29 @@ class ManageGaraFromStaffNotYetPass extends Component {
     }
     handlRefesh = () => {
         window.location.reload()
+    }
+    handDenice = async (item) => {
+
+        let respons = await deniceGara(item.userGara.id)
+        if (respons && respons.EC === 0) {
+
+            toast.success('da xet duyet thanh cong')
+            let { currenpage, currenlimit } = this.state
+            let respons = await feactAllGara(currenpage, currenlimit)
+
+            if (respons && respons.EC === 0) {
+                let coppystate = { ...this.state }
+                coppystate.listGara = respons.DT.user
+                coppystate.totalpage = respons.DT.totalPage
+                this.setState({
+                    ...coppystate
+                })
+
+            }
+
+
+        }
+
     }
     render() {
 
@@ -219,7 +244,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
 
                                                                 <td><button onClick={() => this.handlViewDetailGara(item)} className='button btn btn-primary mx-2'>Xem chi tiết</button>
                                                                     <button onClick={() => this.handlAcepGara(item)} className='button btn btn-primary mx-2'>Chấp thuận </button>
-                                                                    <button className='button btn btn-danger'>Từ chối</button></td>
+                                                                    <button onClick={() => this.handDenice(item)} className='button btn btn-danger'>Từ chối</button></td>
                                                             </tr>
                                                         )
 

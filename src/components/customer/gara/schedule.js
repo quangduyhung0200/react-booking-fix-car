@@ -27,20 +27,43 @@ class GaraSchedule extends Component {
     async componentDidMount() {
 
 
+        if (this.props.match && this.props.match.params && this.props.match.params.id) {
 
-        let allday2 = await getAllDay(this.props.garaId)
-        let allday3 = allday2.DT
-        let allday = this.getArrDay()
-        const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
+            let id = this.props.match.params.id;
+            let allday2 = await getAllDay(id)
+            if (allday2.EC === 0) {
+                let allday3 = allday2.DT
+                let allday = this.getArrDay()
+                const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
 
-        let res = await readAllScheduleByDate(this.props.garaId, allday[0].value / 1000)
-        if (res.EC === 0) {
-            this.setState({
-                allAvailbleTime: res.DT ? res.DT : [],
+                let res = await readAllScheduleByDate(this.props.garaId, allday[0].value / 1000)
+                if (res.EC === 0) {
+                    this.setState({
+                        allAvailbleTime: res.DT ? res.DT : [],
 
-                allDay: results2
-            })
+                        allDay: results2
+                    })
+                }
+            }
+
         }
+        let allday2 = await getAllDay(this.props.garaId)
+        if (allday2.EC === 0) {
+            let allday3 = allday2.DT
+            let allday = this.getArrDay()
+            const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
+
+            let res = await readAllScheduleByDate(this.props.garaId, allday[0].value / 1000)
+            if (res.EC === 0) {
+                this.setState({
+                    allAvailbleTime: res.DT ? res.DT : [],
+
+                    allDay: results2
+                })
+            }
+        }
+
+
 
 
 

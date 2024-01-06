@@ -430,7 +430,7 @@ class AllGara extends Component {
 
 
         let { dataModel } = this.state
-        console.log(dataModel)
+
         return (
 
 

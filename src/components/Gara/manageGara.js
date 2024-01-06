@@ -92,7 +92,7 @@ class ManageGara extends Component {
         this.props.history.push(`/detailCar/${item.Cars.id}`)
     }
     handOnclickUpdate = () => {
-        this.props.history.push(`/UpadateGara/${this.state.garaId}`)
+        this.props.history.push(`/UpadateGara`)
     }
     render() {
 
@@ -101,7 +101,7 @@ class ManageGara extends Component {
         return (
             <>
                 <div className='Docter-Detail-Container container'>
-                    {this.state.status === 'S2' ? <div>Gara da duoc thong qua va hien thi tren trang chu</div> : <div>gara chua duoc thogn qua </div>}
+
                     <div className='row'>
                         <div className='introduction col-12 row'>
                             <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
@@ -115,9 +115,18 @@ class ManageGara extends Component {
                                 <div className='down col-12'>
                                     {this.state.description}
                                 </div>
+                                <div>                     <i class="fa fa-map-marker" aria-hidden="true"></i> {this.state.provind}</div>
                             </div>
+                            <hr className='my-2'></hr>
                             <div className='down col-12'>
                                 <button onClick={() => this.handOnclickUpdate()} className='btn btn-primary'>update</button>
+                            </div>
+                            <hr className='my-2'></hr>
+                            <div>Trạng thái:
+                                {this.state.status === 'S2' ? <span> Gara đã đưuọc thông qua và hiển thị trên trang chủ</span> :
+                                    this.state.status === 'S3' ?
+                                        <span> Gara chưa không được phê duyệt, vui lòng cập nhật các thông itn để được xem xet lại</span>
+                                        : <span> Gara chưa được thông qua</span>}
                             </div>
                         </div>
                         <div className='schedule-docter col-12 row '>

@@ -11,8 +11,18 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { userLogout } from '../../services/userService';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { getGaraInfo } from '../../services/guestService';
+import { getUserById } from '../../services/userService';
 class Navigate extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
 
+            garaId: ''
+
+
+        }
+    }
 
     handLogout = async () => {
         let data = await userLogout()
@@ -27,11 +37,20 @@ class Navigate extends Component {
             toast.error(data.EM)
         }
     }
-
+    async componentDidMount() {
+        console.log('user', this.context.user.account.id)
+        let res = await getUserById(this.context.user.account.id)
+        if (res.EC === 0) {
+            this.setState({
+                garaId: res.DT.userGara ? res.DT.userGara.id : ''
+            })
+        }
+        console.log(res)
+    }
     render() {
         let user = this.context.user
         const location = window.location.pathname
-
+        let { garaId } = this.state
 
         if (user && user.isAuthenticated === true && user.account.role[0].id === 1) {
             return (
@@ -48,6 +67,7 @@ class Navigate extends Component {
                                         <NavLink to="/myOrder" exact className='nav-link'>My order</NavLink>
 
                                     </>}
+                                    {garaId !== '' && <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>}
 
 
                                 </Nav>
