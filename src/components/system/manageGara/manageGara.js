@@ -172,7 +172,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
                                     />
                                 </div >
                                 <div className='col-4'>
-                                    <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4 '>tim kiem</button>
+                                    <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4 '>Tìm kiếm</button>
                                 </div>
                                 <hr></hr>
                                 <div className='action my-2'>

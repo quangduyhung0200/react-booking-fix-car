@@ -7,13 +7,18 @@ import { UserContext } from "../../context/userContext"
 import ReactPaginate from 'react-paginate';
 import { readHanndBook } from '../../services/staffService';
 import { Buffer } from 'buffer';
-
+import './manageHandbook.scss'
+import Select from 'react-select';
+import { searchHandbookStaff } from '../../services/staffService';
 class ManageHandBook extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
-
+            staffId: '',
+            show: true,
+            listStatus: [],
+            selectStatus: {},
+            search: '',
             listHandBook: [],
             currenpage: 1,
             currenlimit: 5,
@@ -35,10 +40,15 @@ class ManageHandBook extends Component {
     };
     async componentDidMount() {
         let data = await readHanndBook(this.state.currenpage, this.state.currenlimit, this.context.user.account.id)
+        let status = [{ label: 'Chưa được duyệt', value: 'S1' },
+        { label: 'Đã được duyệt', value: 'S2' },]
         if (data && data.EC === 0) {
             let coppystate = { ...this.state }
+            coppystate.staffId = this.context.user.account.id
+
             coppystate.listHandBook = data.DT.user
             coppystate.totalpage = data.DT.totalPage
+            coppystate.listStatus = status
             this.setState({
                 ...coppystate
             })
@@ -71,27 +81,91 @@ class ManageHandBook extends Component {
     handlViewHandbook = (item) => {
         this.props.history.push(`/detailHandbook/${item.id}`)
     }
+    handlRefesh = () => {
+        window.location.reload()
+    }
+    handOnchaneTitle = (event) => {
+        this.setState({
+            search: event.target.value
+        })
+    }
+    handleChangeStatus = (selectedOption) => {
+        this.setState({
+            selectStatus: selectedOption
+        })
+    }
+    Search = async () => {
+
+        let datainput = {
+            title: this.state.search,
+            staff: this.state.staffId,
+            status: !this.state.selectStatus.value ? 0 : this.state.selectStatus.value
+
+        }
+
+        let data = await searchHandbookStaff(datainput)
+        if (data.EC === 0) {
+            this.setState({
+                listHandBook: data.DT,
+                show: false
+            })
+        }
+
+
+    }
     render() {
 
         let { listHandBook } = this.state
         return (
             <>
-                <div className='manage-patient-container container'>
+                <div className='manage-handbook-staff-container container'>
                     <div className='m-p-title'>
-                        gara
+                        <h3>Quản lý bài viết của tôi</h3>
+                        <hr></hr>
+                        <div className='actionform col-12 row'>
+                            <div className='col-4'>
+                                <label class="fw-bold">Nhập tiêu đề bài viết</label>
+                                <input onChange={(event) => this.handOnchaneTitle(event)} type="text" class="form-control" />
+                            </div>
+                            <div className='col-4'>
+                                <label class="fw-bold">Chọn trạng thái</label>
+                                <Select
+
+
+                                    value={this.state.selectStatus}
+                                    onChange={this.handleChangeStatus}
+                                    options={this.state.listStatus}
+
+                                />
+                            </div>
+                            <div className='col-4'>
+                                <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>Tìm kiếm</button>
+                            </div>
+
+
+
+
+                            <div className='action my-2'>
+                                <hr></hr>
+                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>Làm mới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                                <button onClick={() => this.handOnclickAddnewHandBook()} className=' btn btn-success'>Thêm bài viết mới <i className="fa fa-plus" aria-hidden="true"></i></button>
+
+                            </div>
+
+                        </div>
                     </div>
                     <div className='m-p-body row'>
-                        <button onClick={() => this.handOnclickAddnewHandBook()} className='button btn btn-danger'>create</button>
+
                         <div className='col-12'>
-                            <table className="table-patient table table-hover table-bordered my-3">
+                            <table className="table-patient table table-hover table-bordered my-3 table-primary">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">USER NAME</th>
-                                        <th scope="col">title</th>
-                                        <th scope="col">ngay viet</th>
-                                        <th scope="col">trang thai</th>
-                                        <th scope="col">action</th>
+                                        <th scope="col">Id</th>
+
+                                        <th scope="col">Tiêu đề</th>
+                                        <th scope="col">Ngày viết</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -111,17 +185,17 @@ class ManageHandBook extends Component {
                                                 <tr key={`child-${item.id}`}>
 
                                                     <td>{item.id}</td>
-                                                    <td>{item.StaffHandbookData.userName}</td>
+
                                                     <td>{item.title}</td>
 
 
 
                                                     <td>{s}</td>
-                                                    <td>{item.status === 'S1' ? 'cam nang dang duoc phe duyet' : 'cam nang da duoc phe duyet'}</td>
+                                                    <td>{item.status === 'S1' ? 'Bài viết chưa đưuọc phê duyệt' : 'Bài viết đã được duyệt'}</td>
 
 
-                                                    <td><button onClick={() => this.handlViewHandbook(item)} className='button btn btn-primary'>view</button>
-                                                        <button onClick={() => this.handOnlcickUpdate(item)} className='button btn btn-warning'>update</button>
+                                                    <td><button onClick={() => this.handlViewHandbook(item)} className='button btn btn-primary mx-2'>Xem chi tiết</button>
+                                                        <button onClick={() => this.handOnlcickUpdate(item)} className='button btn btn-warning'>Cập nhật thông tin</button>
                                                     </td>
                                                 </tr>
 
@@ -135,7 +209,7 @@ class ManageHandBook extends Component {
 
                     <div className='user-footer'>
 
-                        <ReactPaginate
+                        {this.state.show === true && <ReactPaginate
                             nextLabel="next >"
                             onPageChange={this.handlePageClick}
                             pageRangeDisplayed={3}
@@ -154,7 +228,7 @@ class ManageHandBook extends Component {
                             containerClassName="pagination"
                             activeClassName="active"
                             renderOnZeroPageCount={null}
-                        />
+                        />}
 
 
 

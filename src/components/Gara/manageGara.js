@@ -89,6 +89,7 @@ class ManageGara extends Component {
     }
     handlViewCar = async (item) => {
 
+        this.props.history.push(`/detailCar/${item.Cars.id}`)
     }
     handOnclickUpdate = () => {
         this.props.history.push(`/UpadateGara/${this.state.garaId}`)

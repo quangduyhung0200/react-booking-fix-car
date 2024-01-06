@@ -233,15 +233,22 @@ class ManageSchedule extends Component {
 
     }
     handlSaveSchedule = async () => {
-        console.log(this.state.selectGara.value)
+
         let timeArr = this.state.timeArr
 
         let currenDate = this.state.currenDate
         let selectTime = ''
         let resuf = []
-
+        if (!this.state.selectGara.value) {
+            toast.error('Chưa chọn gara')
+            return
+        }
         if (!currenDate) {
             toast.error('invalit date')
+            return
+        }
+        if (!this.state.maxOrder) {
+            toast.error('Chưa chọn số lượng tối đa cho một khung giờ')
             return
         }
 
@@ -268,6 +275,13 @@ class ManageSchedule extends Component {
                     garaId: this.state.selectGara.value,
                     fomatDate: fomatDate
                 })
+                if (res.EC === 0) {
+                    toast.success('Đăng ký lịch thành công')
+                }
+                else {
+                    toast.error('Có lỗi xảy ra')
+                }
+
             }
             else {
                 let res = await createBulkScheduleGara({
@@ -339,23 +353,23 @@ class ManageSchedule extends Component {
 
                 <div className='Manage-schedule-container'>
                     <div className='m-s-title'>
-                        Quản lý lịch khám
+                        Quản lý lịch sửa xe
                     </div>
                     <div className='container'>
                         <div className='row'>
 
-                            <div className='col-12 form-group text-center row'>
-                                {groupId === 3 && <div className='col-6'>   <label className=''>chon gara</label>
+                            <div className='col-12 form-group text-center fw-bold row'>
+                                {groupId === 3 && <div className='col-6'>   <label className=''>Chọn gara</label>
                                     <Select
-                                        placeholder={'CHON gara'}
+                                        placeholder={'chọn gara...'}
                                         value={this.state.selectGara}
                                         onChange={this.handleChangeGara}
                                         options={this.state.listGara}
 
                                     /></div>}
-                                {groupId === 4 && <div className='col-6'>   <label className=''>chon gara</label>
+                                {groupId === 4 && <div className='col-6'>   <label className=''>Chọn gara</label>
                                     <Select
-                                        placeholder={'CHON gara'}
+                                        placeholder={'chọn gara...'}
                                         value={this.state.selectGara}
                                         onChange={this.handleChangeGara}
                                         options={this.state.listGara}
@@ -363,7 +377,7 @@ class ManageSchedule extends Component {
                                     /></div>}
 
                                 <div className={groupId === 4 || groupId === 3 ? 'col-6' : 'col-12'}>
-                                    <label className=''>chon ngay</label>
+                                    <label className=''>Chọn ngày </label>
                                     <ReactDatePicker
                                         onChange={this.handleChangedatePick}
                                         className='form-control'
@@ -376,6 +390,7 @@ class ManageSchedule extends Component {
                                     /></div>
 
                             </div>
+                            <hr className='my-2'></hr>
 
                             <div className='pick-hour-container col-12'>
 
@@ -391,25 +406,27 @@ class ManageSchedule extends Component {
                                     })}
 
 
-                                <div className='col-2'>
-                                    <label>Chon so luong xe toi da trong 1 khung gio</label>
-                                    <input
-                                        onChange={(event) => this.handlOnchane(event)}
-                                        type='number' className='form-control'
-                                        placeholder='chon so '
-                                        value={this.state.maxOrder}
-                                        required>
 
-                                    </input>
+                            </div>
+                            <hr></hr>
+                            <div className='col-4'>
+                                <label>Chọn số lượng xe có thể nhận tối đa cho một khung giờ</label>
+                                <input
+                                    onChange={(event) => this.handlOnchane(event)}
+                                    type='number' className='form-control'
 
-                                </div>
+                                    value={this.state.maxOrder}
+                                    required>
 
-                                <div className='col-12'>
-                                    <button
-                                        className='btn-save-info btn btn-primary'
-                                        onClick={() => this.handlSaveSchedule()}>luu thogn tin</button></div>
+                                </input>
+
                             </div>
 
+                            <div className='my-2'>
+                                <button
+                                    className='btn-save-info btn btn-primary'
+                                    onClick={() => this.handlSaveSchedule()}>Lưu thông tin</button>
+                            </div>
                         </div>
                     </div>
                 </div >

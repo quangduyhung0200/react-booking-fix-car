@@ -203,55 +203,57 @@ class ManageCar extends Component {
             })
         }
     }
+    handlRefesh = () => {
+        window.location.reload()
+    }
     render() {
 
         let { listCar } = this.state
 
         return (
             <>
-                <div className='container'><div className='manage-user-container'>
-                    <div className='user-header'>
-                        <div className='tiltle'><h3>Tabble user</h3>
+                <div className='container'><div className='manage-car-container'>
+                    <div className='car-header'>
+                        <div className='tiltle'><h3>Quản lý xe</h3>
                         </div>
-                        <div className='action'>
-                            <button className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
-                            <button onClick={() => { this.SetShowmodelUser() }} className='btn btn-success'>Add New user <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
+                        <hr></hr>
+
+                        <div className='actionform col-12 row'>
+                            <div className='col-4'>
+                                <label class="fw-bold">Nhập tên xe</label>
+                                <input onChange={(event) => this.handOnchaneCarName(event)} type="text" class="form-control" />
+                            </div>
+                            <div className='col-4'>
+                                <label className='fw-bold'>Chọn công ty xe</label>
+                                <Select
+
+
+                                    value={this.state.selectCarCompany}
+                                    onChange={this.handleChangeCarCompany}
+                                    options={this.state.listCarCompany}
+
+                                />
+                            </div>
+                            <div className='col-4'>
+                                <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4 '>Tìm kiếm</button>
+                            </div>
+                        </div>
+                        <hr></hr>
+                        <div className='action my-3'>
+                            <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>Làm mới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                            <button onClick={() => { this.SetShowmodelUser() }} className='btn btn-success'>Thêm xe mới <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
                         </div>
                     </div>
-                    <div className='actionform col-12 row'>
-                        <div className='col-12'>
-                            <label class="form-label">nhao ten nguoi dung</label>
-                            <input onChange={(event) => this.handOnchaneCarName(event)} type="text" class="form-control" />
-                        </div>
-                        <div className='col-4'>
-                            <label>chon cong ty</label>
-                            <Select
 
-                                placeholder={'CHON gara'}
-                                value={this.state.selectCarCompany}
-                                onChange={this.handleChangeCarCompany}
-                                options={this.state.listCarCompany}
-
-                            />
-                        </div>
-                        <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
-                        </div>
-
-
-
-
-
-
-                    </div>
-                    <div className='user-body'>
-                        <table className="table table-hover table-bordered my-3">
+                    <div className='car-body'>
+                        <table className="table table-bordered my-3 table-primary">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">car NAME</th>
-                                    <th scope="col">hang xe</th>
-                                    <th scope="col">mo ta</th>
-                                    <th scope="col">avata</th>
+                                    <th scope="col">ID xe</th>
+                                    <th scope="col">Tên xe</th>
+                                    <th scope="col">Hãng xe</th>
+                                    <th scope="col">Thông tin chi tiết</th>
+                                    <th scope="col">Ảnh nền</th>
                                     <th scope="col">action</th>
                                 </tr>
                             </thead>
@@ -277,8 +279,8 @@ class ManageCar extends Component {
                                                             backgroundImage: `url(${imageBase64})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat'
 
                                                         }}></td>
-                                                        <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary'>update</button>
-                                                            <button onClick={() => this.handlDeleteuser(item)} className='btn btn-danger'>delete</button></td>
+                                                        <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary mx-2'>Cập nhật thông tin</button>
+                                                            <button onClick={() => this.handlDeleteuser(item)} className='btn btn-danger'>Xóa xe</button></td>
                                                     </tr>
                                                 )
 

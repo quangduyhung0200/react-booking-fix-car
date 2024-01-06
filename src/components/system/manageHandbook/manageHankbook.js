@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { getAllHandbook } from '../../../services/adminService';
 import { getAllStaff, searchHandbook } from '../../../services/adminService';
 import Select from 'react-select';
+import './manageHandbook.scss'
 class ManageHandbook extends Component {
 
     constructor(props) {
@@ -178,54 +179,59 @@ class ManageHandbook extends Component {
         return (
             <>
                 <>
-                    <div className='manage-patient-container container'>
-                        <div className='user-header'>
-                            <div className='tiltle'><h3>Tabble handbook</h3>
+                    <div className='manage-handbook-container container'>
+                        <div className='handbook-header'>
+                            <div className='tiltle'><h3>Quản lý cẩm nang </h3>
                             </div>
+                            <hr></hr>
+                            <div className='actionform col-12 row'>
+                                <div className='col-4'>
+                                    <label class="fw-bold">Nhập tên bài viết</label>
+                                    <input onChange={(event) => this.handOnchaneTitle(event)} type="text" class="form-control" />
+                                </div>
+                                <div className='col-4'>
+                                    <label className='fw-bold'>Chọn nhân viên</label>
+                                    <Select
+
+                                        placeholder={'CHON gara'}
+                                        value={this.state.selectStaff}
+                                        onChange={this.handleChangeStaff}
+                                        options={this.state.listStaff}
+
+                                    />
+                                </div>
+                                <div className='col-4'>
+                                    <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>Tìm kiếm</button>
+                                </div>
+
+
+
+
+
+
+
+                            </div>
+                            <hr></hr>
                             <div className='action'>
-                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
-                                <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Add New handbook <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
+                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>Làm mới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                                <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Thêm cẩm nang mới<span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
                             </div>
                         </div>
-                        <div className='actionform col-12 row'>
-                            <div className='col-12'>
-                                <label class="form-label">nhao ten nhan vien</label>
-                                <input onChange={(event) => this.handOnchaneTitle(event)} type="text" class="form-control" />
-                            </div>
-                            <div className='col-4'>
-                                <label>chon cong ty</label>
-                                <Select
 
-                                    placeholder={'CHON gara'}
-                                    value={this.state.selectStaff}
-                                    onChange={this.handleChangeStaff}
-                                    options={this.state.listStaff}
-
-                                />
-                            </div>
-                            <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
-                            </div>
-
-
-
-
-
-
-                        </div>
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3">
+                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">handbook tile </th>
+                                            <th scope="col">Tiêu đề </th>
 
-                                            <th scope="col">staffId</th>
+                                            <th scope="col">Người viết</th>
 
-                                            <th scope="col">ngay viet</th>
+                                            <th scope="col">Ngày viết</th>
 
-                                            <th scope="col">action</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -252,9 +258,9 @@ class ManageHandbook extends Component {
 
 
 
-                                                                <td><button onClick={() => this.handlViewDetailHandBook(item)} className='button btn btn-primary'>view</button>
-                                                                    <button onClick={() => this.handClickUpdate(item)} className='button btn btn-primary'>update</button>
-                                                                    <button onClick={() => this.handOnclickDelete(item)} className='button btn btn-danger'>delete</button></td>
+                                                                <td><button onClick={() => this.handlViewDetailHandBook(item)} className='button btn btn-primary mx-2'>Xem chi tiết</button>
+                                                                    <button onClick={() => this.handClickUpdate(item)} className='button btn btn-primary mx-2'>Cập nhật</button>
+                                                                    <button onClick={() => this.handOnclickDelete(item)} className='button btn btn-danger'>Xóa</button></td>
                                                             </tr>
                                                         )
 
@@ -264,7 +270,7 @@ class ManageHandbook extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr><td>not fout user</td></tr>
+                                                <tr>Không có dữ liệu</tr>
                                             </>
 
                                         }

@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from 'moment';
-
 import ReactPaginate from 'react-paginate';
-
-import { Buffer } from "buffer";
+import './manageCarcompany.scss'
 import { withRouter } from 'react-router-dom';
-import Select from 'react-select';
 import { getAllProvind } from '../../../services/guestService';
-import { getCarCompanyByPage } from '../../../services/adminService';
+import { getCarCompanyByPage, deleteCarCompany } from '../../../services/adminService';
 import ModelCarCompany from './modelCarCompany';
 import ModelconfimdeledeCarCompany from './modelDelete';
-import { deleteCarCompany } from '../../../services/adminService';
 import { toast } from 'react-toastify';
 import { searchCarCompany } from '../../../services/staffService';
 class ManageCarCompany extends Component {
@@ -216,42 +210,45 @@ class ManageCarCompany extends Component {
         return (
             <>
                 <>
-                    <div className='manage-patient-container container'>
+                    <div className='manage-carcompany-container container'>
                         <div className='m-p-title'>
-                            gara
-                        </div>
-                        <div className='tiltle col-12'><h3>Tabble user</h3>
-                        </div>
-                        <div className='actionform col-12 row'>
-                            <div className='col-12'>
-                                <label class="form-label">nhao ten cong ty</label>
-                                <input onChange={(event) => this.handOnchaneCarcompanyName(event)} type="text" class="form-control" />
+                            <div className='tiltle col-12'><h3>Tabble user</h3>
                             </div>
+                            <hr></hr>
+                            <div className='actionform col-12 row'>
+                                <div className='col-6'>
+                                    <label class="fw-bold">Nhập tên công ty</label>
+                                    <input onChange={(event) => this.handOnchaneCarcompanyName(event)} type="text" class="form-control" />
+                                </div>
 
-                            <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+                                <div className='col-6'>
+                                    <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4 '>Tìm kiếm</button>
+                                </div>
+
+
+
+
+
+
                             </div>
-
-
-
-
-
-
+                            <hr></hr>
+                            <div className='action'>
+                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3 '>Làm mới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                                <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Thềm công ty mới<span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
+                            </div>
                         </div>
-                        <div className='action'>
-                            <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3 '>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
-                            <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Add New user <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
-                        </div>
+
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3">
+                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">carcompany NAME</th>
-                                            <th scope="col">description</th>
+                                            <th scope="col">Tên công ty</th>
+                                            <th scope="col">Thông tin chi tiết</th>
 
-                                            <th scope="col">action</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -270,8 +267,8 @@ class ManageCarCompany extends Component {
 
 
 
-                                                                <td><button onClick={() => this.handlViewuUdate(item)} className='button btn btn-primary'>update</button>
-                                                                    <button onClick={() => this.handlViewDelete(item)} className='button btn btn-warning'>delete</button>
+                                                                <td><button onClick={() => this.handlViewuUdate(item)} className='button btn btn-primary mx-2'>Cập nhật thông tin</button>
+                                                                    <button onClick={() => this.handlViewDelete(item)} className='button btn btn-warning'>Xóa công ty</button>
 
                                                                 </td>
                                                             </tr>

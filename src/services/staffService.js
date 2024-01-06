@@ -80,9 +80,14 @@ const searchComment = async (data) => {
 }
 
 
+const searchHandbookStaff = async (data) => {
+    return axios.get(`/api/v1/handbook/searchHandbookStaff?title=${data.title}&staff=${data.staff}&status=${data.status}`)
+}
+
+
 
 export {
     feactAllUser, feactAllGara, accepGara, createCar, updateCar, readHanndBook, createHandbook, updateHandbook, getAllGarabyPageStaff,
     getAllBookingbyPageStaff, getAllStatus, updateBooking, searchBooking, searchUser, searchGaranocenser, searchGara, searchCar, createCarCompany, updateCarCompany,
-    searchCarCompany, getAllCommentbypage, searchComment
+    searchCarCompany, getAllCommentbypage, searchComment, searchHandbookStaff
 }

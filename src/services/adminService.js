@@ -50,10 +50,13 @@ const deleteCarCompany = async (carcompany) => {
 const deleteComment = async (comment) => {
     return axios.delete(`/api/v1/comment/deleteComment`, { data: { id: comment.id, garaId: comment.garaId } });
 }
+const deleteBooking = async (booking) => {
+    return axios.delete(`/api/v1/booking/deleteBooking`, { data: { id: booking.id } });
+}
 
 
 
 export {
     deleteCar, getHandBookById, accepHandBook, getAllGroup, updateUser, getAllHandbook, deleteUser, deleteHandbook, deleteGara, getAllStaff,
-    searchHandbookUncensor, searchHandbook, getCarCompanyByPage, deleteCarCompany, deleteComment
+    searchHandbookUncensor, searchHandbook, getCarCompanyByPage, deleteCarCompany, deleteComment, deleteBooking
 }

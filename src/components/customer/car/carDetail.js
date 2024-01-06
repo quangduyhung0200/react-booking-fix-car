@@ -18,7 +18,7 @@ class DetailCar extends Component {
         }
     }
     async componentDidMount() {
-        if (this.props.carId !== '') {
+        if (this.props.carId) {
 
             let data = await getDataCarById(this.props.carId)
             let imageBase64 = ''
@@ -34,13 +34,28 @@ class DetailCar extends Component {
             })
 
         }
-        if (this.props.carId === '') {
-            this.setState({
-                avata: '',
-                nameCar: '',
-                carCompanyName: '',
-                descriptionL: ''
-            })
+        if (!this.props.carId) {
+
+            if (this.props.match && this.props.match.params && this.props.match.params.id) {
+
+                let id = this.props.match.params.id;
+
+
+                let data = await getDataCarById(id)
+                let imageBase64 = ''
+                if (data.DT.avata.data) {
+
+                    imageBase64 = new Buffer(data.DT.avata.data, 'base64').toString('binary')
+                }
+                this.setState({
+                    avata: imageBase64,
+                    nameCar: data.DT.nameCar,
+                    carCompanyName: data.DT.carCompanyData.name,
+                    descriptionL: data.DT.descriptions
+                })
+
+
+            }
         }
 
     }
@@ -74,13 +89,14 @@ class DetailCar extends Component {
 
                 <div className='Car-Detail-Container container'>
                     <div className='row'>
-                        <div className='introduction'>
+                        <div className='introduction2'>
                             <div className='content-left' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
 
                             </div>
-                            <div className='content-right'>
+                            <div className='content-right mx-4'>
                                 <div className='up'>
-                                    {this.state.nameCar}
+                                    <h3>        {this.state.nameCar}</h3>
+
                                 </div>
 
                                 <div className='down'>

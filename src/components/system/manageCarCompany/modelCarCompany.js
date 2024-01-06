@@ -106,7 +106,7 @@ class ModelCarCompany extends Component {
 
                 coppyState.name = this.props.dataModel.name
                 coppyState.description = this.props.dataModel.description
-                // coppyState.avata = new Buffer(this.props.dataModel.avata, 'base64').toString('binary')
+                coppyState.avata = new Buffer(this.props.dataModel.avata, 'base64').toString('binary')
 
 
                 this.setState({
@@ -164,19 +164,15 @@ class ModelCarCompany extends Component {
                 let dataInput = { name, description, avata }
                 let data = await createCarCompany(dataInput)
                 if (data && data.EC === 0) {
-                    toast.success('register success')
+                    toast.success('Thêm mới thành công')
                     this.props.onHide()
 
                 }
-                if (data && data.EC === 1) {
+                else {
                     toast.error(data.EM)
+
                 }
-                if (data && data.EC === 2) {
-                    toast.error(data.EM)
-                }
-                if (data && data.EC === -1) {
-                    toast.error(data.EM)
-                }
+
             }
             if (this.props.action === 'UPDATE') {
                 if (avata === '') {
@@ -187,10 +183,16 @@ class ModelCarCompany extends Component {
                 let data = await updateCarCompany(dataInput)
                 console.log(data)
                 if (data && data.EC === 0) {
-                    toast.success('update user success')
+                    toast.success('Updata thành công')
 
                     this.props.onHide()
                 }
+                else {
+                    toast.error('Xó lỗi xảy ra, vui lòng thử lại    ')
+
+                    this.props.onHide()
+                }
+
 
             }
         }

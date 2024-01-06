@@ -17,6 +17,10 @@ import Select from 'react-select';
 import ReactDatePicker from 'react-datepicker';
 import { feactAllUser } from '../../../services/staffService';
 import { getAllGara, feactAllCar, getAllService, getAllPrice } from '../../../services/guestService';
+import './manageBooking.scss'
+import { UserContext } from "../../../context/userContext"
+import { deleteBooking } from '../../../services/adminService';
+import ModelconfimdeledeBooking from './modelDeleteBooking';
 class ManageBookingStaff extends Component {
 
     constructor(props) {
@@ -42,7 +46,8 @@ class ManageBookingStaff extends Component {
             isShowModel: false,
             dataModel: {},
             currenDate: new Date(),
-            fomatedDate: ''
+            fomatedDate: '',
+            showModel: false
 
 
         }
@@ -238,42 +243,54 @@ class ManageBookingStaff extends Component {
     }
 
 
-    handOnclickDelete = (item) => {
-        // this.setState({
-        //     isShowModel: true,
-        //     dataModel: item
-        // })
+    handOnclickDelete = async (item) => {
+        this.setState({
+            showModel: true,
+            dataModel: item
+        })
+
     }
     handleClose = () => {
-        // this.setState({
-        //     isShowModel: false,
-        //     dataModel: {}
-        // })
+        this.setState({
+            showModel: false,
+            dataModel: {}
+        })
     }
     comfirmDeleteUser = async () => {
-        // console.log(this.state.dataModel)
-        // let res = await deleteHandbook(this.state.dataModel)
 
-        // if (res && res.EC === 0) {
-        //     toast.success('delete succes')
+        let data = await deleteBooking(this.state.dataModel)
 
-        //     this.setState({
-        //         showModel: false,
 
-        //     })
-        // }
-        // let { currenpage, currenlimit } = this.state
-        // let respons = await getAllHandbook(currenpage, currenlimit)
 
-        // if (respons && respons.EC === 0) {
-        //     let coppystate = { ...this.state }
-        //     coppystate.listHandBook = respons.DT.user
-        //     coppystate.totalpage = respons.DT.totalPage
-        //     this.setState({
-        //         ...coppystate
-        //     })
+        if (data && data.EC === 0) {
+            toast.success('Xóa thành cồng')
 
-        // }
+            this.setState({
+                showModel: false,
+
+            })
+        }
+        else {
+            toast.error('Xóa thất bại')
+            this.setState({
+                showModel: false,
+
+            })
+        }
+
+
+
+        let { currenpage, currenlimit } = this.state
+        let respons = await getAllBookingbyPageStaff(currenpage, currenlimit)
+        if (respons && respons.EC === 0) {
+            let coppystate = { ...this.state }
+            coppystate.listBooking = respons.DT.user
+            coppystate.totalpage = respons.DT.totalPage
+            this.setState({
+                ...coppystate
+            })
+
+        }
     }
     handlOnchanSelect = async (event, id) => {
 
@@ -390,14 +407,14 @@ class ManageBookingStaff extends Component {
         return (
             <>
                 <>
-                    <div className='manage-patient-container container'>
-                        <div className='user-header row'>
-                            <div className='tiltle col-12'><h3>Tabble booking</h3>
+                    <div className='manage-booking-container container'>
+                        <div className='booking-header row'>
+                            <div className='tiltle col-12'
+                            ><h3>Quản lý đơn đặt lịch</h3>
                             </div>
-
-
-                            <div className='col-4'>
-                                <label>Chọn người dùng</label>
+                            <hr></hr>
+                            <div className='search-form row'> <div className='col-4'>
+                                <label className='fw-bold'>Chọn người dùng</label>
                                 <Select
 
                                     placeholder={'CHON XE'}
@@ -406,89 +423,91 @@ class ManageBookingStaff extends Component {
                                     options={this.state.listUser}
 
                                 /></div>
-                            <div className='col-4'>
-                                <label>Chọn gara</label>
-                                <Select
+                                <div className='col-4'>
+                                    <label className='fw-bold'>Chọn gara</label>
+                                    <Select
 
-                                    placeholder={'CHON XE'}
-                                    value={this.state.selectGara}
-                                    onChange={this.handleChangeGara}
-                                    options={this.state.listGara}
+                                        placeholder={'CHON XE'}
+                                        value={this.state.selectGara}
+                                        onChange={this.handleChangeGara}
+                                        options={this.state.listGara}
 
-                                /></div>
+                                    /></div>
 
-                            <div className='col-4'>
-                                <label>Chọn xe</label>
-                                <Select
+                                <div className='col-4'>
+                                    <label className='fw-bold'>Chọn xe</label>
+                                    <Select
 
-                                    placeholder={'CHON XE'}
-                                    value={this.state.selectCar}
-                                    onChange={this.handleChangeCar}
-                                    options={this.state.listCar}
+                                        placeholder={'CHON XE'}
+                                        value={this.state.selectCar}
+                                        onChange={this.handleChangeCar}
+                                        options={this.state.listCar}
 
-                                /></div>
+                                    /></div>
 
-                            <div className='col-4'>
-                                <label>Chọn dich vu</label>
-                                <Select
+                                <div className='col-4'>
+                                    <label className='fw-bold'>Chọn dich vu</label>
+                                    <Select
 
-                                    placeholder={'CHON XE'}
-                                    value={this.state.selectService}
-                                    onChange={this.handleChangeService}
-                                    options={this.state.listService}
+                                        placeholder={'CHON XE'}
+                                        value={this.state.selectService}
+                                        onChange={this.handleChangeService}
+                                        options={this.state.listService}
 
-                                /></div>
-                            <div className='col-4'>
-                                <label>Chọn giá</label>
-                                <Select
+                                    /></div>
+                                <div className='col-4'>
+                                    <label className='fw-bold'>Chọn giá</label>
+                                    <Select
 
-                                    placeholder={'CHON XE'}
-                                    value={this.state.selectPrice}
-                                    onChange={this.handleChangePrice}
-                                    options={this.state.listPrice}
+                                        placeholder={'CHON XE'}
+                                        value={this.state.selectPrice}
+                                        onChange={this.handleChangePrice}
+                                        options={this.state.listPrice}
 
-                                /></div>        <div className='col-4'>
-                                <label>Chọn dtrang thái</label>
-                                <Select
+                                    /></div>        <div className='col-4'>
+                                    <label className='fw-bold'>Chọn trạng thái</label>
+                                    <Select
 
-                                    placeholder={'CHON XE'}
-                                    value={this.state.selectStatus}
-                                    onChange={this.handleChangeStatus}
-                                    options={this.state.listStatus}
+                                        placeholder={'CHON XE'}
+                                        value={this.state.selectStatus}
+                                        onChange={this.handleChangeStatus}
+                                        options={this.state.listStatus}
 
-                                /></div>
+                                    /></div>
 
-                            <div className='col-4'>
-                                <label>Chọn ngày</label>
-                                <ReactDatePicker
-                                    onChange={this.handleChangedatePick}
-                                    className='form-control'
-                                    value={this.state.currenDate}
-                                    selected={this.state.currenDate}
+                                <div className='col-4'>
+                                    <label className='fw-bold'>Chọn ngày</label>
+                                    <ReactDatePicker
+                                        onChange={this.handleChangedatePick}
+                                        className='form-control'
+                                        value={this.state.currenDate}
+                                        selected={this.state.currenDate}
 
 
 
-                                /></div>
-                            <div><button onClick={() => this.handlOnclickSearch()} className='btn btn-primary'>tim kiem</button></div>
+                                    /></div></div>
+                            <hr></hr>
+
+                            <div><button onClick={() => this.handlOnclickSearch()} className='btn btn-primary'>Tìm kiếm</button></div>
 
                         </div>
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3">
+                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">nguoi dat </th>
+                                            <th scope="col">Id đơn hàng</th>
+                                            <th scope="col">Tên người đặt</th>
 
-                                            <th scope="col">gara</th>
-                                            <th scope="col">xe</th>
-                                            <th scope="col">dich vu</th>
-                                            <th scope="col">ngay dat</th>
-                                            <th scope="col">gia thanh</th>
-                                            <th scope="col">trang thai</th>
+                                            <th scope="col">Tên gara</th>
+                                            <th scope="col">Loại xe đã đặt sửa chữa</th>
+                                            <th scope="col">Dịch vụ đã chọn</th>
+                                            <th scope="col">Ngày đặt</th>
+                                            <th scope="col">Gía dịch vụ (VND)</th>
+                                            <th scope="col">Trạng thái</th>
 
-                                            <th scope="col">action</th>
+                                            {this.context.user.account.role[0].id === 4 && <th scope="col">Action</th>}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -536,9 +555,9 @@ class ManageBookingStaff extends Component {
 
 
 
-                                                                <td>
+                                                                {this.context.user.account.role[0].id === 4 && <td>
 
-                                                                    <button onClick={() => this.handOnclickDelete(item)} className='button btn btn-danger'>delete</button></td>
+                                                                    <button onClick={() => this.handOnclickDelete(item)} className='button btn btn-danger'>Xóa đơn hàng</button></td>}
                                                             </tr>
                                                         )
 
@@ -585,12 +604,12 @@ class ManageBookingStaff extends Component {
                         </div>
 
                     </div>
-                    {/* <ModelconfimdeledeHandbook
-                        show={this.state.isShowModel}
+                    <ModelconfimdeledeBooking
+                        show={this.state.showModel}
                         handleClose={this.handleClose}
                         comfirmDeleteUser={this.comfirmDeleteUser}
                         dataModel={this.state.dataModel}
-                    /> */}
+                    />
 
                 </>
 
@@ -601,6 +620,7 @@ class ManageBookingStaff extends Component {
 
 }
 
+ManageBookingStaff.contextType = UserContext
 
 
 export default withRouter(ManageBookingStaff);

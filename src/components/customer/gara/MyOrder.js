@@ -21,7 +21,7 @@ class MyOrder extends Component {
             garaId: '',
             dataBooking: {},
             isOpentModel: false,
-
+            userId: '',
             dateModel: {}
         }
     }
@@ -73,6 +73,7 @@ class MyOrder extends Component {
         let res = await getAllOrderUser(this.context.user.account.id)
         this.setState({
             dataBooking: res.DT,
+            userId: this.context.user.account.id,
             listGara: this.buidDataInputSeclectGara(gara.DT),
             listStatus: this.buidDataInputSeclectStatus(status.DT)
 
@@ -135,7 +136,8 @@ class MyOrder extends Component {
     Search = async () => {
         let datainput = {
             gara: this.state.selectGara.value ? this.state.selectGara.value : 0,
-            status: this.state.selectStatus.value ? this.state.selectStatus.value : 0
+            status: this.state.selectStatus.value ? this.state.selectStatus.value : 0,
+            user: this.state.userId
         }
         let res = await searchOrder(datainput)
         if (res.EC === 0) {
@@ -190,7 +192,7 @@ class MyOrder extends Component {
                     <div className='m-p-body row'>
 
                         <div className='col-12'>
-                            <table style={{ width: '100%' }} className='table-patient'>
+                            <table style={{ width: '100%' }} className='table-patient table table-hover table-bordered my-3 table-primary'>
                                 <tbody>
                                     <tr>
                                         <th >ID</th>

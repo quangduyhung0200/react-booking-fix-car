@@ -9,6 +9,9 @@ import { Buffer } from "buffer";
 import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { getAllStaff, searchHandbookUncensor } from '../../../services/adminService';
+import './manageHanndbookuncerser.scss'
+import { getHandBookById, accepHandBook } from '../../../services/adminService';
+import { toast } from 'react-toastify';
 class ManageGaraHandBookHasNotPass extends Component {
 
     constructor(props) {
@@ -120,6 +123,32 @@ class ManageGaraHandBookHasNotPass extends Component {
 
 
     }
+    handlAcepHandBook = async (handbook) => {
+
+        let respons = await accepHandBook(handbook.id)
+        if (respons && respons.EC === 0) {
+
+            toast.success('da xet duyet thanh cong')
+            let { currenpage, currenlimit } = this.state
+            let respons = await readHanndBook(currenpage, currenlimit, 'ALL')
+
+            if (respons && respons.EC === 0) {
+                let coppystate = { ...this.state }
+                coppystate.listHandBook = respons.DT.user
+                coppystate.totalpage = respons.DT.totalPage
+                this.setState({
+                    ...coppystate
+                })
+
+            }
+
+
+        }
+
+    }
+    handlRefesh = () => {
+        window.location.reload()
+    }
     render() {
 
         let { listHandBook } = this.state
@@ -127,48 +156,58 @@ class ManageGaraHandBookHasNotPass extends Component {
         return (
             <>
                 <>
-                    <div className='manage-patient-container container'>
-                        <div className='m-p-title'>
-                            gara
-                        </div>
-                        <div className='m-p-body row'>
-                            <div className='actionform col-12 row'>
-                                <div className='col-12'>
-                                    <label class="form-label">nhao ten nhan vien</label>
+                    <div className='manage-handbookuncenser-container container'>
+                        <div className='action'>
+                            <div className='actionform row'>
+                                <div className='title'><h3>Quản lý phê duyệt cẩm nang</h3>
+                                    <hr></hr></div>
+
+                                <div className='col-4'>
+                                    <label class="fw-bold">Nhập tên bài viết</label>
                                     <input onChange={(event) => this.handOnchaneTitle(event)} type="text" class="form-control" />
                                 </div>
                                 <div className='col-4'>
-                                    <label>chon cong ty</label>
+                                    <label className='fw-bold'>Chọn nhân viên</label>
                                     <Select
 
-                                        placeholder={'CHON gara'}
+
                                         value={this.state.selectStaff}
                                         onChange={this.handleChangeStaff}
                                         options={this.state.listStaff}
 
                                     />
-                                </div>
-                                <div>    <button onClick={() => this.Search()} className='btn btn-primary position-relative top-50 start-50 translate-middle my-3'>tim kiem</button>
+
                                 </div>
 
+                                <div className='col-4'>
+                                    <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>Tìm kiếm</button>
+                                </div>
 
+                                <hr className='m-2'></hr>
 
 
 
 
                             </div>
+                            <div className='action'>
+                                <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>Làm mới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+
+                            </div>
+                        </div>
+                        <div className='m-p-body row'>
+
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3">
+                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">handbook tile </th>
+                                            <th scope="col">Tiêu đề</th>
 
-                                            <th scope="col">staffId</th>
+                                            <th scope="col">Nhân viên viết</th>
 
-                                            <th scope="col">ngay viet</th>
+                                            <th scope="col">Ngày viếtt</th>
 
-                                            <th scope="col">action</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -196,9 +235,9 @@ class ManageGaraHandBookHasNotPass extends Component {
 
 
 
-                                                                <td><button onClick={() => this.handlViewDetailHandBook(item)} className='button btn btn-primary'>view</button>
-                                                                    <button className='button btn btn-primary'>accep</button>
-                                                                    <button className='button btn btn-danger'>denice</button></td>
+                                                                <td><button onClick={() => this.handlViewDetailHandBook(item)} className='button btn btn-primary mx-2'>Xem chi tiết</button>
+                                                                    <button onClick={() => this.handlAcepHandBook(item)} className='button btn btn-primary mx-2'>Phê duyệt</button>
+                                                                    <button className='button btn btn-danger'>Từ chối</button></td>
                                                             </tr>
                                                         )
 
@@ -208,7 +247,7 @@ class ManageGaraHandBookHasNotPass extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr><td>not fout user</td></tr>
+                                                <tr>Không có data</tr>
                                             </>
 
                                         }

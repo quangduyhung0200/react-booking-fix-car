@@ -149,7 +149,7 @@ class ManageOrder extends Component {
                             />
                         </div>
                         <div className='col-12'>
-                            <table style={{ width: '100%' }} className='table-patient'>
+                            <table style={{ width: '100%' }} className='table-patient table table-hover table-bordered my-3 table-primary'>
                                 <tbody>
                                     <tr>
                                         <th >STT</th>

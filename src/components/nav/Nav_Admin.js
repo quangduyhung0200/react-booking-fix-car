@@ -37,12 +37,12 @@ class NavigateAdmim extends Component {
             return (
 
                 <div className='nav-header'>
-                    <Navbar expand="lg" className="bg-body-tertiary bg-header h-100">
+                    <Navbar expand="lg" className="  bg-body-tertiary bg-header h-100">
                         <Container>
                             <Navbar.Brand href="/"> <span className='band-nav'>React</span></Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="me-auto">
+                                <Nav className="ms-auto">
                                     <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
                                 </Nav>
                                 <NavDropdown title="Quản lý người dùng" id="basic-nav-dropdown">
