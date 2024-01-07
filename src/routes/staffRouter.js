@@ -31,6 +31,9 @@ import ManageGaraStaff from "../components/Staff/manageGara.js"
 import ManageGaraFromStaffNotYetPass from "../components/system/manageGara/manageGara.js"
 import detailHandBook from "../components/customer/handBook/detailHandBook.js";
 import UpadateGaraAdmin from "../components/system/manageGara/updateGaraAdmin.js";
+import DetailAccount from "../components/customer/manageAccount/manageAccount.js"
+import AllGara from "../components/home/listGara/allGara.js";
+import AllHandBook from "../components/home/listHandBook/allHandBook.js";
 class StaffRouter extends Component {
 
 
@@ -47,6 +50,12 @@ class StaffRouter extends Component {
 
 
 
+                        <Route exact path="/allGara">
+                            <AllGara />
+                        </Route>
+                        <Route exact path="/AllHandBook">
+                            <AllHandBook />
+                        </Route>
 
 
                         <Route path="/login">
@@ -58,7 +67,7 @@ class StaffRouter extends Component {
                         <Route exact path="/">
                             <HomePage />
                         </Route>
-
+                        <PrivateRole path="/Account" component={DetailAccount} />
 
                         <PrivateRole exact path="/myOrder" component={MyOrder} />
                         <PrivateRole path='/user' component={ManageUser} />

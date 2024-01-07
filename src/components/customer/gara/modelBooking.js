@@ -44,6 +44,7 @@ class ModelBooking extends Component {
             time: '',
             date: '',
             phone: '',
+
             serviceCheck: [],
             priceId: '',
             isValidEmail: true,
@@ -353,6 +354,7 @@ class ModelBooking extends Component {
         resuf.serviceId = data.selectService.value
         resuf.priceId = data.priceId
         resuf.phone = data.phone
+        resuf.reson = data.customerReson
         return resuf
 
 

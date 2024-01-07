@@ -58,16 +58,18 @@ class Navigate extends Component {
                 <div className='nav-header'>
                     <Navbar expand="lg" className="bg-body-tertiary bg-header h-100">
                         <Container>
-                            <Navbar.Brand href="/"> <span className='band-nav'>React</span></Navbar.Brand>
+                            <Navbar.Brand href="/"> <span className='band-nav'>MyCar</span></Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>Home</NavLink>
                                     {user && user.isAuthenticated === true && <>
-                                        <NavLink to="/myOrder" exact className='nav-link'>My order</NavLink>
+                                        <NavLink to="/myOrder" exact className='nav-link'>Đơn đặt lịch của tôi</NavLink>
 
                                     </>}
                                     {garaId !== '' && <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>}
+                                    <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
+                                    <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
 
 
                                 </Nav>
@@ -76,10 +78,10 @@ class Navigate extends Component {
                                         <Nav.Item  >Wellcome  {user.account.userName}</Nav.Item>
 
                                     </Nav>
-                                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                    <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
 
-                                        <Link className='nav-link' to="/RegisterGara">RegisterGara</Link>
-                                        <Link className='nav-link' to="/Account">trang co nhan</Link>
+                                        <Link className='nav-link' to="/RegisterGara">Đăng ký gara</Link>
+                                        <Link className='nav-link' to="/Account">Trang cá nhân</Link>
 
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item>

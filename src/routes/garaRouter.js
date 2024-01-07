@@ -24,6 +24,8 @@ import MyOrder from "../components/customer/gara/MyOrder.js";
 import UpadateGara from "../components/Gara/updateGara.js";
 import DetailAccount from "../components/customer/manageAccount/manageAccount.js"
 import DetailCar from "../components/customer/car/carDetail.js"
+import AllGara from "../components/home/listGara/allGara.js";
+import AllHandBook from "../components/home/listHandBook/allHandBook.js";
 class GaraRouter extends Component {
 
 
@@ -41,6 +43,12 @@ class GaraRouter extends Component {
 
 
 
+                        <Route exact path="/allGara">
+                            <AllGara />
+                        </Route>
+                        <Route exact path="/AllHandBook">
+                            <AllHandBook />
+                        </Route>
 
                         <Route path="/login">
                             <Login />

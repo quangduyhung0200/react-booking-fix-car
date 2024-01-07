@@ -39,15 +39,16 @@ class NavigateGara extends Component {
                 <div className='nav-header'>
                     <Navbar expand="lg" className="bg-body-tertiary bg-header h-100">
                         <Container>
-                            <Navbar.Brand href="/"> <span className='band-nav'>React</span></Navbar.Brand>
+                            <Navbar.Brand href="/"> <span className='band-nav'>MyCar</span></Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
-                                    <NavLink to="/" exact className='nav-link'>home</NavLink>
+                                    <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
 
-                                    <NavLink to="/myOrder" exact className='nav-link'>My order</NavLink>
+                                    <NavLink to="/myOrder" exact className='nav-link'>Đơn hàng của tôi</NavLink>
 
-
+                                    <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
+                                    <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
 
                                 </Nav>
 
@@ -55,14 +56,20 @@ class NavigateGara extends Component {
                                     <Nav.Item  >Wellcome  {user.account.userName}</Nav.Item>
 
                                 </Nav>
-                                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                                    <Link className='nav-link' to="/Account">trang co nhan</Link>
+                                <NavDropdown title="Quản lý gara" id="basic-nav-dropdown">
 
-                                    <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>
-                                    <NavLink to="/pickcar" exact className='nav-link'>pickcar</NavLink>
-                                    <NavLink to="/setSchedule" exact className='nav-link'>Schedule</NavLink>
-                                    <NavLink to="/manageBooking" exact className='nav-link'>ManageBooking</NavLink>
-                                    <NavLink to="/manageOrder" exact className='nav-link'>manageOrder</NavLink>
+
+                                    <NavLink to="/mygara" exact className='nav-link'>Gara của tôi</NavLink>
+                                    <NavLink to="/pickcar" exact className='nav-link'>Quản lý chọn xe</NavLink>
+                                    <NavLink to="/setSchedule" exact className='nav-link'>Quản lý lịch sửa</NavLink>
+                                    <NavLink to="/manageBooking" exact className='nav-link'>Quản lý đơn đặt lịch</NavLink>
+                                    <NavLink to="/manageOrder" exact className='nav-link'>Quản lý đơn hàng</NavLink>
+
+
+                                </NavDropdown>
+                                <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
+                                    <Link className='nav-link' to="/Account">Trang cá nhân</Link>
+
 
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item>

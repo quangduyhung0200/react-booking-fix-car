@@ -227,8 +227,8 @@ class MyOrder extends Component {
 
                                                     <td>{item.statusBooking.description}</td>
                                                     <td>
-                                                        {item.status === 'S4' && <button className='btn btn-primary mx-3'
-                                                            onClick={() => this.hanldOnclickConfid(item)}>Xác nhận hoàn thành đơn hàng</button>}
+                                                        {item.status === 'S4' && <button className='btn btn-primary mx-3 my-2'
+                                                            onClick={() => this.hanldOnclickConfid(item)}>Xác nhận hoàn thành </button>}
                                                         <button className='btn btn-primary mx-3'
                                                             onClick={() => this.hanldOnclick(item)}>Đặt lại</button>
                                                     </td>

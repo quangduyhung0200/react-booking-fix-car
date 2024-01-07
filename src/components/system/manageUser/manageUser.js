@@ -10,6 +10,8 @@ import _ from 'lodash';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { feactAllUser, searchUser } from '../../../services/staffService';
 import { getAllGroup } from '../../../services/adminService';
+import './model.scss'
+import { UserContext } from '../../../context/userContext';
 class ManageUser extends Component {
 
     constructor(props) {
@@ -26,7 +28,8 @@ class ManageUser extends Component {
             showModel: false,
             showModelUser: false,
             dataModel: {},
-            action: 'CREATE'
+            action: 'CREATE',
+            groupId: ''
         }
     }
 
@@ -70,6 +73,7 @@ class ManageUser extends Component {
             coppystate.listUser = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
             coppystate.listGroup = this.buildDataSelectGroup(group.DT)
+            coppystate.groupId = this.context.user.account.role[0].id
             this.setState({
                 ...coppystate
             })
@@ -97,7 +101,8 @@ class ManageUser extends Component {
         this.setState({
             dataModel: user,
             action: 'UPDATE',
-            showModelUser: true
+            showModelUser: true,
+            groupId: this.context.user.account.role[0].id
 
         })
 
@@ -107,6 +112,7 @@ class ManageUser extends Component {
             showModelUser: false,
 
             dataModel: {},
+            account: '',
             action: 'CREATE'
 
 
@@ -129,7 +135,7 @@ class ManageUser extends Component {
         this.setState({
             showModelUser: true,
             action: 'CREATE',
-
+            groupId: this.context.user.account.role[0].id
         })
 
 
@@ -267,7 +273,7 @@ class ManageUser extends Component {
                                                             <td>{item.groupData ? item.groupData.name : ''}</td>
                                                             <td>{item.phone}</td>
                                                             <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary mx-2'>update</button>
-                                                                <button onClick={() => this.handlDeletetUser(item)} className='btn btn-danger'>delete</button></td>
+                                                                {this.state.groupId === 4 && <button onClick={() => this.handlDeletetUser(item)} className='btn btn-danger'>delete</button>}</td>
                                                         </tr>
                                                     )
 
@@ -318,6 +324,7 @@ class ManageUser extends Component {
                     show={this.state.showModelUser}
                     action={this.state.action}
                     dataModel={this.state.dataModel}
+                    account={this.state.groupId}
                 />
                 <ModelconfimdeledeUser
                     show={this.state.showModel}
@@ -333,6 +340,6 @@ class ManageUser extends Component {
 
 }
 
-
+ManageUser.contextType = UserContext
 
 export default ManageUser;

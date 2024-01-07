@@ -462,7 +462,7 @@ class ModelUser extends Component {
 
                                 </select>
                             </div>
-                            {this.props.account === true ? <div className='col-12 col-sm-6 form-group'></div> : <div className='col-12 col-sm-6 form-group'>
+                            {this.props.account !== 4 ? <div className='col-12 col-sm-6 form-group'></div> : <div className='col-12 col-sm-6 form-group'>
                                 <label className='form-label'>Phân quyền</label>
                                 <select value={group} onChange={(event) => this.handleOnchaneInput(event, 'group')} className=" form-control" >
                                     {groupArr && groupArr.length > 0 &&

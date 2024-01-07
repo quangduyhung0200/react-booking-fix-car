@@ -1,0 +1,29 @@
+.register-handbook-container {
+    .register-title {}
+
+    .register-body {
+        .preView-image-container {
+            display: flex;
+            flex-direction: column;
+
+
+            .preView-Image {
+                height: 150px;
+                width: 100%;
+                border: 1px solid red;
+                background: center center no-repeat;
+                background-size: contain;
+                cursor: pointer;
+            }
+
+            .lable-upload {
+
+
+                padding: 5px;
+                border-radius: 3px;
+                background: #ddd;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -50,7 +50,15 @@ class ModelComfimCanserOrder extends Component {
 
     }
     handlecomfime = async () => {
-        await canserOrder(this.state)
+        let res = await canserOrder(this.state)
+        if (res.EC === 0) {
+            toast.success('Đơn hàng đã được phê duyệt')
+            this.props.onHide()
+        }
+        else {
+            toast.error('Có lỗi xảy ra, vui lòng thử lại')
+        }
+
 
     }
     render() {

@@ -5,10 +5,10 @@ import _ from 'lodash';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import { finishOrder } from '../../../services/garaService';
+import { canserBooking } from '../../../services/garaService';
 
 
-class ModelComfimFinishOrder extends Component {
+class ModelComfimCanserBooking extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,7 +50,7 @@ class ModelComfimFinishOrder extends Component {
 
     }
     handlecomfime = async () => {
-        let res = await finishOrder(this.state)
+        let res = await canserBooking(this.state)
         if (res.EC === 0) {
             toast.success('Đơn hàng đã được phê duyệt')
             this.props.onHide()
@@ -83,7 +83,7 @@ class ModelComfimFinishOrder extends Component {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div>hehehe</div>
+                        <div>xẻ bôking</div>
 
                     </Modal.Body>
                     <Modal.Footer>
@@ -103,4 +103,4 @@ class ModelComfimFinishOrder extends Component {
 }
 
 
-export default ModelComfimFinishOrder;
+export default ModelComfimCanserBooking;

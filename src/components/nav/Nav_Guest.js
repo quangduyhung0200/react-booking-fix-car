@@ -26,13 +26,13 @@ class Navigate_Guest extends Component {
                 <div className='nav-header'>
                     <Navbar expand="lg" className="bg-body-tertiary bg-header h-100">
                         <Container>
-                            <Navbar.Brand href="/"> <span className='band-nav'>React</span></Navbar.Brand>
+                            <Navbar.Brand href="/"> <span className='band-nav'>MyCar</span></Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>Home</NavLink>
-                                    <NavLink to="/allGara" exact className='nav-link'>Allgara</NavLink>
-                                    <NavLink to="/allHandBook" exact className='nav-link'>AllHandBook</NavLink>
+                                    <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
+                                    <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
 
 
 

@@ -14,6 +14,9 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { createHandbook } from '../../services/staffService';
 import { getAllGara } from '../../services/guestService';
+import './addnewHandbook.scss'
+import { toast } from 'react-toastify';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class AddNewHandBook extends Component {
@@ -93,6 +96,10 @@ class AddNewHandBook extends Component {
             }
 
             let res = await createHandbook(data)
+            if (res.EC === 0) {
+                toast.success('Tạo thành công bài viết mới')
+                this.history.push('/manageHandBook')
+            }
 
         }
 
@@ -160,8 +167,9 @@ class AddNewHandBook extends Component {
                 </>
 
                 }
-                <div className='register-container container'>
-                    <div className='register-title'>hello from register handBook</div>
+                <div className='register-handbook-container container'>
+                    <div className='register-title'><h3>Viết bài đăng mới</h3></div>
+                    <hr></hr>
                     <div className='register-body row'>
                         <div className='conten-left col-6'>
                             <label>Tiêu đề</label>
@@ -172,7 +180,8 @@ class AddNewHandBook extends Component {
                             </textarea>
 
                             <Select
-                                placeholder={'CHON Gara neu co'}
+                                className='my-3'
+                                placeholder={'Chọn gara(không bắt buộc)'}
                                 value={this.state.selectGara}
                                 onChange={this.handleChange}
                                 options={this.state.listGara}
@@ -202,6 +211,7 @@ class AddNewHandBook extends Component {
                         </div>
 
                     </div>
+                    <hr></hr>
 
 
                     <div className='manage-docter-editor'>
@@ -210,8 +220,9 @@ class AddNewHandBook extends Component {
                             onChange={this.handleEditorChange}
                             value={this.state.contenMarkdown}></MdEditor>
                     </div>
-                    <button className='btn-save-conten' onClick={() => this.handleSveConTen()}>
-                        dang ky</button>
+                    <hr></hr>
+                    <button className='btn btn-primary' onClick={() => this.handleSveConTen()}>
+                        Lưu</button>
 
                 </div>
 
@@ -223,4 +234,4 @@ class AddNewHandBook extends Component {
 }
 AddNewHandBook.contextType = UserContext
 
-export default AddNewHandBook;
+export default withRouter(AddNewHandBook);

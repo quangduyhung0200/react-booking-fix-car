@@ -29,15 +29,19 @@ const finishOrder = async (data) => {
     return axios.post(`/api/v1/gara/finishOrder`, data);
 }
 const canserOrder = async (data) => {
-    return axios.post(`/api/v1/gara/canserOrder`, data);
+    return axios.put(`/api/v1/gara/canserOrder`, data);
 }
 const updateGara = async (data) => {
     return axios.put(`/api/v1/gara/updateGara`, data);
+}
+
+const canserBooking = async (data) => {
+    return axios.put(`/api/v1/gara/canserBooking`, data);
 }
 
 
 
 export {
     getDataGara, registerCartoGara, getAllTime, createBulkScheduleGara, deletePickCar, getAllBookingByDay, comfimBooking, getAllOrderByDay,
-    finishOrder, canserOrder, updateGara
+    finishOrder, canserOrder, updateGara, canserBooking
 }

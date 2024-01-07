@@ -5,6 +5,8 @@ import moment from 'moment';
 import { getDataGara } from '../../services/garaService';
 import { getAllBookingByDay } from '../../services/garaService';
 import ModelComfimBooking from './AllModel/modelComfimBooking';
+import './manageBooking.scss'
+import ModelComfimCanserBooking from './AllModel/modelconfomCasnerBooking.js';
 class ManageBookingGara extends Component {
     constructor(props) {
         super(props);
@@ -14,7 +16,8 @@ class ManageBookingGara extends Component {
             garaId: '',
             dataBooking: {},
             isOpentModel: false,
-            dateModel: {}
+            dateModel: {},
+            isOpentModelCanser: false
         }
     }
     async componentDidMount() {
@@ -22,7 +25,8 @@ class ManageBookingGara extends Component {
         if (data.EC === 0) {
 
 
-            let currendate = moment(new Date(this.state.currenDate)).startOf('day').unix()
+            // let currendate = moment(new Date(this.state.currenDate)).startOf('day').unix()
+            let currendate = 'ALL'
             let res = await getAllBookingByDay(data.DT.id, currendate)
             this.setState({
                 dataBooking: res.DT,
@@ -84,6 +88,37 @@ class ManageBookingGara extends Component {
 
 
     }
+    closeBookingModelCanser = () => {
+        this.setState({
+
+            isOpentModelCanser: false,
+            dataModel: {},
+
+
+
+        })
+    }
+    hanldOnclickDenice = (item) => {
+        let data = {
+            userId: item.userId,
+            garaid: item.garaid,
+            carId: item.carId,
+            timetype: item.timeType,
+            serviceId: item.serviceId,
+            date: item.date,
+            email: item.bookingData.email,
+            time: item.timeDataBooking.timValue,
+
+
+        }
+
+        this.setState({
+            isOpentModelCanser: true,
+            dateModel: data
+        })
+
+
+    }
     closeBookingModel = () => {
         this.setState({
             isOpentModel: false,
@@ -93,18 +128,20 @@ class ManageBookingGara extends Component {
 
         })
     }
+    handlRefesh = () => {
+        window.location.reload()
+    }
     render() {
 
         let dataBooking = this.state.dataBooking
         return (
             <>
-                <div className='manage-patient-container'>
+                <div className='manage-booking-container container'>
                     <div className='m-p-title'>
-                        Quan ly benh nhan kham benh
-                    </div>
-                    <div className='m-p-body row'>
+                        <h3>   Quản lý đơn hàng đặt lịch</h3>
+                        <hr></hr>
                         <div className='col-4 form-group'>
-                            <label>Chon ngay kham</label>
+                            <label className='fw-bold'>Chọn ngày tìm kiếm </label>
                             <ReactDatePicker
                                 onChange={this.handleChangedatePick}
                                 className='form-control'
@@ -115,29 +152,45 @@ class ManageBookingGara extends Component {
 
                             />
                         </div>
+                        <hr></hr>
+                        <div className='action my-3'>
+                            <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>Làm mới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <div className='m-p-body row'>
+
                         <div className='col-12'>
                             <table style={{ width: '100%' }} className='table-patient table table-hover table-bordered my-3 table-primary'>
                                 <tbody>
                                     <tr>
                                         <th >STT</th>
-                                        <th>thoi  gian</th>
-                                        <th>HO VA TEN</th>
-                                        <th>email</th>
-                                        <th>DIA CHI</th>
+                                        <th>Thời gian khám</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Email khách hàng</th>
+                                        <th>Số điện thoại khách hàng</th>
+                                        <th>Địa chỉ của khách hàng</th>
+                                        <th>Tình trạng xe</th>
                                         <th>ACTION</th>
                                     </tr>
                                     {dataBooking && dataBooking.length > 0 &&
                                         dataBooking.map((item, index) => {
+
+
+                                            let s = new Date(item.date * 1000).toLocaleDateString("vi")
                                             return (
 
                                                 <tr key={`child-${index}`}>
                                                     <td>{index + 1}</td>
-                                                    <td>{item.timeDataBooking.timValue}</td>
+                                                    <td>{item.timeDataBooking.timValue} ngày {s}</td>
                                                     <td>{item.bookingData.userName}</td>
                                                     <td>{item.bookingData.email}</td>
+                                                    <td>{item.bookingData.phone}</td>
                                                     <td>{item.bookingData.address}</td>
-                                                    <td><button className='config' onClick={() => this.hanldOnclickConfid(item)}>xac nhan</button>
-                                                        <button className='send-tex'>gui hoa don</button></td>
+                                                    <td>{item.reson}</td>
+                                                    <td><button className='btn btn-primary' onClick={() => this.hanldOnclickConfid(item)}>Xác nhận</button>
+                                                        <button className='btn btn-warning' onClick={() => this.hanldOnclickDenice(item)}>Từ chối </button></td>
                                                 </tr>
                                             )
                                         })}
@@ -157,6 +210,12 @@ class ManageBookingGara extends Component {
                     show={this.state.isOpentModel}
                     dataModel={this.state.dateModel}
                     onHide={this.closeBookingModel} />
+                <ModelComfimCanserBooking
+
+                    show={this.state.isOpentModelCanser}
+                    dataModel={this.state.dateModel}
+                    onHide={this.closeBookingModelCanser} />
+
             </>
         );
     }

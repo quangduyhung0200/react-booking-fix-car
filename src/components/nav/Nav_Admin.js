@@ -39,12 +39,14 @@ class NavigateAdmim extends Component {
                 <div className='nav-header'>
                     <Navbar expand="lg" className="  bg-body-tertiary bg-header h-100">
                         <Container>
-                            <Navbar.Brand href="/"> <span className='band-nav'>React</span></Navbar.Brand>
+                            <Navbar.Brand href="/"> <span className='band-nav'>MyCar</span></Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="ms-auto">
                                     <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
                                 </Nav>
+                                <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
+                                <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
                                 <NavDropdown title="Quản lý người dùng" id="basic-nav-dropdown">
                                     <NavLink to="/user" exact className='nav-link'>Quản lý người dùng</NavLink>
                                     <NavLink to="/manage-comment" exact className='nav-link'>Quản lý comment người dùng</NavLink>
@@ -79,7 +81,7 @@ class NavigateAdmim extends Component {
 
                                 </Nav>
                                 <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="/Account">Quản lý tài khoản</NavDropdown.Item>
+                                    <Link className='nav-link' to="/Account">Trang cá nhân</Link>
 
 
                                     <NavDropdown.Divider />

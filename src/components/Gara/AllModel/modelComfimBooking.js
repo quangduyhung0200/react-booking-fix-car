@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import { comfimBooking } from '../../../services/garaService';
 
-
+import { withRouter } from 'react-router-dom/cjs/react-router-dom';
 class ModelComfimBooking extends Component {
     constructor(props) {
         super(props);
@@ -53,7 +53,19 @@ class ModelComfimBooking extends Component {
     }
     handlecomfime = async () => {
 
-        await comfimBooking(this.state)
+        let res = await comfimBooking(this.state)
+        if (res.EC === 0) {
+            toast.success('Xác nhận đã tiếp nhận đơn hàng')
+            this.props.history.push('/manageOrder')
+        }
+        else if (res.EC === 2) {
+            toast.error('Gara đã hết sức chứa')
+            this.props.onHide()
+        }
+        else {
+            toast.error('Có lỗi xảy ra vui lòng thử lại sau')
+            this.props.onHide()
+        }
     }
     render() {
 
@@ -98,4 +110,4 @@ class ModelComfimBooking extends Component {
 }
 
 
-export default ModelComfimBooking;
+export default withRouter(ModelComfimBooking);

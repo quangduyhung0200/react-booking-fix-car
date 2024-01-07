@@ -16,6 +16,7 @@ import { updateHandbook } from '../../services/staffService';
 import { getAllGara } from '../../services/guestService';
 import { getHandBookById } from '../../services/adminService';
 import { Buffer } from 'buffer';
+import { getUserById } from '../../services/userService';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class UpdateHandBook extends Component {
@@ -40,36 +41,57 @@ class UpdateHandBook extends Component {
 
     async componentDidMount() {
 
-        console.log(this.props.location.pathname.split("/")[2])
-        if (this.props.location.pathname.split("/")[2] !== null) {
+
+        let res2 = await getUserById(this.context.user.account.id)
+        if (this.context.user.account.role[0].id === 4) {
             this.setState({
                 handbookId: this.props.location.pathname.split("/")[2]
             })
         }
-        let oldData = await getHandBookById(this.props.location.pathname.split("/")[2])
-        if (oldData.EC === 0) {
-            this.setState({
-                contenMarkdown: oldData.DT.contentMarkdown,
-                contenHTML: oldData.DT.contentHTML,
-                title: oldData.DT.title,
-                previewimg: new Buffer(oldData.DT.avata, 'base64').toString('binary'),
-                avata: new Buffer(oldData.DT.avata, 'base64').toString('binary'),
+        else {
+            if (res2.EC === 0 && res2.DT.StaffHandbookData) {
+                let listhandbook = res2.DT.StaffHandbookData
+                if (listhandbook.length > 0) {
+                    listhandbook.map((item) => {
 
-
-
-                selectGara: { label: oldData.DT.GaraHandBook.nameGara, value: oldData.DT.GaraHandBook.id },
-            })
+                        if (+item.id === +this.props.location.pathname.split("/")[2]) {
+                            this.setState({
+                                handbookId: +item.id
+                            })
+                        }
+                    })
+                }
+            }
         }
-        let res = await getAllGara()
-        if (res.EC === 0) {
-            let listGara = this.buidDataInputSeclectGara(res.DT)
-            this.setState({
-                listGara: listGara
-            })
-        }
+
+
 
     }
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.handbookId !== this.state.handbookId) {
+            let oldData = await getHandBookById(this.state.handbookId)
+            if (oldData.EC === 0) {
+                this.setState({
+                    contenMarkdown: oldData.DT.contentMarkdown,
+                    contenHTML: oldData.DT.contentHTML,
+                    title: oldData.DT.title,
+                    previewimg: new Buffer(oldData.DT.avata, 'base64').toString('binary'),
+                    avata: new Buffer(oldData.DT.avata, 'base64').toString('binary'),
 
+
+
+                    selectGara: { label: oldData.DT.GaraHandBook.nameGara, value: oldData.DT.GaraHandBook.id },
+                })
+            }
+            let res = await getAllGara()
+            if (res.EC === 0) {
+                let listGara = this.buidDataInputSeclectGara(res.DT)
+                this.setState({
+                    listGara: listGara
+                })
+            }
+        }
+    }
     handlOnChandText = (event, id) => {
         let stateCoppy = { ...this.state }
         stateCoppy[id] = event.target.value
@@ -182,7 +204,7 @@ class UpdateHandBook extends Component {
                 previewimg: imageBase64
             })
         }
-        console.log(this.state.previewimg)
+
         return (
             <>
                 {this.state.isOpen === true && <><Lightbox
@@ -191,8 +213,9 @@ class UpdateHandBook extends Component {
                 </>
 
                 }
-                <div className='register-container container'>
-                    <div className='register-title'>hello from register handBook</div>
+                <div className='register-handbook-container container'>
+                    <div className='register-title'><h3>Viết bài đăng mới</h3></div>
+                    <hr></hr>
                     <div className='register-body row'>
                         <div className='conten-left col-6'>
                             <label>Tiêu đề</label>
@@ -203,7 +226,8 @@ class UpdateHandBook extends Component {
                             </textarea>
 
                             <Select
-                                placeholder={'CHON Gara neu co'}
+                                className='my-3'
+                                placeholder={'Chọn gara(không bắt buộc)'}
                                 value={this.state.selectGara}
                                 onChange={this.handleChange}
                                 options={this.state.listGara}
@@ -233,6 +257,7 @@ class UpdateHandBook extends Component {
                         </div>
 
                     </div>
+                    <hr></hr>
 
 
                     <div className='manage-docter-editor'>
@@ -241,12 +266,11 @@ class UpdateHandBook extends Component {
                             onChange={this.handleEditorChange}
                             value={this.state.contenMarkdown}></MdEditor>
                     </div>
-                    <button className='btn-save-conten' onClick={() => this.handleSveConTen()}>
-                        dang ky</button>
+                    <hr></hr>
+                    <button className='btn btn-primary' onClick={() => this.handleSveConTen()}>
+                        Lưu</button>
 
                 </div>
-
-
             </>
 
         )

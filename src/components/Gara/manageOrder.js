@@ -6,6 +6,7 @@ import { getDataGara } from '../../services/garaService';
 import { getAllOrderByDay } from '../../services/garaService';
 import ModelComfimFinishOrder from './AllModel/modelComfimFinishOrder';
 import ModelComfimCanserOrder from './AllModel/modelComfimCanserOder';
+import './manageOrder.scss'
 class ManageOrder extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +25,8 @@ class ManageOrder extends Component {
         if (data.EC === 0) {
 
 
-            let currendate = moment(new Date(this.state.currenDate)).startOf('day').unix()
+            // let currendate = moment(new Date(this.state.currenDate)).startOf('day').unix()
+            let currendate = 'ALL'
             let res = await getAllOrderByDay(data.DT.id, currendate)
             this.setState({
                 dataBooking: res.DT,
@@ -126,16 +128,18 @@ class ManageOrder extends Component {
         })
 
     }
+    handlRefesh = () => {
+        window.location.reload()
+    }
     render() {
 
         let dataBooking = this.state.dataBooking
         return (
             <>
-                <div className='manage-patient-container'>
+                <div className='manage-order-container container'>
                     <div className='m-p-title'>
-                        Quan ly benh nhan kham benh
-                    </div>
-                    <div className='m-p-body row'>
+                        <h3> Quản lý đơn đặt lịch</h3>
+                        <hr></hr>
                         <div className='col-4 form-group'>
                             <label>Chon ngay kham</label>
                             <ReactDatePicker
@@ -148,6 +152,15 @@ class ManageOrder extends Component {
 
                             />
                         </div>
+                        <hr></hr>
+                        <div className='action my-3'>
+                            <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>Làm mới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <div className='m-p-body row'>
+
                         <div className='col-12'>
                             <table style={{ width: '100%' }} className='table-patient table table-hover table-bordered my-3 table-primary'>
                                 <tbody>
@@ -162,19 +175,22 @@ class ManageOrder extends Component {
                                     </tr>
                                     {dataBooking && dataBooking.length > 0 &&
                                         dataBooking.map((item, index) => {
+                                            let s = new Date(item.date * 1000).toLocaleDateString("vi")
                                             return (
 
                                                 <tr key={`child-${index}`}>
                                                     <td>{index + 1}</td>
-                                                    <td>{item.timeDataBooking.timValue}</td>
+                                                    <td>{item.timeDataBooking.timValue} ngày {s}</td>
                                                     <td>{item.bookingData.userName}</td>
                                                     <td>{item.bookingData.email}</td>
                                                     <td>{item.bookingData.address}</td>
-                                                    <td>{item.status === 'S3' ? 'don hang dang tien hanh' : item.status === 'S4' ? 'don hang da hoan thanh' : 'don hang da that bai'}</td>
-                                                    <td><button className={item.status === 'S3' ? 'btn btn-primary mx-3' : 'btn btn-primary mx-3 disabled'}
-                                                        onClick={() => this.hanldOnclickConfid(item)}>hoàn thành đơn hàng</button>
-                                                        <button className={item.status === 'S3' ? 'btn btn-primary' : 'btn btn-primary disabled'}
-                                                            onClick={() => this.hanldOnclickDontFinshTheOrder(item)}>khong hoan thanh don hang</button></td>
+                                                    <td>{item.statusBooking.description}</td>
+                                                    <td>{item.status === 'S3' && <>
+                                                        <button className='btn btn-primary mx-3'
+                                                            onClick={() => this.hanldOnclickConfid(item)}>Hoàn thành đơn hàng</button>
+                                                        <button className='btn btn-primary mx-3'
+                                                            onClick={() => this.hanldOnclickDontFinshTheOrder(item)}>Hủy đơn hàng</button></>}
+                                                    </td>
                                                 </tr>
                                             )
                                         })}

@@ -71,6 +71,13 @@ class CustommerRouter extends Component {
                         <Route exact path="/">
                             <HomePage />
                         </Route>
+                        <Route exact path="/allGara">
+                            <AllGara />
+                        </Route>
+                        <Route exact path="/AllHandBook">
+                            <AllHandBook />
+                        </Route>
+
                         <PrivateRole exact path="/RegisterGara" component={RegisterGara} />
 
                         <PrivateRole exact path="/myOrder" component={MyOrder} />
