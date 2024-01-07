@@ -27,6 +27,7 @@ class AllGara extends Component {
     }
 
     async componentDidMount() {
+
         let dataprovind = await getAllProvind()
         let dataprovind1 = dataprovind.DT
         let dataprovind2 = [{

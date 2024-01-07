@@ -10,7 +10,7 @@ import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { getAllStaff, searchHandbookUncensor } from '../../../services/adminService';
 import './manageHanndbookuncerser.scss'
-import { getHandBookById, accepHandBook } from '../../../services/adminService';
+import { getHandBookById, accepHandBook, deniceHandBook } from '../../../services/adminService';
 import { toast } from 'react-toastify';
 class ManageGaraHandBookHasNotPass extends Component {
 
@@ -146,6 +146,29 @@ class ManageGaraHandBookHasNotPass extends Component {
         }
 
     }
+    handDeniceHandBook = async (handbook) => {
+
+        let respons = await deniceHandBook(handbook.id)
+        if (respons && respons.EC === 0) {
+
+            toast.success('da xet duyet thanh cong')
+            let { currenpage, currenlimit } = this.state
+            let respons = await readHanndBook(currenpage, currenlimit, 'ALL')
+
+            if (respons && respons.EC === 0) {
+                let coppystate = { ...this.state }
+                coppystate.listHandBook = respons.DT.user
+                coppystate.totalpage = respons.DT.totalPage
+                this.setState({
+                    ...coppystate
+                })
+
+            }
+
+
+        }
+
+    }
     handlRefesh = () => {
         window.location.reload()
     }
@@ -237,7 +260,7 @@ class ManageGaraHandBookHasNotPass extends Component {
 
                                                                 <td><button onClick={() => this.handlViewDetailHandBook(item)} className='button btn btn-primary mx-2'>Xem chi tiết</button>
                                                                     <button onClick={() => this.handlAcepHandBook(item)} className='button btn btn-primary mx-2'>Phê duyệt</button>
-                                                                    <button className='button btn btn-danger'>Từ chối</button></td>
+                                                                    <button onClick={() => this.handDeniceHandBook(item)} className='button btn btn-danger'>Từ chối</button></td>
                                                             </tr>
                                                         )
 

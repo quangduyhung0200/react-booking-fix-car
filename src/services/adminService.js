@@ -54,9 +54,12 @@ const deleteBooking = async (booking) => {
     return axios.delete(`/api/v1/booking/deleteBooking`, { data: { id: booking.id } });
 }
 
+const deniceHandBook = async (id) => {
+    return axios.put(`/api/v1/handBook/denice`, { id });
+}
 
 
 export {
     deleteCar, getHandBookById, accepHandBook, getAllGroup, updateUser, getAllHandbook, deleteUser, deleteHandbook, deleteGara, getAllStaff,
-    searchHandbookUncensor, searchHandbook, getCarCompanyByPage, deleteCarCompany, deleteComment, deleteBooking
+    searchHandbookUncensor, searchHandbook, getCarCompanyByPage, deleteCarCompany, deleteComment, deleteBooking, deniceHandBook
 }

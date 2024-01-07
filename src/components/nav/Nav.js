@@ -29,6 +29,7 @@ class Navigate extends Component {
 
         this.context.logout()
         if (data && data.EC === 0) {
+            localStorage.setItem('jwt', '')
             this.props.history.push('/login')
             toast.success('log out success')
 

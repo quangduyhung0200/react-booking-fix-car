@@ -68,6 +68,7 @@ class ModelBooking extends Component {
         let data = await getAllService()
         let data1 = await getAllPrice()
         let data2 = await getAllPayment()
+
         if (data.EC === 0 && data1.EC === 0 && data2.EC === 0) {
             this.setState({
                 serviceCheck: data.DT,
@@ -311,7 +312,7 @@ class ModelBooking extends Component {
             let resule2 = this.buidDataInputSeclectservice2(results)
 
 
-
+            console.log('list service: ', allService)
 
             this.setState({
                 selectCarId: selectedOption,

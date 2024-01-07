@@ -17,6 +17,7 @@ class ModelUser extends Component {
         this.state = {
             genderArr: [],
             groupArr: [],
+
             group: '',
             userName: '',
             password: '',
@@ -264,7 +265,8 @@ class ModelUser extends Component {
                 coppyState.gender = this.props.dataModel.gender
                 coppyState.address = this.props.dataModel.address
                 coppyState.userId = this.props.dataModel.id
-
+                coppyState.group = { id: this.props.dataModel.groupId, name: this.props.dataModel.groupData.name }
+                coppyState.gender = this.props.dataModel.gender
                 this.setState({
                     ...coppyState
                 })
@@ -310,7 +312,7 @@ class ModelUser extends Component {
 
         let { address, gender, phone, userName, comfimPassword, email, password, group, avata, userId } = this.state
         let check = this.vetyfyData()
-        console.log(this.state)
+
         if (check === true) {
             if (this.props.action === 'CREATE') {
                 if (avata === '') {
@@ -351,7 +353,7 @@ class ModelUser extends Component {
                 }
                 let dataInput = { address, gender, phone, userName, comfimPassword, email, password, group, avata, userId }
                 let data = await updateUser(dataInput)
-                console.log(data)
+
                 if (data && data.EC === 0) {
                     toast.success('update user success')
 
@@ -365,7 +367,7 @@ class ModelUser extends Component {
 
         let { genderArr, address, gender, phone, userName, comfimPassword, email, password, isValidEmail,
             isValidUserName, isValidphone, isValidConfigPassword, isValidPassword, isValidGender, isValidAddress, isNewAccout, groupArr, group } = this.state
-        console.log('check state: ', this.props)
+        console.log('check group:', this.state.genderArr)
         return (
             <div>
 
@@ -464,11 +466,11 @@ class ModelUser extends Component {
                             </div>
                             {this.props.account !== 4 ? <div className='col-12 col-sm-6 form-group'></div> : <div className='col-12 col-sm-6 form-group'>
                                 <label className='form-label'>Phân quyền</label>
-                                <select value={group} onChange={(event) => this.handleOnchaneInput(event, 'group')} className=" form-control" >
+                                <select value={group.id} onChange={(event) => this.handleOnchaneInput(event, 'group')} className=" form-control" >
                                     {groupArr && groupArr.length > 0 &&
                                         groupArr.map((item, index) => {
                                             return (
-                                                <option value={item.id} key={`gender-${item.id}`} >{item.name}</option>
+                                                <option value={item.id} key={`group-${item.id}`} >{item.name}</option>
                                             )
                                         })
 

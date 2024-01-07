@@ -191,7 +191,7 @@ class ManageHandBook extends Component {
 
 
                                                     <td>{s}</td>
-                                                    <td>{item.status === 'S1' ? 'Bài viết chưa đưuọc phê duyệt' : 'Bài viết đã được duyệt'}</td>
+                                                    <td>{item.status === 'S1' ? 'Bài viết chưa đưuọc phê duyệt' : item.status === 'S0' ? 'Bài viết đã bị từ chối' : 'Bài viết đã được duyệt'}</td>
 
 
                                                     <td><button onClick={() => this.handlViewHandbook(item)} className='button btn btn-primary mx-2'>Xem chi tiết</button>

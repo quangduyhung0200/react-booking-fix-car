@@ -107,6 +107,8 @@ class Login extends Component {
                     token: token,
                     account: { role, email, userName, id }
                 }
+                console.log(token)
+                localStorage.setItem('jwt', token)
                 this.context.loginContext(hehe)
 
                 toast.success('LOGIN SUCCESS')

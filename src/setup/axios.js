@@ -7,11 +7,12 @@ const instance = axios.create({
 });
 
 // Alter defaults after instance has been created
-// instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
+instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
 // Add a request interceptor
 instance.defaults.withCredentials = true
 instance.interceptors.request.use(function (config) {
     // Do something before request is sent
+    instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
     return config;
 }, function (error) {
     // Do something with request error
@@ -38,7 +39,7 @@ instance.interceptors.response.use(function (response) {
 
 
                 toast.error('you dont have authentication to accest')
-                window.location.href = '/login'
+                // window.location.href = '/login'
 
             }
 
@@ -53,7 +54,7 @@ instance.interceptors.response.use(function (response) {
         case 403: {
 
             toast.error('you dont have permistions to access this resource')
-            window.location.href = '/login'
+            // window.location.href = '/login'
             return err.response.data
         }
 

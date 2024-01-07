@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { getAllGender } from '../../../services/guestService';
 import CommonUtils from '../../../utils/CommonUtils';
-import { getAllGroup, updateUser } from '../../../services/adminService';
+
 import { toast } from 'react-toastify';
 import { Buffer } from 'buffer';
 import _ from 'lodash';
