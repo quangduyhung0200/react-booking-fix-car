@@ -216,6 +216,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Tên gara</th>
+                                            <th scope="col">Khách hàng đăng ký</th>
                                             <th scope="col">Địa chỉ</th>
                                             <th scope="col">Tỉnh thành</th>
 
@@ -236,6 +237,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
 
                                                                 <td>{item.id}</td>
                                                                 <td>{item.nameGara}</td>
+                                                                <td>{item.userGara.userName}</td>
                                                                 <td>{item.address}</td>
                                                                 <td>{item.provindGaraData.name}</td>
 

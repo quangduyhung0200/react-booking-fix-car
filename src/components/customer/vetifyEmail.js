@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
-
+import './vetyflyEmail.scss'
+import { withRouter } from 'react-router-dom/cjs/react-router-dom';
 import { veryfyBooking } from '../../services/guestService';
 class VerifyEmail extends Component {
     constructor(props) {
@@ -39,7 +39,9 @@ class VerifyEmail extends Component {
 
     }
 
-
+    handCickhome = () => {
+        this.props.history.push('/')
+    }
     render() {
         let { statusVetyfy, errCode } = this.state
         return (
@@ -49,10 +51,23 @@ class VerifyEmail extends Component {
                     <div>loading data....</div> :
                     <div>
                         {errCode === 0 ?
-                            <div>thanh cong</div> :
-                            <div>that bai</div>
+
+                            <div className='container'>
+                                <div className='success'>
+                                    <div className='icon d-plex'><i class="fa fa-check" aria-hidden="true"> </i><span className='fs-1'>Xác nhận thành công</span></div>
+                                    <div>Vui lòng  kiểm tra email để biết được khi nào gara xác nhận đơn đặt lịch nhé</div>
+                                    <div> <button onClick={() => this.handCickhome()} className='btn btn-primary mt-3'>Nhấn vào đây để về trang chủ</button></div>
+                                </div>
+                            </div> :
+                            <div className='container'>
+                                <div className='fails'>
+                                    <div className='icon d-plex'><i class="fa fa-times" aria-hidden="true"></i><span className='fs-1'>Rất tiếc việc xác nhận đã không thành công</span></div>
+                                    <div>Vui lòng kiểm tra lại email của bạn (nếu bạn đã xác nhận một lần thì lần thứ 2 load trang này sẽ dẫn đến hiển thị này)</div>
+                                    <div> <button onClick={() => this.handCickhome()} className='btn btn-primary mt-3'>Nhấn vào đây để về trang chủ</button></div>
+                                </div>
+                            </div>
                         }
-                    </div>
+                    </div >
                 }
 
 
@@ -62,4 +77,4 @@ class VerifyEmail extends Component {
 }
 
 
-export default VerifyEmail;
+export default withRouter(VerifyEmail);

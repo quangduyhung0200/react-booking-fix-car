@@ -193,7 +193,7 @@ class AddNewHandBook extends Component {
 
                             <div className='col-12 form-group'>
                                 <label >
-                                    image
+                                    Chọn ảnh logo
                                 </label>
                                 <div className='preView-image-container '>
                                     <input id='previewImg' type='file' hidden

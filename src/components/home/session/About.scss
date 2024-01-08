@@ -1,7 +1,13 @@
 .about-container {
+    background-color: #ffffff;
+    border-radius: 2%;
+    height: 450px;
+
+    .title {
+        padding: 10px;
+    }
+
     .conten-left {}
 
-    .conten-right {
-        background: #f5f5f5;
-    }
+    .conten-right {}
 }

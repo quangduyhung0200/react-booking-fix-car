@@ -179,8 +179,8 @@ class ManageComment extends Component {
             toast.success('delete succes')
 
             this.setState({
-                showModel: false,
-
+                isShowModel: false,
+                dataModel: {}
             })
         }
         let { currenpage, currenlimit } = this.state

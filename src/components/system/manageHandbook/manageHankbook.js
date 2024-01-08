@@ -129,7 +129,7 @@ class ManageHandbook extends Component {
             toast.success('delete succes')
 
             this.setState({
-                showModel: false,
+                isShowModel: false,
 
             })
         }

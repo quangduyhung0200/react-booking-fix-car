@@ -11,6 +11,7 @@ import { getUserById } from '../../../services/userService';
 import Select from 'react-select';
 import { getAllGara } from '../../../services/guestService';
 import CommonUtils from '../../../utils/CommonUtils';
+import { toast } from 'react-toastify';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
@@ -177,17 +178,23 @@ class Chart extends Component {
                 })
             }
         } else {
-            let res2 = await getprofit(this.state.selectGara.value, 'ALL')
-            if (res2.EC === 0) {
-                let data = this.buidataprofit(res2.DT)
-                this.setState({
-                    profit1: data[0],
-                    profit2: data[1],
-                    profit3: data[2],
-                    profit4: data[3],
-                    listbooking: res2.DT
-                })
+            if (this.state.selectGara.value) {
+                let res2 = await getprofit(this.state.selectGara.value, 'ALL')
+                if (res2.EC === 0) {
+                    let data = this.buidataprofit(res2.DT)
+                    this.setState({
+                        profit1: data[0],
+                        profit2: data[1],
+                        profit3: data[2],
+                        profit4: data[3],
+                        listbooking: res2.DT
+                    })
+                }
             }
+            else {
+                toast.error('Bạn chưa chọn gara')
+            }
+
         }
 
     }
@@ -208,17 +215,23 @@ class Chart extends Component {
             }
         }
         else {
-            let res2 = await getprofit(this.state.selectGara.value, fomatedDate)
-            if (res2.EC === 0) {
-                let data = this.buidataprofit(res2.DT)
-                this.setState({
-                    profit1: data[0],
-                    profit2: data[1],
-                    profit3: data[2],
-                    profit4: data[3],
-                    listbooking: res2.DT
-                })
+            if (this.state.selectGara.value) {
+                let res2 = await getprofit(this.state.selectGara.value, fomatedDate)
+                if (res2.EC === 0) {
+                    let data = this.buidataprofit(res2.DT)
+                    this.setState({
+                        profit1: data[0],
+                        profit2: data[1],
+                        profit3: data[2],
+                        profit4: data[3],
+                        listbooking: res2.DT
+                    })
+                }
             }
+            else {
+                toast.error('Bạn chưa chọn gara')
+            }
+
         }
 
 

@@ -9,29 +9,30 @@ class About extends Component {
 
 
         return (
-            <><div className='about-container'>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-12'>asdasdasdasd</div>
-                        <div className='conten-left col-6'>
-                            <iframe
-                                width="100%"
-                                height="300px"
-                                src="https://www.youtube.com/embed/iLoJQdGjXRU"
-                                title="maybe i should get out more..."
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowFullScreen></iframe>
-                        </div>
-                        <div className='conten-right col-6'>
-                            <p>toi ten la quang duy hung</p>
-                        </div>
+            <><div className='about-container container'>
 
+                <div className='row'>
+                    <div className='title col-12'> <h3>Truyền thông nói gì về Mycar</h3></div>
+                    <hr></hr>
+                    <div className='conten-left col-6'>
+                        <iframe
+                            width="100%"
+                            height="300px"
+                            src="https://www.youtube.com/embed/iLoJQdGjXRU"
+                            title="maybe i should get out more..."
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen></iframe>
+                    </div>
+                    <div className='conten-right col-6'>
+                        <p>toi ten la quang duy hung</p>
                     </div>
 
                 </div>
 
             </div>
+
+
 
             </>
 

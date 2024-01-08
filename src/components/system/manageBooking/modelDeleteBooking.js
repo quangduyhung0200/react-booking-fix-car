@@ -45,9 +45,9 @@ class ModelconfimdeledeBooking extends Component {
 
                 <Modal show={this.props.show} onHide={this.props.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Confirm delete</Modal.Title>
+                        <Modal.Title>Xác nhận xóa đơn hàng</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you aresure to delete user:</Modal.Body>
+                    <Modal.Body>Bạn có chắc muốn xóa đơn hàng của: <span className='fw-bold'>{this.props.dataModel.bookingData ? this.props.dataModel.bookingData.userName : ''}</span></Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.props.handleClose}>
                             Close

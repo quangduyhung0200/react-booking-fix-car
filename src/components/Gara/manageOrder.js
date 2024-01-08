@@ -134,6 +134,9 @@ class ManageOrder extends Component {
     render() {
 
         let dataBooking = this.state.dataBooking
+        let fomatedDate = moment(new Date()).startOf('day').unix()
+        console.log(fomatedDate)
+        console.log(dataBooking)
         return (
             <>
                 <div className='manage-order-container container'>
@@ -185,7 +188,7 @@ class ManageOrder extends Component {
                                                     <td>{item.bookingData.email}</td>
                                                     <td>{item.bookingData.address}</td>
                                                     <td>{item.statusBooking.description}</td>
-                                                    <td>{item.status === 'S3' && <>
+                                                    <td>{item.status === 'S3' && item.date <= fomatedDate && <>
                                                         <button className='btn btn-primary mx-3'
                                                             onClick={() => this.hanldOnclickConfid(item)}>Hoàn thành đơn hàng</button>
                                                         <button className='btn btn-primary mx-3'
@@ -204,7 +207,7 @@ class ManageOrder extends Component {
                             </table>
                         </div>
                     </div>
-                </div>
+                </div >
 
                 <ModelComfimFinishOrder
                     show={this.state.isOpentModel}

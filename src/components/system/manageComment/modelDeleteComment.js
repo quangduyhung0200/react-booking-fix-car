@@ -30,21 +30,21 @@ class ManageCommeModelconfimdeledeComment extends Component {
 
 
     render() {
-
+        console.log(this.props)
         return (
             <div>
 
                 <Modal show={this.props.show} onHide={this.props.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Confirm delete</Modal.Title>
+                        <Modal.Title>Xác nhận xóa đánh giá</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you aresure to delete user:</Modal.Body>
+                    <Modal.Body>Bạn có chắc muốn xóa bình luận của :<span className='fw-bold'>{this.props.dataModel.UserComment ? this.props.dataModel.UserComment.userName : ''} </span>Không ?</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.props.handleClose}>
-                            Close
+                            Đóng
                         </Button>
                         <Button variant="primary" onClick={this.props.comfirmDeleteUser}>
-                            Comfirm
+                            Xác nhận
                         </Button>
                     </Modal.Footer>
                 </Modal>

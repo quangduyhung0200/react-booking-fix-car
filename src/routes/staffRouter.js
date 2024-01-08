@@ -35,6 +35,9 @@ import DetailAccount from "../components/customer/manageAccount/manageAccount.js
 import AllGara from "../components/home/listGara/allGara.js";
 import AllHandBook from "../components/home/listHandBook/allHandBook.js";
 import ManageGaraHandBookHasNotPass from "../components/system/manageGara/manageGara.js"
+import Chart from "../components/Gara/chart/newChart.js";
+import manageCarCompany from "../components/system/manageCarCompany/manageCarCompany.js";
+import ManageBookingStaff from "../components/system/manageBooking/manageBooking.js"
 class StaffRouter extends Component {
 
 
@@ -86,12 +89,12 @@ class StaffRouter extends Component {
                         <PrivateRole path='/detailHandbook/:id' component={detailHandBook} />
                         <PrivateRole path="/setSchedule" component={ManageSchedule} />
                         <PrivateRole path='/manage-PickCar' component={PickCar} />
-
-
+                        <Route path="/Chart" exact component={(Chart)} />
+                        <PrivateRole path='/manage-carCompany' component={manageCarCompany} />
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />
 
                         <Route path='/detailGara/:id' exact component={DetailGara} />
-
+                        <PrivateRole path='/manage-booking' component={ManageBookingStaff} />
                         <Route path="*" >
                             404not fout
                         </Route>

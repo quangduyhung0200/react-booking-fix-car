@@ -39,9 +39,9 @@ class ModelconfimdeledeGara extends Component {
 
                 <Modal show={this.props.show} onHide={this.props.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Confirm delete</Modal.Title>
+                        <Modal.Title>Xác nhận xóa</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you aresure to delete user:</Modal.Body>
+                    <Modal.Body>Bạn có chắc muốn xóa gara : <span className='fw-bold'>{this.props.dataModel.nameGara}</span></Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.props.handleClose}>
                             Close

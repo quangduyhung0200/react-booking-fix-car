@@ -45,15 +45,15 @@ class Modelconfimdelede extends Component {
 
                 <Modal show={this.props.show} onHide={this.props.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Confirm delete</Modal.Title>
+                        <Modal.Title>Xác nhận xóa xe</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you aresure to delete user:</Modal.Body>
+                    <Modal.Body>Bnạ có chắc muốn xóa xe : <span className='fw-bold'>{this.props.dataModel.nameCar}</span> Không?</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.props.handleClose}>
-                            Close
+                            Đóng
                         </Button>
                         <Button variant="primary" onClick={this.props.comfirmDeleteUser}>
-                            Comfirm
+                            Xác nhận
                         </Button>
                     </Modal.Footer>
                 </Modal>

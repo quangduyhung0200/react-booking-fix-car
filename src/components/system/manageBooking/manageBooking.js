@@ -305,6 +305,7 @@ class ManageBookingStaff extends Component {
             let respons = await getAllBookingbyPageStaff(currenpage, currenlimit)
             let status = await getAllStatus()
             if (respons && respons.EC === 0 && status.EC === 0) {
+                toast.success('Thay đổi trạng thái đơn hàng thành công')
                 let coppystate = { ...this.state }
                 coppystate.listBooking = respons.DT.user
                 coppystate.totalpage = respons.DT.totalPage
@@ -315,6 +316,9 @@ class ManageBookingStaff extends Component {
                     ...coppystate
                 })
 
+            }
+            else {
+                toast.error('Thay đổi trạng thái đơn hàng thất bại')
             }
         }
 

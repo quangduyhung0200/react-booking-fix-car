@@ -214,7 +214,7 @@ class UpdateHandBook extends Component {
 
                 }
                 <div className='register-handbook-container container'>
-                    <div className='register-title'><h3>Viết bài đăng mới</h3></div>
+                    <div className='register-title'><h3>Cập nhật bài đăng</h3></div>
                     <hr></hr>
                     <div className='register-body row'>
                         <div className='conten-left col-6'>
@@ -239,7 +239,7 @@ class UpdateHandBook extends Component {
 
                             <div className='col-12 form-group'>
                                 <label >
-                                    image
+                                    Chọn logo
                                 </label>
                                 <div className='preView-image-container '>
                                     <input id='previewImg' type='file' hidden

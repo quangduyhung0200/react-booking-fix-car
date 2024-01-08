@@ -1,0 +1,26 @@
+.fails {
+    text-align: center;
+
+    .icon {
+        i {
+            margin: 0 5px;
+            color: #ff0000;
+            font-size: 50px;
+
+        }
+    }
+
+}
+
+.success {
+    text-align: center;
+
+    .icon {
+        i {
+            margin: 0 5px;
+            color: #32c414;
+            font-size: 50px;
+
+        }
+    }
+}

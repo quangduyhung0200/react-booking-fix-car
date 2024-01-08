@@ -47,24 +47,40 @@ class NavigateStaff extends Component {
 
 
                                     <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
-                                    <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
-                                    <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
 
 
+                                    <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
+                                        <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
+                                        <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
+
+
+
+                                    </NavDropdown>
 
                                     <NavLink to="/myOrder" exact className='nav-link'>Đơn đặt lịch của tôi</NavLink>
                                 </Nav>
                                 <NavDropdown title="Quản lý gara" id="basic-nav-dropdown">
                                     <NavLink to="/ManageGarahasntPass" exact className='nav-link'>Quản lý gara chưa được phê duyệt</NavLink>
-                                    <NavLink to="/ManageGara" exact className='nav-link'>Quản lý gara</NavLink>
-                                    <NavLink to="/setSchedule" exact className='nav-link'>Quản lý lịch của gara</NavLink>
+                                    <NavLink to="/ManageGara" exact className='nav-link'>Quản lý gara đang hoạt động</NavLink>
                                     <NavLink to="/manage-PickCar" exact className='nav-link'>Quản lý chọn xe cho gara</NavLink>
+                                    <NavLink to="/setSchedule" exact className='nav-link'>Quản lý đặt lịch sửa xe cho gara</NavLink>
+                                    <NavLink to="/Chart" exact className='nav-link'>Quản lý bieu do</NavLink>
 
                                 </NavDropdown>
                                 <NavDropdown title="Quản lý bài đăng" id="basic-nav-dropdown">
                                     <NavLink to="/manageHandBook" exact className='nav-link'>Quản lý bài đăng</NavLink>
 
 
+
+                                </NavDropdown>
+                                <NavDropdown title="Quản lý xe" id="basic-nav-dropdown">
+                                    <NavLink to="/car" exact className='nav-link'>Quản lý xe</NavLink>
+                                    <NavLink to="/manage-carCompany" exact className='nav-link'>Quản lý công ty xe</NavLink>
+
+
+                                </NavDropdown>
+                                <NavDropdown title="Quản lý đơn hàng" id="basic-nav-dropdown">
+                                    <NavLink to="/manage-booking" exact className='nav-link'>Quản lý đơn đặt lịch </NavLink>
 
                                 </NavDropdown>
                                 <NavDropdown title="Quản lý người dùng" id="basic-nav-dropdown">

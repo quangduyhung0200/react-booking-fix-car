@@ -109,9 +109,11 @@ class CreateCar extends Component {
             let res = await createCar(nameCar, avata, descriptions, carCompanyId)
 
             if (res && res.EC === 0) {
-                toast.success('create user success')
+                toast.success('Tạo mới người dùng thành công')
 
                 this.props.onHide()
+            } else {
+                toast.error('Có lỗi xảy ra vui lòng thử lại')
             }
 
 
@@ -121,11 +123,13 @@ class CreateCar extends Component {
                 carCompanyId = 1
             }
             let res = await updateCar(id, nameCar, avata, descriptions, carCompanyId)
-            // if (res && res.EC === 0) {
-            //     toast.success('update car success')
+            if (res && res.EC === 0) {
+                toast.success('Cập nhật thông tin  người dùng thành công')
 
-            //     this.props.onHide()
-            // }
+                this.props.onHide()
+            } else {
+                toast.error('Có lỗi xảy ra vui lòng thử lại')
+            }
 
         }
     }
@@ -148,21 +152,21 @@ class CreateCar extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>{this.props.action === 'CREATE' ? 'Create new user' : 'Edit new user'}</span>
+                            <span>{this.props.action === 'CREATE' ? 'Thêm xe mới' : 'Cập nhật thông tin xe'}</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div className='row'>
                             <div className='col-12 col-sm-6 from-group'>
-                                <label>car name</label>
+                                <label className='fw-bold'>Tên xe</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'nameCar')}
                                     type='text' className='form-control'
-                                    placeholder='Email address '
+                                    placeholder='Tên xe '
                                     value={this.state.nameCar} required></input>
                             </div>
                             <div className='col-12 col-sm-6 from-group'>
-                                <label>list company</label>
+                                <label className='fw-bold'>Chọn công ty xe</label>
                                 <select onChange={(event) => this.handlOnchaneInput(event.target.value, 'carCompanyId')} className='form-select'
                                     value={this.state.carCompanyId} >
                                     {listCarCompany && listCarCompany.length > 0 &&
@@ -179,17 +183,17 @@ class CreateCar extends Component {
                                 </select>
                             </div>
                             <div className='col-12  from-group'>
-                                <label>description</label>
+                                <label className='fw-bold'>Miêu tả chi tiết xe</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'descriptions')}
                                     type='text' className='form-control'
-                                    placeholder='descriptions '
+                                    placeholder='Miêu tả...... '
                                     value={this.state.descriptions} required></input>
                             </div>
 
                             <div className='col-12 form-group'>
-                                <label >
-                                    image
+                                <label className=' fw-bold' >
+                                    Chọn ảnh đại diện
                                 </label>
                                 <div className='preView-image-container '>
                                     <input id='previewImg' type='file' hidden

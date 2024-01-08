@@ -217,7 +217,7 @@ class ModelCarCompany extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>{this.props.action === 'CREATE' ? 'Create new user' : 'Edit new user'}</span>
+                            <span>{this.props.action === 'CREATE' ? 'Thêm công ty mới' : 'Cập nhật thông tin công ty'}</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -225,14 +225,14 @@ class ModelCarCompany extends Component {
 
 
                             <div className='col-12 col-sm-6 form-group'>
-                                <label className='form-label'>name</label>
+                                <label className='fw-bold'>Tên công ty</label>
                                 <input onChange={(event) => this.handleOnchaneInput(event, 'name')} type='text'
                                     className={isValidName === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder='name '
                                     value={name} required></input>
                             </div>
                             <div className='col-12 col-sm-6 form-group'>
-                                <label className='form-label'>description</label>
+                                <label className='fw-bold'>Miêu tả công ty</label>
                                 <input onChange={(event) => this.handleOnchaneInput(event, 'description')} type='text'
                                     className={isValidDescription === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder='description '
@@ -241,7 +241,7 @@ class ModelCarCompany extends Component {
 
                             <div className='col-12 form-group'>
                                 <label >
-                                    image
+                                    Chọn logo
                                 </label>
                                 <div className='preView-image-container '>
                                     <input id='previewImg' type='file' hidden
