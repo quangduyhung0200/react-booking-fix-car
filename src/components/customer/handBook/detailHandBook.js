@@ -163,7 +163,11 @@ class DetailHandBook extends Component {
                 <div className='HandBook-Detail-Container container'>
                     <div className='row'>
                         <div className='introduction col-12 row my-2'>
-                            <div className='avata col-md-6 col-12' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})`, height: '50vh' }}>
+                            <div className='box-avata  col-md-6 col-12'>
+                                <div className='avata' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
+
+                                </div>
+
 
                             </div>
                             <div className='title col-md-6 col-12'>
@@ -180,95 +184,104 @@ class DetailHandBook extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='body col-12 my-3 '>
-                            {this.state.descriptionHTML &&
-                                < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
-                        </div>
 
-                        {garaId && garaId !== 0 ? <>
-                            <div className='gara-with-handbook col-12 row m-y-5' >
-                                <h3>Đặt lịch tại gara ngay </h3>
-                                <div className='col-6'>        <ProfileGara dataModelProfile={this.state.garaId} /></div>
-                                <div className='col-6'>        <GaraSchedule garaId={this.state.garaId} /></div>
-
-                            </div>
-                        </> :
-                            <><div className='gara-with-handbook col-12'>
-                                <hr></hr>
-
-                            </div></>
-
-                        }
-
-
-                        <hr></hr>
-                        <div className='session-header'>
-                            <h3 className='content-left'>Một số bài viết liên quan</h3>
-                            <div className='content-right'> <button onClick={() => this.handClickMoreinfo()} className='btn btn-warning'>Xem thêm</button></div>
-                        </div>
-                        <div className='session-content'>
-                            <Carousel
-                                swipeable={false}
-                                draggable={false}
-                                showDots={true}
-                                responsive={responsive}
-                                ssr={true} // means to render carousel on server-side.
-                                infinite={false}
-                                autoPlay={false}
-                                autoPlaySpeed={5000}
-
-
-                                transitionDuration={2}
-                                containerClass="carousel-container"
-
-
-                                dotListClass="custom-dot-list-style"
-                                itemClass="carousel-item-padding-40-px"
-                            >
-                                {listHandBook && listHandBook.length > 0 &&
-                                    listHandBook.map((item, index) => {
-                                        let imageBase64 = ''
-                                        if (item.avata) {
-
-                                            imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
-                                        }
-                                        let date = item.createdAt;
-                                        let datecreate1 = Date.parse(date);
-                                        let datecreate2 = new Date(datecreate1).toLocaleDateString("vi")
-                                        return (
-                                            <>
-                                                <div className='silde-child' >
-                                                    <img
-                                                        className="img-child w-100 h-100"
-                                                        src={imageBase64}
-                                                        alt="First slide"
-                                                        onClick={() => this.handlOnclickHandBook(item)
-                                                        } />
-                                                </div>
-                                                <h5 className='name-child'>{item.title}</h5>
-                                                <p className='name-child fw-light'>Tác giả: {item.StaffHandbookData.userName}, ngày đăng: {datecreate2}</p>
-                                            </>
-
-                                        )
-                                    })}
-
-
-
-
-
-
-
-
-
-
-                            </Carousel>
-
-                        </div>
 
 
                     </div>
 
                 </div >
+                <div className='body-container container'>
+                    <div className='body col-12 my-3 '>
+                        {this.state.descriptionHTML &&
+                            < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
+                    </div>
+                </div>
+
+                <div className='gara container'>
+                    {garaId && garaId !== 0 ? <>
+                        <div className='gara-with-handbook col-12 row m-y-5' >
+                            <h3 className='pt-2'>Đặt lịch tại gara ngay </h3>
+                            <hr></hr>
+                            <div className='col-6'>        <ProfileGara dataModelProfile={this.state.garaId} /></div>
+                            <div className='col-6'>        <GaraSchedule garaId={this.state.garaId} /></div>
+
+                        </div>
+                    </> :
+                        <><div className='gara-with-handbook col-12'>
+                            <hr></hr>
+
+                        </div></>
+
+                    }
+
+
+                </div>
+
+                <div className='handbook-new container'>
+                    <div className='session-header'>
+                        <h3 className='content-left'>Một số bài viết liên quan</h3>
+                        <div className='content-right'> <button onClick={() => this.handClickMoreinfo()} className='btn btn-warning'>Xem thêm</button></div>
+                    </div>
+                    <div className='session-content'>
+                        <Carousel
+                            swipeable={false}
+                            draggable={false}
+                            showDots={true}
+                            responsive={responsive}
+                            ssr={true} // means to render carousel on server-side.
+                            infinite={false}
+                            autoPlay={false}
+                            autoPlaySpeed={5000}
+
+
+                            transitionDuration={2}
+                            containerClass="carousel-container"
+
+
+                            dotListClass="custom-dot-list-style"
+                            itemClass="carousel-item-padding-40-px"
+                        >
+                            {listHandBook && listHandBook.length > 0 &&
+                                listHandBook.map((item, index) => {
+                                    let imageBase64 = ''
+                                    if (item.avata) {
+
+                                        imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
+                                    }
+                                    let date = item.createdAt;
+                                    let datecreate1 = Date.parse(date);
+                                    let datecreate2 = new Date(datecreate1).toLocaleDateString("vi")
+                                    return (
+                                        <>
+                                            <div className='silde-child' >
+                                                <img
+                                                    className="img-child w-100 h-100"
+                                                    src={imageBase64}
+                                                    alt="First slide"
+                                                    onClick={() => this.handlOnclickHandBook(item)
+                                                    } />
+                                            </div>
+                                            <h5 className='name-child'>{item.title}</h5>
+                                            <p className='name-child fw-light'>Tác giả: {item.StaffHandbookData.userName}, ngày đăng: {datecreate2}</p>
+                                        </>
+
+                                    )
+                                })}
+
+
+
+
+
+
+
+
+
+
+                        </Carousel>
+
+                    </div>
+                </div>
+
             </>
         );
     }

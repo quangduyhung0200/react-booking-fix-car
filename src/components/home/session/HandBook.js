@@ -36,7 +36,7 @@ class HandBook extends Component {
         const responsive = {
             desktop: {
                 breakpoint: { max: 3000, min: 1024 },
-                items: 3,
+                items: 4,
                 slidesToSlide: 1// optional, default to 1.
             },
             tablet: {
@@ -53,7 +53,7 @@ class HandBook extends Component {
         return (
             <>
                 <div className='container'>
-                    <div className='session-container'>
+                    <div className='session-container-handbook'>
                         <div className='session-header'>
                             <h3 className='content-left'>Cẩm nang</h3>
                             <div className='content-right'> <button onClick={() => this.handOnclickMoreInfo()} className='btn btn-warning'>Xem thêm</button></div>

@@ -97,7 +97,7 @@ class ManageGara extends Component {
     render() {
 
         let { listCar } = this.state
-
+        console.log('car: ', listCar)
         return (
             <>
                 <div className='Docter-Detail-Container container'>
@@ -164,7 +164,7 @@ class ManageGara extends Component {
                                                                 backgroundImage: `url(${imageBase64})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat'
 
                                                             }}></td>
-                                                            <td><button onClick={() => this.handlViewCar(item)} className='btn btn-primary'>view</button>
+                                                            <td>{item.Cars.id !== null && <button onClick={() => this.handlViewCar(item)} className='btn btn-primary'>view</button>}
                                                             </td>
                                                         </tr>
                                                     )

@@ -50,7 +50,7 @@ class NavigateGara extends Component {
 
                                     <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
                                     <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
-
+                                    <NavLink to="/Chart" exact className='nav-link'>Quản lý bieu do</NavLink>
                                 </Nav>
 
                                 <Nav className='nav-link'>

@@ -26,6 +26,8 @@ import DetailAccount from "../components/customer/manageAccount/manageAccount.js
 import DetailCar from "../components/customer/car/carDetail.js"
 import AllGara from "../components/home/listGara/allGara.js";
 import AllHandBook from "../components/home/listHandBook/allHandBook.js";
+import DetailHandBook from "../components/customer/handBook/detailHandBook.js";
+import Chart from "../components/Gara/chart/newChart.js";
 class GaraRouter extends Component {
 
 
@@ -59,7 +61,7 @@ class GaraRouter extends Component {
                         <Route exact path="/">
                             <HomePage />
                         </Route>
-
+                        <Route path="/Chart" exact component={(Chart)} />
                         <PrivateRole exact path="/mygara" component={ManageGara} />
                         <PrivateRole exact path="/pickcar" component={PickCar} />
                         <PrivateRole exact path="/setSchedule" component={ManageSchedule} />
@@ -70,7 +72,9 @@ class GaraRouter extends Component {
                         <PrivateRole path="/Account" component={DetailAccount} />
                         <PrivateRole path='/detailCar/:id' component={DetailCar} />
 
-
+                        <Route path="/detailHandbook/:id">
+                            <DetailHandBook />
+                        </Route>
 
 
 

@@ -160,7 +160,8 @@ class GaraSchedule extends Component {
     }
     closeBookingModel = () => {
         this.setState({
-            isOpentTogger: false
+            isOpentTogger: false,
+            dataModelSchedule: {}
         })
     }
     render() {
@@ -188,7 +189,7 @@ class GaraSchedule extends Component {
                     </div>
                     <div className='all-vailble-time'>
                         <div className='text-calender'>
-                            <span><i className="fas fa-calendar-times"></i>lich kham</span>
+                            <span><i className="fa fa-calendar" aria-hidden="true"></i>lich kham</span>
                         </div>
                         <div className='time-content'>
                             {allAvailbleTime && allAvailbleTime.length > 0 ?
@@ -217,6 +218,7 @@ class GaraSchedule extends Component {
                     </div>
                 </div>
                 <ModelBooking
+
                     garaId={this.props.garaId}
                     isOpentTogger={this.state.isOpentTogger}
                     closeBookingModel={this.closeBookingModel}

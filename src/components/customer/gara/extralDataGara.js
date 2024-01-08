@@ -6,7 +6,7 @@ import { getGaraInfo } from '../../../services/guestService';
 import 'moment/locale/vi';
 import moment from 'moment';
 
-
+import './extraldataGara.scss'
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
 import { readAllCarByGara } from '../../../services/guestService';
@@ -48,15 +48,15 @@ class ExtralDataGara extends Component {
 
 
     render() {
-        console.log('check props', this.state)
+
         let { dataGara } = this.state
         return (
             <>
                 {dataGara &&
                     <>
-                        <div className=''>
-                            <div><span className='fw-light'>Địa chỉ:</span> <span className='fw-bold'>{dataGara.address}, tỉnh {dataGara.provindGaraData.name}</span></div>
-                            <div><span className='fw-light'>Số điện thoại:</span><span className='fw-bold'>{dataGara.phone} </span> </div>
+                        <div className='extraldata'>
+                            <div className='address'><i class="fa fa-map-marker" aria-hidden="true"></i> <span className='fw-light '>Địa chỉ: </span> <span className='fw-bold'>{dataGara.address}, tỉnh {dataGara.provindGaraData.name}</span></div>
+                            <div> <i class="fa fa-phone-square" aria-hidden="true"></i> <span className='fw-light'>Số điện thoại: </span><span className='fw-bold'>{dataGara.phone} </span> </div>
 
                         </div>
 

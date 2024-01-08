@@ -476,6 +476,7 @@ class ManageBookingStaff extends Component {
                                     /></div>
 
                                 <div className='col-4'>
+                                    <hr></hr>
                                     <label className='fw-bold'>Chọn ngày</label>
                                     <ReactDatePicker
                                         onChange={this.handleChangedatePick}
@@ -486,9 +487,10 @@ class ManageBookingStaff extends Component {
 
 
                                     /></div></div>
-                            <hr></hr>
 
-                            <div><button onClick={() => this.handlOnclickSearch()} className='btn btn-primary'>Tìm kiếm</button></div>
+
+                            <div>
+                                <hr></hr><button onClick={() => this.handlOnclickSearch()} className='btn btn-primary'>Tìm kiếm</button></div>
 
                         </div>
                         <div className='m-p-body row'>

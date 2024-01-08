@@ -1,6 +1,18 @@
 .Gara-Detail-Container {
+    border-radius: 2%;
+    background-color: rgb(255, 255, 255);
+    margin-top: 20px;
 
 
+    .introduction {
+        .content-left {
+            border: 1px solid #ddd;
+        }
+
+        .content-right {
+            border-left: 1px solid#Ddd;
+        }
+    }
 
     .schedule-gara {
 
@@ -8,6 +20,7 @@
         min-height: 200px;
         padding: 10px 0;
         border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
 
         .conten-left {
 
@@ -15,31 +28,19 @@
 
         }
 
-        .conten-right {}
-    }
 
 
-
-
-
-
-    .comment {
-        border-top: 1px solid #ddd;
-        height: 50px;
-        padding: 0 200px;
-    }
-
-    .detail-info-docter {
-        border-top: 1px solid #ddd;
-        background-color: rgb(240, 240, 239);
-
-        margin-bottom: 20px;
-
-
-        img {
-            width: 100%;
+        .conten-right {
+            padding: 10px 20px;
         }
     }
+
+
+
+
+
+
+
 
     .introduction {
         border-top: 1px solid #ddd;
@@ -74,4 +75,25 @@
             }
         }
     }
+}
+
+.detail-info-docter {
+    border-radius: 2%;
+    margin-top: 50px;
+    border-top: 1px solid #ddd;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    margin-bottom: 20px;
+
+
+    img {
+        width: 100%;
+    }
+}
+
+.comment {
+
+    border-top: 1px solid #ddd;
+    height: 50px;
+    padding: 0 200px;
 }

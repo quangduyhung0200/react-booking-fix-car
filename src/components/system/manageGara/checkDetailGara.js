@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
 import { deniceGara } from '../../../services/staffService';
 import ExtralDataGara from '../../customer/gara/extralDataGara';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class CheckDetailGara extends Component {
     constructor(props) {
         super(props);
@@ -91,40 +92,44 @@ class CheckDetailGara extends Component {
         return (
             <>
 
-                <div className='Docter-Detail-Container container'>
+                <div className='Garacheck-Detail-Container container'>
                     <div className='row'>
-                        <div className='introduction col-12 row'>
-                            <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
+                        <div className='info'>
+                            <div className='introductiongara col-12 row'>
+                                <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
 
+                                </div>
+                                <div className='content-right col-10'>
+                                    <div className='up col-12'>
+                                        {this.state.nameGara}
+                                    </div>
+
+                                    <div className='down col-12'>
+                                        {this.state.description}
+                                    </div>
+                                </div>
                             </div>
-                            <div className='content-right col-10'>
-                                <div className='up col-12'>
-                                    {this.state.nameGara}
-                                </div>
+                            <div className='extraldata-gara col-12 row '>
 
-                                <div className='down col-12'>
-                                    {this.state.description}
-                                </div>
+                                <ExtralDataGara
+                                    garaId={this.state.currenGaraId} />
                             </div>
                         </div>
-                        <div className='schedule-docter col-12 row '>
 
-                            <ExtralDataGara
-                                garaId={this.state.currenGaraId} />
-                        </div>
-                        <div className='detail-info-docter col-12'>
+                        <div className='detail-info-gara col-12'>
 
                             {this.state.descriptionHTML &&
                                 < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
                         </div>
-                        <div className='active col-12'>
-                            <button onClick={() => this.handlAcepGara()} className='mx-3 btn btn-primary'>accep</button>
-                            <button onClick={() => this.deniceGara()} className='mx-3 btn btn-danger'>denice</button>
+                        <div className='active d-flex justify-content-cente'>
+                            <button onClick={() => this.handlAcepGara()} className='mx-3 btn btn-primary'>Thông qua</button>
+                            <button onClick={() => this.deniceGara()} className='mx-3 btn btn-danger'>Từ chối</button>
                         </div>
 
                     </div>
 
                 </div >
+                <HomeFooter />
             </>
         );
     }

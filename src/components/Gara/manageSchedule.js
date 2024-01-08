@@ -354,10 +354,11 @@ class ManageSchedule extends Component {
     render() {
         console.log(this.state)
         let { groupId } = this.state
+        console.log(this.state.timeArr)
         return (
             <>
 
-                <div className='Manage-schedule-container'>
+                <div className='Manage-schedule-container container'>
                     <div className='m-s-title'>
                         Quản lý lịch sửa xe
                     </div>
@@ -365,7 +366,7 @@ class ManageSchedule extends Component {
                         <div className='row'>
 
                             <div className='col-12 form-group text-center fw-bold row'>
-                                {groupId === 3 && <div className='col-6'>   <label className=''>Chọn gara</label>
+                                {+groupId === 3 && <div className='col-6'>   <label className=''>Chọn gara</label>
                                     <Select
                                         placeholder={'chọn gara...'}
                                         value={this.state.selectGara}
@@ -373,7 +374,7 @@ class ManageSchedule extends Component {
                                         options={this.state.listGara}
 
                                     /></div>}
-                                {groupId === 4 && <div className='col-6'>   <label className=''>Chọn gara</label>
+                                {+groupId === 4 && <div className='col-6'>   <label className=''>Chọn gara</label>
                                     <Select
                                         placeholder={'chọn gara...'}
                                         value={this.state.selectGara}
@@ -382,7 +383,7 @@ class ManageSchedule extends Component {
 
                                     /></div>}
 
-                                <div className={groupId === 4 || groupId === 3 ? 'col-6' : 'col-12'}>
+                                <div className={(+groupId === 4 || +groupId === 3) ? 'col-6' : 'col-12'}>
                                     <label className=''>Chọn ngày </label>
                                     <ReactDatePicker
                                         onChange={this.handleChangedatePick}

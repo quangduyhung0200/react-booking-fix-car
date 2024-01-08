@@ -52,7 +52,7 @@ class Navigate extends Component {
         let user = this.context.user
         const location = window.location.pathname
         let { garaId } = this.state
-
+        console.log('gara;', garaId)
         if (user && user.isAuthenticated === true && user.account.role[0].id === 1) {
             return (
 

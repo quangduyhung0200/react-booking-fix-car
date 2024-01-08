@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import GaraSchedule from './schedule';
 import ExtralDataGara from './extralDataGara';
 import Comment from './comment';
-
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class DetailGara extends Component {
     constructor(props) {
         super(props);
@@ -82,51 +82,56 @@ class DetailGara extends Component {
             <>
 
                 <div className='Gara-Detail-Container container'>
-                    <div className='row'>
-                        <div className='introduction col-12 row'>
-                            <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
 
-                            </div>
-                            <div className='content-right col-10'>
-                                <div className='up col-12'>
-                                    {this.state.nameGara}
-                                </div>
+                    <div className='introduction col-12 row'>
+                        <div className='content-left col-2' style={{ backgroundImage: `url(${this.state.avata ? this.state.avata : ''})` }}>
 
-                                <div className='down col-12'>
-                                    {this.state.description}
-                                </div>
-                                <div>                     <i class="fa fa-map-marker" aria-hidden="true"></i> {this.state.provind}</div>
-
-                            </div>
                         </div>
-                        <div className='schedule-gara col-12 row '>
-                            <div className='conten-left col-6'>
-
-                                <GaraSchedule
-                                    dataGara={this.state.propvindGara}
-                                    garaId={this.state.currenGaraId}
-
-
-                                />
+                        <div className='content-right col-10'>
+                            <div className='up col-12'>
+                                {this.state.nameGara}
                             </div>
-                            <div className='conten-right col-6'>
-                                <ExtralDataGara
-                                    garaId={this.state.currenGaraId} />
-                            </div>
-                        </div>
-                        <div className='detail-info-docter col-12'>
-                            {this.state.descriptionHTML &&
-                                < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
-                        </div>
-                        <div>
-                            <Comment
-                                currenGaraId={this.state.currenGaraId}
-                                rate={this.state.rate} />
-                        </div>
 
+                            <div className='down col-12'>
+                                {this.state.description}
+                            </div>
+                            <div><i class="fa fa-map-marker" aria-hidden="true"></i> {this.state.provind}</div>
+
+                        </div>
+                    </div>
+                    <div className='schedule-gara col-12 row '>
+                        <div className='conten-left col-6'>
+
+                            <GaraSchedule
+                                dataGara={this.state.propvindGara}
+                                garaId={this.state.currenGaraId}
+
+
+                            />
+                        </div>
+                        <div className='conten-right col-6'>
+                            <ExtralDataGara
+                                garaId={this.state.currenGaraId} />
+                        </div>
                     </div>
 
-                </div >
+                </div>
+
+
+
+
+                <div className='container'>
+                    <div className='detail-info-docter col-12 '>
+                        {this.state.descriptionHTML &&
+                            < div dangerouslySetInnerHTML={{ __html: this.state.descriptionHTML }}></div>}
+                    </div>
+                    <div>
+                        <Comment
+                            currenGaraId={this.state.currenGaraId}
+                            rate={this.state.rate} />
+                    </div></div>
+
+                <HomeFooter />
             </>
         );
     }

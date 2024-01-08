@@ -24,6 +24,7 @@ class ModelBooking extends Component {
             customerEmail: '',
             customerAddress: '',
             customerReson: "",
+            phone: '',
             garaId: "",
             garaName: '',
             garaAddress: '',
@@ -43,7 +44,7 @@ class ModelBooking extends Component {
             timeid: '',
             time: '',
             date: '',
-            phone: '',
+
 
             serviceCheck: [],
             priceId: '',
@@ -100,14 +101,14 @@ class ModelBooking extends Component {
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.dataModelSchedule !== this.props.dataModelSchedule) {
             let coppyState = { ...this.state }
-            coppyState.garaName = this.props.dataModelSchedule.GaraScheduleData.nameGara;
-            coppyState.garaAddress = this.props.dataModelSchedule.GaraScheduleData.address;
-            coppyState.garaDescription = this.props.dataModelSchedule.GaraScheduleData.description;
-            coppyState.garaAvata = this.props.dataModelSchedule.GaraScheduleData.avata;
-            coppyState.date = this.props.dataModelSchedule.date;
-            coppyState.time = this.props.dataModelSchedule.timeDataSchedule.timValue;
-            coppyState.timeid = this.props.dataModelSchedule.timeType;
-            coppyState.garaId = this.props.dataModelSchedule.garaId;
+            coppyState.garaName = this.props.dataModelSchedule.GaraScheduleData ? this.props.dataModelSchedule.GaraScheduleData.nameGara : '';
+            coppyState.garaAddress = this.props.dataModelSchedule.GaraScheduleData ? this.props.dataModelSchedule.GaraScheduleData.address : '';
+            coppyState.garaDescription = this.props.dataModelSchedule.GaraScheduleData ? this.props.dataModelSchedule.GaraScheduleData.description : '';
+            coppyState.garaAvata = this.props.dataModelSchedule.GaraScheduleData ? this.props.dataModelSchedule.GaraScheduleData.avata : '';
+            coppyState.date = this.props.dataModelSchedule ? this.props.dataModelSchedule.date : '';
+            coppyState.time = this.props.dataModelSchedule.timeDataSchedule ? this.props.dataModelSchedule.timeDataSchedule.timValue : '';
+            coppyState.timeid = this.props.dataModelSchedule ? this.props.dataModelSchedule.timeType : '';
+            coppyState.garaId = this.props.dataModelSchedule ? this.props.dataModelSchedule.garaId : '';
 
             this.setState({
                 ...coppyState
@@ -340,6 +341,16 @@ class ModelBooking extends Component {
         }
 
     }
+    handClose = () => {
+        this.setState({
+            customerName: '',
+            customerEmail: '',
+            customerAddress: '',
+            customerReson: "",
+            phone: '',
+        })
+        this.props.closeBookingModel()
+    }
     buidDataSave = (data) => {
         let resuf = {}
         resuf.email = data.customerEmail
@@ -397,6 +408,7 @@ class ModelBooking extends Component {
 
             imageBase64 = new Buffer(garaAvata.data, 'base64').toString('binary')
         }
+        console.log('this.prop: ', this.props)
         return (
             <>
 
@@ -412,7 +424,7 @@ class ModelBooking extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>dat lich</span>
+                            <span>Đặt lịch</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -438,61 +450,62 @@ class ModelBooking extends Component {
                                         {garaDescription}
                                     </div>
                                 </div>
+                                <hr></hr>
                             </div>
                             <div className='col-12   col-sm-6 from-group'>
-                                <label>ho ten</label>
+                                <label className='fw-bold'>Họ và tên</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'customerName')}
                                     type='text'
                                     className={isValidUserName === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='descriptions '
+                                    placeholder='Nhập họ và tên... '
                                     value={this.state.customerName} required></input>
                             </div>
                             <div className='col-12   col-sm-6 from-group'>
-                                <label>so dien thoai</label>
+                                <label className='fw-bold'>Số điện thoại</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'phone')}
                                     type='text'
                                     className={isValidphone === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='descriptions '
+                                    placeholder='Nhập số điện thoại '
                                     value={this.state.phone} required></input>
                             </div>
 
                             <div className='col-12   col-sm-6 from-group'>
-                                <label>email</label>
+                                <label className='fw-bold'>Email</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'customerEmail')}
-                                    type='email'
+                                    type='Nhập email'
                                     className={isValidEmail === true ? 'form-control' : 'form-control is-invalid'}
                                     placeholder='descriptions '
                                     value={this.state.customerEmail} required></input>
                             </div>
 
                             <div className='col-12   col-sm-6 from-group'>
-                                <label>dia chi</label>
+                                <label className='fw-bold'>Địa chỉ</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'customerAddress')}
                                     type='text'
                                     className={isValidAddress === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='descriptions '
+                                    placeholder='Nhập địa chỉ '
                                     value={this.state.customerAddress} required></input>
                             </div>
 
                             <div className='col-12   col-sm-6 from-group'>
-                                <label>mieu ta tinh tinh hinh xe</label>
+                                <label className='fw-bold'>Miêu tả tình hình xe</label>
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event.target.value, 'customerReson')}
                                     type='text'
                                     className={isValidReson === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='descriptions '
+                                    placeholder='Nhập miêu tả tình hình xe '
                                     value={this.state.customerReson} required></input>
                             </div>
 
                             <div className='col-12 col-sm-6 from-group'>
-                                <label className={isValidCar === true ? '' : 'is-invalid'}>list car</label>
+                                <label className={isValidCar === true ? 'fw-bold' : 'is-invalid fw-bold'}>Chọn xe</label>
                                 <Select
                                     className={isValidCar === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder={'CHON XE'}
+                                    placeholder={'Chọn xe'}
                                     value={this.state.selectCarId}
                                     onChange={this.handleChange}
                                     options={this.state.listCar}
@@ -500,10 +513,10 @@ class ModelBooking extends Component {
                                 />
                             </div>
                             <div className='col-12 col-sm-6 from-group'>
-                                <label>list service</label>
+                                <label className={isValidService === true ? 'fw-bold' : 'is-invalid fw-bold'}>Chọn dịch vụ</label>
                                 <Select
                                     className={isValidService === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder={'CHON dich vu'}
+                                    placeholder={'Chọn dịch vụ'}
                                     value={this.state.selectService}
                                     onChange={this.handleChangeService}
                                     options={this.state.listService}
@@ -514,12 +527,12 @@ class ModelBooking extends Component {
 
                             </div>
                             <div className='col-12   col-sm-6 from-group'>
-                                <label>gia tien</label>
-                                <p>{this.state.price}</p>
+                                <label>Gía tiền</label>
+                                <p className='fw-bold'>{this.state.price} VND</p>
                             </div>
                             <div className='col-12   col-sm-6 from-group'>
-                                <label>hin thuc thanh toan</label>
-                                <p>{this.state.payment}</p>
+                                <label>Hình thức thanh toán gara nhận là: </label>
+                                <p className='fw-bold'>{this.state.payment}</p>
                             </div>
 
 
@@ -529,11 +542,11 @@ class ModelBooking extends Component {
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => this.props.closeBookingModel()}>
-                            Close
+                        <Button variant="secondary" onClick={() => this.handClose()}>
+                            Hủy đặt lịch
                         </Button>
                         <Button variant="primary" onClick={() => this.handlSaveBooking()}>
-                            Save Changes
+                            Xác nhận đặt lịch
                         </Button>
                     </Modal.Footer>
                 </Modal >

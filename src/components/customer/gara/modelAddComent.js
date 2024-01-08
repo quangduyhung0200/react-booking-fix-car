@@ -101,27 +101,33 @@ class CreateComent extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>dghffdghdfgh</span>
+                            <span>Đánh giá dịch vụ</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div className='row'>
                             <div className='col-12 from-group'>
-                                <label>car name</label>
+                                <label className='fst-italic'>Hãy nêu cảm nhận của bạn về dịch vụ của gara nhé!</label>
+
                                 <input
                                     onChange={(event) => this.handlOnchaneInput(event)}
                                     type='text' className='form-control'
-                                    placeholder='Email address '
+                                    placeholder='Đánh giá..... '
                                     value={this.state.comment} required></input>
                             </div>
 
 
-                            <Rating
-                                onClick={this.handleRating}
-                                initialValue={this.state.rating}
+                            <div className='d-flex justify-content-center'>
+                                <hr></hr>
+                                <label className='fst-italic mt-2'>Đánh giá gara: </label>
+                                <Rating
+                                    onClick={this.handleRating}
+                                    initialValue={this.state.rating}
 
-                            /* Available Props */
-                            />
+                                /* Available Props */
+                                />
+                            </div>
+
 
                         </div>
 

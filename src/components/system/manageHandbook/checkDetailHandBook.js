@@ -61,7 +61,7 @@ class CheckDetailHandBook extends Component {
         if (respons && respons.EC === 0) {
 
             toast.success('da xet duyet thanh cong')
-            this.props.history.push(`/gara`);
+            this.props.history.push(`/manage-handBook`);
 
 
         }

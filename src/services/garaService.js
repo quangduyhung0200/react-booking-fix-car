@@ -38,10 +38,13 @@ const updateGara = async (data) => {
 const canserBooking = async (data) => {
     return axios.put(`/api/v1/gara/canserBooking`, data);
 }
+const getprofit = async (garaId, date) => {
+    return axios.get(`/api/v1/gara/getprofit?garaId=${garaId}&date=${date}`);
+}
 
 
 
 export {
     getDataGara, registerCartoGara, getAllTime, createBulkScheduleGara, deletePickCar, getAllBookingByDay, comfimBooking, getAllOrderByDay,
-    finishOrder, canserOrder, updateGara, canserBooking
+    finishOrder, canserOrder, updateGara, canserBooking, getprofit
 }

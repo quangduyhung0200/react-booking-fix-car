@@ -240,9 +240,9 @@ class ManageUser extends Component {
 
 
                             </div>
-                            <hr></hr>
-                            <div className='justify-content-center'>
 
+                            <div className='justify-content-center'>
+                                <hr></hr>
                                 <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3 '>Làm mới trang web <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
                                 <button onClick={() => this.showModelAddNew()} className='btn btn-success'>Thêm người dùng mới <span><i className="fa fa-plus" aria-hidden="true"></i></span></button>
                             </div>

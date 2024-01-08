@@ -98,7 +98,7 @@ class AddNewHandBook extends Component {
             let res = await createHandbook(data)
             if (res.EC === 0) {
                 toast.success('Tạo thành công bài viết mới')
-                this.history.push('/manageHandBook')
+                this.props.history.push('/manageHandBook')
             }
 
         }

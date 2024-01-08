@@ -120,14 +120,17 @@ class DetailAccount extends Component {
                 <div className='Account-Detail-Container container'>
                     <div className='row'>
                         <div className='introduction col-12 row my-2'>
-                            <div className='avata col-md-6 col-12'
-                                style={{ backgroundImage: `url(${this.state.avata ? imageBase64 : ''})`, height: '50vh' }}
+
+                            <div className='avata  col-md-6 col-12'
+                                style={{ backgroundImage: `url(${this.state.avata ? imageBase64 : ''})` }}
                             >
 
+
                             </div>
+
                             <div className='title col-md-6 col-12'>
                                 <h3 className=' text-uppercase  up col-12 px-2'>
-                                    Thong tin ca nhan
+                                    Thông tin cá nhân
                                 </h3>
                                 <div className='down col-12'>
                                     <span className='fst-italic'>Họ và tên: </span><span className='fw-bold'>{userName}</span>
@@ -151,11 +154,12 @@ class DetailAccount extends Component {
                                         {garaId === 0 ? '' : <a href={`/detailGara/${garaId}`}>gara cua toi</a>}</span>
 
                                 </div>
-                                <div className='down col-12'>
-                                    <button onClick={() => this.OnclickUpdate()} className='btn btn-primary'>Cập nhật thông tin</button>
-                                </div>
 
 
+
+                            </div>
+                            <div className='down col-12 d-flex justify-content-center'>
+                                <button onClick={() => this.OnclickUpdate()} className='btn btn-primary'>Cập nhật thông tin</button>
                             </div>
                         </div>
                         <hr></hr>

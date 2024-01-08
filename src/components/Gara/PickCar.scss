@@ -1,5 +1,5 @@
 .PickCar-Container {
-    background-color: rgb(235, 240, 240);
+    background-color: rgb(255, 255, 255);
 
     .introduction {
 
@@ -11,14 +11,14 @@
             height: 120px;
             border-radius: 50%;
             margin: 10px 20px;
-
+            border: 1px solid #ddd;
             background: center center no-repeat;
 
         }
 
         .content-right {
 
-
+            border-left: 1px solid #ddd;
 
             .up {
                 font-size: 20px;

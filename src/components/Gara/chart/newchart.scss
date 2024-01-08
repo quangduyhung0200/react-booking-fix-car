@@ -1,0 +1,35 @@
+.profit-container {
+    .Title {
+        background-color: #ffffff;
+        border-radius: 2%;
+        margin-top: 20px;
+        padding-bottom: 20px;
+        padding: 10px;
+    }
+
+    .action {}
+
+    .box {
+        margin-top: 20px;
+        border-radius: 2%;
+        align-items: center !important;
+        text-align: center !important;
+        justify-content: center !important;
+        background-color: #ffffff;
+
+        .chart {
+            height: 400px;
+
+            canvas {
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                width: 800px;
+            }
+        }
+    }
+
+
+}

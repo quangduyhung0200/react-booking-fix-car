@@ -17,7 +17,7 @@ class ModelUser extends Component {
         this.state = {
             genderArr: [],
             groupArr: [],
-
+            isOpen: false,
             group: '',
             userName: '',
             password: '',
@@ -228,7 +228,7 @@ class ModelUser extends Component {
 
                 coppyState.userName = this.props.dataModel.userName
                 coppyState.email = this.props.dataModel.email
-                // coppyState.avata = new Buffer(this.props.dataModel.avata, 'base64').toString('binary')
+                coppyState.avata = new Buffer(this.props.dataModel.avata, 'base64').toString('binary')
                 coppyState.phone = this.props.dataModel.phone
                 coppyState.gender = this.props.dataModel.gender
                 coppyState.address = this.props.dataModel.address
@@ -363,6 +363,8 @@ class ModelUser extends Component {
             }
         }
     }
+
+
     render() {
 
         let { genderArr, address, gender, phone, userName, comfimPassword, email, password, isValidEmail,
@@ -370,6 +372,7 @@ class ModelUser extends Component {
         console.log('check group:', this.state.genderArr)
         return (
             <div>
+
 
                 <Modal
                     {...this.props}
@@ -408,24 +411,24 @@ class ModelUser extends Component {
                             }
 
                             <div className='col-12 col-sm-6 form-group'>
-                                <label className='form-label'>Phonenumber</label>
+                                <label className='form-label'>Số điện thoại</label>
                                 <input onChange={(event) => this.handleOnchaneInput(event, 'phone')} type='text'
                                     className={isValidphone === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='Phonenumber '
+                                    placeholder='Số điện thoại '
                                     value={phone} required></input>
                             </div>
                             <div className='col-12 col-sm-6 form-group'>
-                                <label className='form-label'>User Name</label>
+                                <label className='form-label'>Họ và tên</label>
                                 <input onChange={(event) => this.handleOnchaneInput(event, 'userName')} type='text'
                                     className={isValidUserName === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='User Name '
+                                    placeholder='Họ và tên'
                                     value={userName} required></input>
                             </div>
                             {this.props.action === 'CREATE' && <div className='col-12 col-sm-6 form-group'>
-                                <label className='form-label'>Password</label>
+                                <label className='form-label'>Mật khẩu</label>
                                 <input onChange={(event) => this.handleOnchaneInput(event, 'password')} type='password'
                                     className={isValidPassword === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='Password'
+                                    placeholder='Mặt khẩu'
                                     value={password} required></input>
 
 
@@ -434,20 +437,20 @@ class ModelUser extends Component {
 
 
                             {this.props.action === 'CREATE' && <div className='col-12 col-sm-6 form-group'>
-                                <label className='form-label'>Re-enter Password</label>
+                                <label className='form-label'>Nhập lại mật khẩu</label>
                                 <input onChange={(event) => this.handleOnchaneInput(event, 'comfimPassword')} type='password'
                                     className={isValidConfigPassword === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='Re-enter Password'
+                                    placeholder='Nhập lại mật khẩu'
                                     value={comfimPassword} required></input>
                             </div>}
 
 
 
                             <div className='col-12 col-sm-6 form-group'>
-                                <label className='form-label'>address</label>
+                                <label className='form-label'>Địa chỉ</label>
                                 <input onChange={(event) => this.handleOnchaneInput(event, 'address')} type='text'
                                     className={isValidAddress === true ? 'form-control' : 'form-control is-invalid'}
-                                    placeholder='address'
+                                    placeholder='Địa chỉ'
                                     value={address} required></input>
                             </div>
                             <div className='col-12 col-sm-6 form-group'>
@@ -488,6 +491,7 @@ class ModelUser extends Component {
                                         onChange={(event) => this.handleOnchandImage(event)}></input>
                                     <label className='lable-upload' htmlFor='previewImg'>Tải ảnh </label>
                                     <div className='preView-Image'
+
                                         style={this.props.action === 'CREATE' ? { backgroundImage: `url(${this.state.previewimg})`, height: '500px', backgroundSize: 'cover' } :
                                             { backgroundImage: `url(${this.state.avata})`, height: '500px', backgroundSize: 'cover' }}
                                     // style={{ backgroundImage: `url(${this.state.previewimg})`, height: '500px', backgroundSize: 'cover' }}

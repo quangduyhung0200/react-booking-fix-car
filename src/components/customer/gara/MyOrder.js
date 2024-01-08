@@ -202,15 +202,15 @@ class MyOrder extends Component {
                             <table style={{ width: '100%' }} className='table-patient table table-hover table-bordered my-3 table-primary'>
                                 <tbody>
                                     <tr>
-                                        <th >ID</th>
-                                        <th>thoi  gian</th>
-                                        <th>gara</th>
-                                        <th>dia chi</th>
+                                        <th >STT</th>
+                                        <th>Thời gian đặt</th>
+                                        <th>Tên gara đặt</th>
+                                        <th>Địa chỉ gara</th>
 
-                                        <th>so dien thoai gara</th>
+                                        <th>Số điện thoại gara</th>
 
-                                        <th>trang thai don hang</th>
-                                        <th>ACTION</th>
+                                        <th>Trạng thái đơn hàng</th>
+                                        <th>Hành động</th>
                                     </tr>
                                     {dataBooking && dataBooking.length > 0 &&
                                         dataBooking.map((item, index) => {
@@ -219,7 +219,7 @@ class MyOrder extends Component {
                                             return (
 
                                                 <tr key={`child-${index}`}>
-                                                    <td>{item.id}</td>
+                                                    <td>{index + 1}</td>
                                                     <td>{item.timeDataBooking.timValue} ngay {s}</td>
                                                     <td>{item.bookingDataGara.nameGara}</td>
                                                     <td>{item.bookingDataGara.address}, Tỉnh {item.bookingDataGara.provindGaraData.name}</td>

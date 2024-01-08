@@ -115,6 +115,15 @@ class Register extends Component {
             })
             return false
         }
+        if (phone.length < 8) {
+            toast.error('Số điện thoại không hợp lệ')
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidphone = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
         if (!userName) {
 
             let coppyState = { ...coppyStatea }
@@ -134,6 +143,15 @@ class Register extends Component {
             })
             return false
         }
+        if (password.length < 6) {
+            toast.error('Mật khẩu quá ngắn vui lòng nhập lại')
+            let coppyState = { ...coppyStatea }
+            coppyState.isValidPassword = false
+            this.setState({
+                ...coppyState
+            })
+            return false
+        }
         if (!comfimPassword) {
 
             let coppyState = { ...coppyStatea }
@@ -144,7 +162,7 @@ class Register extends Component {
             return false
         }
         if (password != comfimPassword) {
-            toast.error('you password dont match')
+            toast.error('Mật khẩu nhập không trùng nhau')
             let coppyState = { ...coppyStatea }
             coppyState.isValidConfigPassword = false
             this.setState({

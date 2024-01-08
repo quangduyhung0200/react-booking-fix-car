@@ -16,9 +16,10 @@ import { UserContext } from "../../../context/userContext"
 import CommonUtils from '../../../utils/CommonUtils';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-
+import './updateGara.scss'
 import { Buffer } from 'buffer';
 import { updateGara } from '../../../services/garaService';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class UpadateGaraAdmin extends Component {
@@ -185,11 +186,11 @@ class UpadateGaraAdmin extends Component {
                 </>
 
                 }
-                <div className='register-container container'>
-                    <div className='register-title'>update gara</div>
+                <div className='update-container container'>
+                    <div className='register-title'><h3> Cập nhật thông tin gara</h3></div>
                     <div className='register-body row'>
-                        <div className='conten-left col-6'>
-                            <label>thong tin gioi thieu</label>
+                        <div className='col-12'>
+                            <label className='fw-bold'>Thông tin giới thiệu gara</label>
                             <textarea className='form-control' rows={4}
                                 onChange={(event) => this.handlOnChandText(event, 'descpistion')}
                                 value={this.state.descpistion}>
@@ -197,9 +198,9 @@ class UpadateGaraAdmin extends Component {
                             </textarea>
 
                         </div>
-                        <div className='conten-right col-6'>
+                        <div className='col-12'>
                             <div className='col-12 form-group'>
-                                <label>chon tinh thanh</label>
+                                <label className='fw-bold'>Chọn tỉnh thành</label>
                                 <Select
                                     value={this.state.selectProvint}
                                     onChange={this.handlChaneSelectProvind}
@@ -207,7 +208,7 @@ class UpadateGaraAdmin extends Component {
                                     name="selectProvint"
                                 />
                                 <div className='col-12 form-group'>
-                                    <label>so dien thoai</label>
+                                    <label className='fw-bold'>Số điện thoại</label>
                                     <input
                                         onChange={(event) => this.handlOnChandText(event, 'phone')} value={this.state.phone} className='form-control'
                                     ></input>
@@ -215,20 +216,20 @@ class UpadateGaraAdmin extends Component {
                             </div>
 
                             <div className='col-12 form-group'>
-                                <label>dia chi gara</label>
+                                <label className='fw-bold'>Chi tiết địa chỉ của gara</label>
                                 <input
                                     onChange={(event) => this.handlOnChandText(event, 'addressGara')} value={this.state.addressGara} className='form-control'
                                 ></input>
                             </div>
                             <div className='col-12 form-group'>
-                                <label>ten gara</label>
+                                <label className='fw-bold'>Tên gara</label>
                                 <input
                                     onChange={(event) => this.handlOnChandText(event, 'nameGara')} value={this.state.nameGara} className='form-control'></input>
                             </div>
 
-                            <div className='col-12 form-group'>
+                            <div className='col-6 form-group'>
                                 <label >
-                                    image
+                                    Chọn logo cho gara
                                 </label>
                                 <div className='preView-image-container '>
                                     <input id='previewImg' type='file' hidden
@@ -248,17 +249,18 @@ class UpadateGaraAdmin extends Component {
                     </div>
 
 
-                    <div className='manage-docter-editor'>
+                    <div className='manage-gara-editor mt-5'>
+                        <h3>Soạn thảo thông tin chi tiết của gara</h3>
                         <MdEditor style={{ height: '500px' }}
                             renderHTML={text => mdParser.render(text)}
                             onChange={this.handleEditorChange}
                             value={this.state.contenMarkdown}></MdEditor>
                     </div>
-                    <button className='btn-save-conten btn-primary btn' onClick={() => this.handleSveConTen()}>
-                        update</button>
+                    <button className='mt-4 btn-primary btn col-12' onClick={() => this.handleSveConTen()}>
+                        Lưu</button>
 
                 </div>
-
+                <HomeFooter />
 
             </>
 

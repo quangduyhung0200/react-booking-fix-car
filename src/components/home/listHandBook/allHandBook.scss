@@ -1,19 +1,85 @@
 .home-header-banner-allHandBook {
 
-    .content-up {
-        justify-content: space-between;
-        margin-bottom: 10px;
+    .box {
+        background-color: rgb(255, 255, 255);
+        border-radius: 2%;
+        margin-top: 20px;
 
-        .title {}
+        .content-down-search2 {
+            min-height: 400px;
 
-        .search {}
+            background: url(../../../assets/img/image/backgroup2.jpg) no-repeat;
+            background-size: contain;
+        }
 
-        border-bottom: 1px solid #ddd;
+        .content-up {
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px;
+
+            .title {}
+
+            .search {}
+
+            .button {}
+
+            border-bottom: 1px solid #ddd;
+        }
+
+        .content-down-search {
+
+            margin-top: 50px;
+            margin-left: 20px;
+            margin-right: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+
+            .avata {
+                border: 1px solid #ddd;
+                background-size: cover;
+                background-repeat: no-repeat;
+                min-height: 200px;
+                border: 1px solid #ddd;
+
+
+                border: none;
+
+                box-shadow: 0 2px 4px rgba(0, 0, 0, .1),
+                    0 8px 16px rgba(0, 0, 0, .1);
+                box-sizing: border-box;
+
+
+
+            }
+
+
+
+        }
+
+        .content-down-search:hover {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            animation-name: example;
+            animation-duration: 0.25s;
+            border-left: 8px solid rgb(170, 157, 157);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        }
+
+
+
+
     }
 
     .content-down-new {
+        margin-top: 20px;
+        border-radius: 2%;
+        background-color: rgb(255, 255, 255);
+        height: 500px;
 
-        background-color: rgb(238, 247, 247);
+        .title {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
 
         .silde-child {
             background: white;
@@ -25,7 +91,8 @@
             transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
             border: 1px solid #ddd;
 
-            margin-left: 50px !important;
+            margin-left: 25px !important;
+            margin-right: 25px !important;
             margin-top: 20px;
             border: none;
 
@@ -64,64 +131,22 @@
     }
 
 
-    .content-down-search {
-        background-color: rgb(238, 247, 247);
-        margin-top: 50px;
-
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-
-        .avata {
 
 
 
-            border: 1px solid #ddd;
-            background-size: cover;
-            background-repeat: no-repeat;
-            min-height: 200px;
-            border: 1px solid #ddd;
+    .introaction {
+        margin-left: 20px;
 
-
-            border: none;
-
-            box-shadow: 0 2px 4px rgba(0, 0, 0, .1),
-                0 8px 16px rgba(0, 0, 0, .1);
-            box-sizing: border-box;
+        .title {}
 
 
 
+        .athur {
+            margin-bottom: 100px;
         }
 
 
-
-        .introaction {
-            margin-left: 20px;
-
-            .title {}
-
-
-
-            .athur {
-                margin-bottom: 100px;
-            }
-
-
-        }
     }
 
-    .content-down-search:hover {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        animation-name: example;
-        animation-duration: 0.25s;
-        border-left: 8px solid rgb(170, 157, 157);
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    }
 
-    .content-down-search2 {
-        min-height: 400px;
-        background-color: rgb(238, 247, 247);
-        background: url(../../../assets/img/image/backgroup2.jpg) no-repeat;
-        background-size: contain;
-    }
 }

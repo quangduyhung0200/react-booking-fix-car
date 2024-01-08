@@ -212,7 +212,7 @@ class ManageCarCompany extends Component {
                 <>
                     <div className='manage-carcompany-container container'>
                         <div className='m-p-title'>
-                            <div className='tiltle col-12'><h3>Tabble user</h3>
+                            <div className='tiltle col-12'><h3>Quản lý công ty xe</h3>
                             </div>
                             <hr></hr>
                             <div className='actionform col-12 row'>

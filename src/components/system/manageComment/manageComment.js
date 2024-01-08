@@ -290,10 +290,11 @@ class ManageComment extends Component {
                                 <div className='col-3'>
                                     <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>tim kiem</button>
                                 </div>
-                                <hr></hr>
+
 
                                 <div className='action'>
-                                    <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                                    <hr></hr>
+                                    <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>Làm mới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
 
                                 </div>
                             </div>

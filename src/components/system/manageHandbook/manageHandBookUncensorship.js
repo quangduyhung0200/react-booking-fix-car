@@ -203,6 +203,7 @@ class ManageGaraHandBookHasNotPass extends Component {
                                 </div>
 
                                 <div className='col-4'>
+
                                     <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>Tìm kiếm</button>
                                 </div>
 

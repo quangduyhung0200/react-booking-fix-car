@@ -1,5 +1,5 @@
 .Car-Detail-Container {
-    background-color: rgb(216, 233, 233);
+    background-color: rgb(255, 255, 255);
     padding-bottom: 20px;
 
     .introduction2 {
@@ -12,10 +12,13 @@
             background-size: cover;
             background-repeat: no-repeat;
 
+
         }
 
         .content-right {
             width: 70%;
+            border-left: 1px solid #ddd;
+            padding-left: 20px;
         }
     }
 }

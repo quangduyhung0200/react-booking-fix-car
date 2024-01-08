@@ -67,6 +67,7 @@ class AllHandBook extends Component {
                 slidesToSlide: 1 // optional, default to 1.
             }
         };
+        console.log('chacsh:', listHandBookNew)
         return (
 
 
@@ -74,50 +75,58 @@ class AllHandBook extends Component {
 
                 <div className='home-header-banner-allHandBook img-fluid'>
                     <div className=' container'>
-                        <div className='content-up row'>
-                            <h3 className='title col-7'>Tìm kiếm bài viết</h3>
+                        <div className='box'>
+                            <div className='content-up row'>
+                                <h3 className='title col-7'>Tìm kiếm bài viết</h3>
 
-                            <div className='search col-4 row'>
-                                <input className='form-control' value={this.state.selectHandBook} onChange={(event) => this.handOnchane(event)} placeholder='nhap tu khoa' />
+                                <div className='search col-3 row'>
+                                    <input className='form-control' value={this.state.selectHandBook} onChange={(event) => this.handOnchane(event)} placeholder='nhap tu khoa' />
+
+                                </div>
+                                <div className='col-2'>  <button onClick={() => this.handOnclickSearch()} className='button btn btn-primary col-10'>Tìm kiếm</button></div>
+
 
                             </div>
-                            <button onClick={() => this.handOnclickSearch()} className='btn btn-primary col-1'>tim kiem</button>
+                            {
+                                listHandBookSearch && listHandBookSearch.length > 0 ?
+                                    listHandBookSearch.map((item, index) => {
+                                        let imageBase64 = ''
+                                        if (item.avata) {
 
+                                            imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
+                                        }
+                                        let str = item.createdAt;
+                                        let endDate = Date.parse(str);
+                                        let s = new Date(endDate).toLocaleDateString("vi")
+                                        return (
+                                            <>
+                                                <div className='content-down-search row' key={`child-${index}`}>
+                                                    <div onClick={() => this.handOnclickHandBook(item)} className='avata col-3' style={{ backgroundImage: `url(${imageBase64})` }}></div>
+                                                    <div className='introaction col-7 row'>
+                                                        <h3 className='title col-12'>
+                                                            {item.title}
+                                                        </h3>
+                                                        <div className='athur col-12'>
+                                                            <div className='d-flex'><p className='fw-light'>Tác giả: </p>    {item.StaffHandbookData.userName}</div>
+                                                            <div className='d-flex'><p className='fw-light'>Viết ngày: </p>   {s}</div>
+                                                        </div>
+
+
+                                                    </div >
+                                                </div >
+
+                                            </>
+
+
+
+                                        )
+                                    })
+                                    : <div className='content-down-search2'></div>}
                         </div>
-                        {
-                            listHandBookSearch && listHandBookSearch.length > 0 ?
-                                listHandBookSearch.map((item, index) => {
-                                    let imageBase64 = ''
-                                    if (item.avata) {
 
-                                        imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
-                                    }
-
-                                    return (
-                                        <>
-                                            <div className='content-down-search row' key={`child-${index}`}>
-                                                <div onClick={() => this.handOnclickHandBook(item)} className='avata col-3' style={{ backgroundImage: `url(${imageBase64})` }}></div>
-                                                <div className='introaction col-7 row'>
-                                                    <h3 className='title col-12'>
-                                                        {item.title}
-                                                    </h3>
-                                                    <div className='athur col-12'>
-                                                        {item.StaffHandbookData.userName}
-                                                    </div>
-
-                                                </div>
-                                            </div >
-
-                                        </>
-
-
-
-                                    )
-                                })
-                                : <div className='content-down-search2'></div>}
                         {listHandBookNew && listHandBookNew.length > 0 && listHandBookSearch.length === 0 &&
                             <div className='content-down-new'>
-                                <div><h3>Bài viết mới nhất</h3></div>
+                                <div className='title'><h3>Bài viết mới nhất</h3></div>
                                 <Carousel
                                     swipeable={false}
                                     draggable={false}
@@ -145,7 +154,7 @@ class AllHandBook extends Component {
                                                 imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
                                             }
                                             return (
-                                                <> <div onClick={() => this.handOnclickHandBook(item)} className='silde-child' key={`chile-${index}`} >
+                                                <> <div onClick={() => this.handOnclickHandoBok(item)} className='silde-child' key={`chile-${index}`} >
                                                     <img
                                                         className="img-child w-100 h-100"
                                                         src={imageBase64}
@@ -154,7 +163,12 @@ class AllHandBook extends Component {
                                                     />
 
                                                 </div>
-                                                    <h5 className='name-child'>{item.title}</h5>
+                                                    <h5 className='name-child'>{item.title}
+                                                        <div className='athur col-12'>
+                                                            <p className='fw-light fs-6'>Tác giả: {item.StaffHandbookData.userName}</p>
+                                                        </div></h5>
+
+
                                                 </>
                                             )
                                         })}
@@ -169,7 +183,7 @@ class AllHandBook extends Component {
 
 
 
-                    </div>
+                    </div >
 
 
 

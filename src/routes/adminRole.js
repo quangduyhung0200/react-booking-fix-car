@@ -37,6 +37,7 @@ import DetailCar from "../components/customer/car/carDetail.js"
 import UpadateGaraAdmin from "../components/system/manageGara/updateGaraAdmin.js";
 import DetailAccount from "../components/customer/manageAccount/manageAccount.js"
 import AllGara from "../components/home/listGara/allGara.js";
+import Chart from "../components/Gara/chart/newChart.js";
 import AllHandBook from "../components/home/listHandBook/allHandBook.js";
 class AdminRouter extends Component {
 
@@ -96,6 +97,9 @@ class AdminRouter extends Component {
                         <PrivateRole path='/manage-comment' component={manageComment} />
                         <PrivateRole path='/detailCar/:id' component={DetailCar} />
                         <PrivateRole path="/Account" component={DetailAccount} />
+
+
+                        <Route path="/Chart" exact component={(Chart)} />
                         <Route path="/vetyfy-booking" exact component={(VerifyEmail)} />
 
                         <Route path='/detailGara/:id' exact component={DetailGara} />

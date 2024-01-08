@@ -125,6 +125,7 @@ class PickCar extends Component {
                 coppyState.description = data.DT[0].description
                 coppyState.nameGara = data.DT[0].nameGara
                 coppyState.phone = data.DT[0].phone
+                coppyState.provind = data.DT[0].provindGaraData.name
 
                 coppyState.avata = imageBase64
                 coppyState.descriptionHTML = data.DT[0].contenHTML
@@ -276,7 +277,7 @@ class PickCar extends Component {
             coppyState.description = data.DT.description
             coppyState.nameGara = data.DT.nameGara
             coppyState.phone = data.DT.phone
-
+            coppyState.provind = data.DT.provindGaraData.name
             coppyState.avata = imageBase64
             coppyState.descriptionHTML = data.DT.contenHTML
             coppyState.userId = data.DT.userId
@@ -293,7 +294,7 @@ class PickCar extends Component {
     }
     render() {
 
-        let { listCarCompany, listCar, listPrice, listPayment, listService, listGara } = this.state
+        let { listCarCompany, listCar, listPrice, listPayment, listService, listGara, provind } = this.state
         console.log(this.state)
         return (
             <>
@@ -310,6 +311,11 @@ class PickCar extends Component {
 
                                 <div className='down col-12'>
                                     {this.state.description}
+
+                                </div>
+                                <div className='down col-12'>
+
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>{provind}
                                 </div>
                             </div>
                         </div>
@@ -406,12 +412,14 @@ class PickCar extends Component {
 
 
                         </div>
-                        <hr></hr>
-                        <div className='detail-Car col-12'>
+
+                        <div className='detail-Car col-12 mt-2'>
+                            <hr></hr>
                             <DetailCar carId={this.state.selectCar} />
                         </div>
-                        <hr></hr>
+
                         <div className='action'>
+                            <hr></hr>
                             <button onClick={() => this.handlOnclickSavePickCar()} className='btn btn-primary mx-3'>Lưu thông tin</button>
                             <button onClick={() => this.handlOnclickDeletePickCar()} className='btn btn-warning'>Xóa thông tin đang chọn</button></div>
                     </div>

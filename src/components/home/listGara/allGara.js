@@ -487,14 +487,18 @@ class AllGara extends Component {
                         dataModel.map((item, index) => {
                             return (
 
-                                <>    <div className='row '>
-                                    <div className='col-6'>
-                                        <ProfileGara dataModelProfile={item} />
-                                    </div>
-                                    <div className='col-6'>
+                                <>
 
-                                        <GaraSchedule garaId={item} /></div>
-                                </div>
+                                    <div className='gara-child row'>
+                                        <div className='col-6'>
+                                            <ProfileGara dataModelProfile={item} />
+                                        </div>
+                                        <div className='col-6'>
+
+                                            <GaraSchedule garaId={item} /></div>
+                                    </div>
+
+
                                     <hr></hr>
 
                                 </>

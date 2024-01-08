@@ -55,6 +55,7 @@ class NavigateStaff extends Component {
                                     <NavLink to="/myOrder" exact className='nav-link'>Đơn đặt lịch của tôi</NavLink>
                                 </Nav>
                                 <NavDropdown title="Quản lý gara" id="basic-nav-dropdown">
+                                    <NavLink to="/ManageGarahasntPass" exact className='nav-link'>Quản lý gara chưa được phê duyệt</NavLink>
                                     <NavLink to="/ManageGara" exact className='nav-link'>Quản lý gara</NavLink>
                                     <NavLink to="/setSchedule" exact className='nav-link'>Quản lý lịch của gara</NavLink>
                                     <NavLink to="/manage-PickCar" exact className='nav-link'>Quản lý chọn xe cho gara</NavLink>

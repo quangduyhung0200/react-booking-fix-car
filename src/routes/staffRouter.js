@@ -34,6 +34,7 @@ import UpadateGaraAdmin from "../components/system/manageGara/updateGaraAdmin.js
 import DetailAccount from "../components/customer/manageAccount/manageAccount.js"
 import AllGara from "../components/home/listGara/allGara.js";
 import AllHandBook from "../components/home/listHandBook/allHandBook.js";
+import ManageGaraHandBookHasNotPass from "../components/system/manageGara/manageGara.js"
 class StaffRouter extends Component {
 
 
