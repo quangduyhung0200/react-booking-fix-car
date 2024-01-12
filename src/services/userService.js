@@ -75,7 +75,9 @@ const getUserById = async (userId) => {
 
 
 
-
+const chanepass = async (data) => {
+    return axios.put(`/api/v1/user/chanepass`, { ...data });
+}
 
 
 
@@ -88,5 +90,5 @@ export {
 
 
 
-    getAllOrderUser, createComment, searchOrder, getUserById
+    getAllOrderUser, createComment, searchOrder, getUserById, chanepass
 }

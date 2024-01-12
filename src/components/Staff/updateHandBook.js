@@ -17,6 +17,7 @@ import { getAllGara } from '../../services/guestService';
 import { getHandBookById } from '../../services/adminService';
 import { Buffer } from 'buffer';
 import { getUserById } from '../../services/userService';
+import { toast } from 'react-toastify';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class UpdateHandBook extends Component {
@@ -116,7 +117,7 @@ class UpdateHandBook extends Component {
 
 
         ) {
-            alert('missign requi')
+            toast.error('Bnạ nhập thiếu thông tin')
         }
 
         else {
@@ -139,6 +140,16 @@ class UpdateHandBook extends Component {
             }
 
             let res = await updateHandbook(data)
+            if (res.EC === 0) {
+                toast.success('Cập nhật thông tin thành công')
+                this.props.history.push('/manage-handBook')
+            } else if (res.EC === 1) {
+                toast.success('Cập nhật thông tin thành công')
+                this.props.history.push('/manageHandBook')
+            }
+            else if (res.EC === -1) {
+                toast.error('Cập nhật thất bại')
+            }
 
         }
 

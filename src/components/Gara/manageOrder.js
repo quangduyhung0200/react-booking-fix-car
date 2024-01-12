@@ -144,7 +144,7 @@ class ManageOrder extends Component {
                         <h3> Quản lý đơn đặt lịch</h3>
                         <hr></hr>
                         <div className='col-4 form-group'>
-                            <label>Chon ngay kham</label>
+                            <label>Chọn ngày đặt lịch</label>
                             <ReactDatePicker
                                 onChange={this.handleChangedatePick}
                                 className='form-control'
@@ -169,14 +169,18 @@ class ManageOrder extends Component {
                                 <tbody>
                                     <tr>
                                         <th >STT</th>
-                                        <th>thoi  gian</th>
-                                        <th>HO VA TEN</th>
-                                        <th>email</th>
-                                        <th>DIA CHI</th>
-                                        <th>trang thai don hang</th>
+                                        <th>Thời gian đặt</th>
+                                        <th>Họ tên khách hàng</th>
+                                        <th>Email</th>
+                                        <th>Địa chỉ khách hàng</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Xe</th>
+                                        <th>Dịch vụ</th>
+                                        <th>Số tiền đơn đặt</th>
+                                        <th>Trạng thái đơn hàng</th>
                                         <th>ACTION</th>
                                     </tr>
-                                    {dataBooking && dataBooking.length > 0 &&
+                                    {dataBooking && dataBooking.length > 0 ?
                                         dataBooking.map((item, index) => {
                                             let s = new Date(item.date * 1000).toLocaleDateString("vi")
                                             return (
@@ -187,6 +191,10 @@ class ManageOrder extends Component {
                                                     <td>{item.bookingData.userName}</td>
                                                     <td>{item.bookingData.email}</td>
                                                     <td>{item.bookingData.address}</td>
+                                                    <td>{item.bookingData.phone}</td>
+                                                    <td>{item.carBookingData.nameCar}</td>
+                                                    <td>{item.serviceBookingData.description}</td>
+                                                    <td>{item.PriceBookingData.value} VND</td>
                                                     <td>{item.statusBooking.description}</td>
                                                     <td>{item.status === 'S3' && item.date <= fomatedDate && <>
                                                         <button className='btn btn-primary mx-3'
@@ -196,7 +204,7 @@ class ManageOrder extends Component {
                                                     </td>
                                                 </tr>
                                             )
-                                        })}
+                                        }) : <tr><div>Không có đơn đặt lịch nào!!!</div></tr>}
 
 
 

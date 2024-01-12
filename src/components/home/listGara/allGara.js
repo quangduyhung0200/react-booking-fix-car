@@ -270,7 +270,8 @@ class AllGara extends Component {
     }
     handleChangeCarCompany = async (selectedOption) => {
         if (selectedOption.label === 'ALL') {
-            if (+this.state.selectProvind.value === 0) {
+            if (!this.state.selectProvind.value) {
+                console.log('eeee')
                 let data = await feactAllCar('ALL')
                 let res = await getAllGarabyProvind('ALL')
                 let dataCar = this.buildDataSelectCar(res.DT)
@@ -318,9 +319,11 @@ class AllGara extends Component {
             }
 
         } else {
-            if (+this.state.selectProvind.value === 0) {
+
+            if (!this.state.selectProvind.value) {
 
                 let res = await getAllGarabyProvind('ALL')
+                console.log('asdasdasd', res)
                 let data = await getDataPickCar(selectedOption.value)
                 let dataCar = this.buildDataSelectCar(res.DT)
                 let dataCarAll = this.buildDataSelectCarAll(data.DT)
@@ -444,7 +447,7 @@ class AllGara extends Component {
 
                                 <Select
 
-                                    placeholder={'CHON tinh thanh'}
+                                    placeholder={'Chọn tỉnh thành'}
                                     value={this.state.selectProvind}
                                     onChange={this.handleChangeProvind}
                                     options={this.state.listProvind}
@@ -455,7 +458,7 @@ class AllGara extends Component {
 
                                 <Select
 
-                                    placeholder={'CHON HANG XE'}
+                                    placeholder={'Chọn hãng xe'}
                                     value={this.state.selectCarCompany}
                                     onChange={this.handleChangeCarCompany}
                                     options={this.state.listCarCompany}
@@ -466,7 +469,7 @@ class AllGara extends Component {
 
                                 <Select
 
-                                    placeholder={'CHON XE'}
+                                    placeholder={'Chọn xe'}
                                     value={this.state.selectCar}
                                     onChange={this.handleChangeCar}
                                     options={this.state.listCar}
@@ -475,7 +478,7 @@ class AllGara extends Component {
                             </div>
                             <div className='search col-12 text-centrel'>
 
-                                <button onClick={() => this.handlSearch()} className='btn btn-primary'>tim kiem</button>
+                                <button onClick={() => this.handlSearch()} className='btn btn-primary'>Tìm kiếm</button>
                             </div>
                         </div>
                     </div>

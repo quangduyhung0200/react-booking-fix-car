@@ -24,6 +24,7 @@ import MyOrder from "../components/customer/gara/MyOrder.js";
 import AllGara from "../components/home/listGara/allGara.js";
 import detailHandBook from "../components/customer/handBook/detailHandBook.js";
 import AllHandBook from "../components/home/listHandBook/allHandBook.js";
+import Forget_pasword from "../components/login/forget_pasword.js";
 class AppRouter extends Component {
 
 
@@ -59,7 +60,9 @@ class AppRouter extends Component {
                             <AllHandBook />
                         </Route>
 
-
+                        <Route exact path="/forgotpassword">
+                            <Forget_pasword />
+                        </Route>
 
 
 

@@ -166,15 +166,18 @@ class ManageBookingGara extends Component {
                                 <tbody>
                                     <tr>
                                         <th >STT</th>
-                                        <th>Thời gian khám</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Email khách hàng</th>
-                                        <th>Số điện thoại khách hàng</th>
-                                        <th>Địa chỉ của khách hàng</th>
-                                        <th>Tình trạng xe</th>
+                                        <th>Thời gian đặt</th>
+                                        <th>Họ tên khách hàng</th>
+                                        <th>Email</th>
+                                        <th>Địa chỉ khách hàng</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Xe</th>
+                                        <th>Dịch vụ</th>
+                                        <th>Số tiền đơn đặt</th>
+                                        <th>Trạng thái đơn hàng</th>
                                         <th>ACTION</th>
                                     </tr>
-                                    {dataBooking && dataBooking.length > 0 &&
+                                    {dataBooking && dataBooking.length > 0 ?
                                         dataBooking.map((item, index) => {
 
 
@@ -186,14 +189,17 @@ class ManageBookingGara extends Component {
                                                     <td>{item.timeDataBooking.timValue} ngày {s}</td>
                                                     <td>{item.bookingData.userName}</td>
                                                     <td>{item.bookingData.email}</td>
-                                                    <td>{item.bookingData.phone}</td>
                                                     <td>{item.bookingData.address}</td>
-                                                    <td>{item.reson}</td>
+                                                    <td>{item.bookingData.phone}</td>
+                                                    <td>{item.carBookingData.nameCar}</td>
+                                                    <td>{item.serviceBookingData.description}</td>
+                                                    <td>{item.PriceBookingData.value} VND</td>
+                                                    <td>{item.statusBooking.description}</td>
                                                     <td><button className='btn btn-primary' onClick={() => this.hanldOnclickConfid(item)}>Xác nhận</button>
                                                         <button className='btn btn-warning' onClick={() => this.hanldOnclickDenice(item)}>Từ chối </button></td>
                                                 </tr>
                                             )
-                                        })}
+                                        }) : <tr><div>Không có đơn đặt lịch mới!!!</div></tr>}
 
 
 
@@ -204,7 +210,7 @@ class ManageBookingGara extends Component {
                             </table>
                         </div>
                     </div>
-                </div>
+                </div >
 
                 <ModelComfimBooking
                     show={this.state.isOpentModel}

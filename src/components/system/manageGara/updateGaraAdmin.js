@@ -20,6 +20,7 @@ import './updateGara.scss'
 import { Buffer } from 'buffer';
 import { updateGara } from '../../../services/garaService';
 import HomeFooter from '../../home/homeFooter/homeFooter';
+import { toast } from 'react-toastify';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class UpadateGaraAdmin extends Component {
@@ -130,12 +131,12 @@ class UpadateGaraAdmin extends Component {
         let { nameGara, contenMarkdown, contenHTML, addressGara, avata, phone, descpistion, emailUser, id, garaId } = this.state
         let provindId = this.state.selectProvint.value
 
-        if (!this.state.contenHTML || !this.state.contenMarkdown || !this.state.descpistion
+        if (!this.state.contenHTML || !this.state.contenMarkdown || !this.state.descpistion || !nameGara || !addressGara || !phone
 
 
             || !this.state.selectProvint
         ) {
-            alert('missign requi')
+            toast.error('Bạn đã điền thiếu thông tin vui lòng kiểm tra lại')
         }
 
         else {
@@ -144,6 +145,12 @@ class UpadateGaraAdmin extends Component {
             }
             let data = { nameGara, contenMarkdown, contenHTML, addressGara, avata, phone, descpistion, id, garaId, provindId }
             let res = await updateGara(data)
+            if (res.EC === 0) {
+                toast.success('Cập nhật thành công')
+                this.props.history.push('/ManageGara')
+            } else {
+                toast.error('Có lỗi xảy ra vui lòng thửu lại sau')
+            }
 
 
         }

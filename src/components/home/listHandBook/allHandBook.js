@@ -80,7 +80,7 @@ class AllHandBook extends Component {
                                 <h3 className='title col-7'>Tìm kiếm bài viết</h3>
 
                                 <div className='search col-3 row'>
-                                    <input className='form-control' value={this.state.selectHandBook} onChange={(event) => this.handOnchane(event)} placeholder='nhap tu khoa' />
+                                    <input className='form-control' value={this.state.selectHandBook} onChange={(event) => this.handOnchane(event)} placeholder='Nhập từ khóa' />
 
                                 </div>
                                 <div className='col-2'>  <button onClick={() => this.handOnclickSearch()} className='button btn btn-primary col-10'>Tìm kiếm</button></div>
@@ -154,7 +154,7 @@ class AllHandBook extends Component {
                                                 imageBase64 = new Buffer(item.avata, 'base64').toString('binary')
                                             }
                                             return (
-                                                <> <div onClick={() => this.handOnclickHandoBok(item)} className='silde-child' key={`chile-${index}`} >
+                                                <> <div onClick={() => this.handOnclickHandBook(item)} className='silde-child' key={`chile-${index}`} >
                                                     <img
                                                         className="img-child w-100 h-100"
                                                         src={imageBase64}

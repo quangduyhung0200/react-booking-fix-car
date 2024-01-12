@@ -11,6 +11,7 @@ import GaraSchedule from './schedule';
 import ExtralDataGara from './extralDataGara';
 import Comment from './comment';
 import HomeFooter from '../../home/homeFooter/homeFooter';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 class DetailGara extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +29,7 @@ class DetailGara extends Component {
             propvindGara: {},
             rate: ''
 
+
         }
     }
     async componentDidMount() {
@@ -40,32 +42,46 @@ class DetailGara extends Component {
             })
 
             let data = await getGaraInfo(id)
+            if (data.EC === 0) {
+                if (data.DT.status === 'S1') {
+                    toast.error('Gara đang trong trạng thái không hoạt động vui lòng thử lại')
+                    this.props.history.push('/')
+
+                }
+                else {
+                    let imageBase64 = ''
+                    if (data.DT.avata.data) {
+
+                        imageBase64 = new Buffer(data.DT.avata.data, 'base64').toString('binary')
+                    }
+                    let coppyState = { ...this.state }
+                    coppyState.address = data.DT.address
+                    coppyState.description = data.DT.description
+                    coppyState.nameGara = data.DT.nameGara
+                    coppyState.phone = data.DT.phone
+                    coppyState.provind = data.DT.provindGaraData.name
+                    coppyState.avata = imageBase64
+                    coppyState.descriptionHTML = data.DT.contenHTML
+                    coppyState.userId = data.DT.userId
+                    coppyState.garaId = data.DT.id
+                    coppyState.propvindGara = data.DT.provindGaraData
+                    coppyState.rate = data.DT.rateId
 
 
-            let imageBase64 = ''
-            if (data.DT.avata.data) {
 
-                imageBase64 = new Buffer(data.DT.avata.data, 'base64').toString('binary')
+
+                    this.setState({
+                        ...coppyState
+                    })
+
+                }
+
+
             }
-            let coppyState = { ...this.state }
-            coppyState.address = data.DT.address
-            coppyState.description = data.DT.description
-            coppyState.nameGara = data.DT.nameGara
-            coppyState.phone = data.DT.phone
-            coppyState.provind = data.DT.provindGaraData.name
-            coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.contenHTML
-            coppyState.userId = data.DT.userId
-            coppyState.garaId = data.DT.id
-            coppyState.propvindGara = data.DT.provindGaraData
-            coppyState.rate = data.DT.rateId
+            else {
+                toast.error('Gara đã gỡ')
+            }
 
-
-
-
-            this.setState({
-                ...coppyState
-            })
 
         }
     }
@@ -75,7 +91,7 @@ class DetailGara extends Component {
 
     render() {
 
-
+        console.log(this.state)
 
 
         return (

@@ -55,7 +55,7 @@ class HandBook extends Component {
                 <div className='container'>
                     <div className='session-container-handbook'>
                         <div className='session-header'>
-                            <h3 className='content-left'>Cẩm nang</h3>
+                            <h3 className='content-left'>Bài viết mới nhất</h3>
                             <div className='content-right'> <button onClick={() => this.handOnclickMoreInfo()} className='btn btn-warning'>Xem thêm</button></div>
                         </div>
                         <div className='session-content'>

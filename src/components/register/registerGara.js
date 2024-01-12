@@ -114,7 +114,7 @@ class RegisterGara extends Component {
         let { nameGara, contenMarkdown, contenHTML, addressGara, avata, phone, description, emailUser, id } = this.state
         let provindId = this.state.selectProvint.value
 
-        if (!this.state.contenHTML || !this.state.contenMarkdown || !this.state.description || !this.state.selectProvint
+        if (!this.state.contenHTML || !this.state.contenMarkdown || !this.state.description || !this.state.selectProvint || !nameGara || !addressGara || !phone
         ) {
             toast.error('bạn điền thiếu thông tin')
         }
@@ -131,6 +131,11 @@ class RegisterGara extends Component {
             if (data.EC === 0) {
                 toast.success('đăng ký thành công, vui lòng chờ cho hệ thống xác nhận')
                 this.handLogout()
+
+            }
+            if (data.EC === 2) {
+                toast.error('Bạn đã đăng ký 1 lần, nếu muốn sửa thông tin vui lòng vào mục cập nhật thông tin gara')
+
 
             }
             else {
@@ -203,20 +208,20 @@ class RegisterGara extends Component {
                         </div>
 
                         <div className='col-12 form-group'>
-                            <label>dia chi gara</label>
+                            <label>Địa chỉ chi tiết gara</label>
                             <input
                                 onChange={(event) => this.handlOnChandText(event, 'addressGara')} value={this.state.addressGara} className='form-control'
                             ></input>
                         </div>
                         <div className='col-12 form-group'>
-                            <label>ten gara</label>
+                            <label>Tên gara</label>
                             <input
                                 onChange={(event) => this.handlOnChandText(event, 'nameGara')} value={this.state.nameGara} className='form-control'></input>
                         </div>
 
                         <div className='col-12 form-group image'>
                             <label >
-                                image
+                                Logo
                             </label>
                             <div className='preView-image-container '>
                                 <input id='previewImg' type='file' hidden
@@ -230,7 +235,7 @@ class RegisterGara extends Component {
                         </div>
                         <div className='col-12'></div>
                         <div className='col-4 form-group'>
-                            <label>chon tinh thanh</label>
+                            <label>Thuộc tỉnh thành</label>
                             <Select
                                 value={this.state.selectProvint}
                                 onChange={this.handlChaneSelectProvind}
@@ -255,7 +260,7 @@ class RegisterGara extends Component {
                     </div>
                     <hr></hr>
                     <button className='btn btn-primary my-2' onClick={() => this.handleSveConTen()}>
-                        dang ky</button>
+                        Đăng ký</button>
 
                 </div>
 

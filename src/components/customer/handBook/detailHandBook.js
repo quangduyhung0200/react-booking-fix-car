@@ -27,7 +27,8 @@ class DetailHandBook extends Component {
             handbookId: '',
             createdAt: '',
             staffName: '',
-            listHandBook: []
+            listHandBook: [],
+            isGaraDelete: false
 
         }
     }
@@ -41,36 +42,54 @@ class DetailHandBook extends Component {
             })
 
             let data = await getHandBookById(id)
-            console.log(data)
-            let imageBase64 = ''
-            if (data.DT.avata.data) {
-
-                imageBase64 = new Buffer(data.DT.avata.data, 'base64').toString('binary')
+            if (data.EC === 1) {
+                toast.error('Bài viết không tồn tại')
+                this.props.history.push('/')
             }
-            let coppyState = { ...this.state }
+            else {
+                if (data.DT.status === 'S1') {
+                    toast.error('Bài viết không tồn tại')
+                    this.props.history.push('/')
+                }
+                else {
+                    let imageBase64 = ''
+                    if (data.DT.avata.data) {
 
-            coppyState.createdAt = data.DT.createdAt
-            coppyState.title = data.DT.title
-            if (data.DT.GaraHandBook.id === null) {
-                coppyState.garaId = 0
-            } else {
-                coppyState.garaId = data.DT.GaraHandBook.id
-            }
+                        imageBase64 = new Buffer(data.DT.avata.data, 'base64').toString('binary')
+                    }
+                    let coppyState = { ...this.state }
+
+                    coppyState.createdAt = data.DT.createdAt
+                    coppyState.title = data.DT.title
+                    if (data.DT.GaraHandBook.id === null) {
+                        coppyState.garaId = 0
+                    } else if (data.DT.GaraHandBook.isDelete === '0') {
+                        coppyState.garaId = data.DT.GaraHandBook.id
+                    }
+                    else if (data.DT.GaraHandBook.isDelete === '1') {
+                        coppyState.isGaraDelete = true
+                    }
+                    if (data.DT.GaraHandBook.status === 'S1') {
+                        coppyState.isGaraDelete = true
+                    }
 
 
-            coppyState.avata = imageBase64
-            coppyState.descriptionHTML = data.DT.contentHTML
-            coppyState.handbookId = data.DT.id
-            coppyState.staffName = data.DT.StaffHandbookData.userName
+                    coppyState.avata = imageBase64
+                    coppyState.descriptionHTML = data.DT.contentHTML
+                    coppyState.handbookId = data.DT.id
+                    coppyState.staffName = data.DT.StaffHandbookData.userName
 
-            this.setState({
-                ...coppyState
-            })
-            let res = await getTopHandBookRelateto(5, this.props.match.params.id)
-            if (res.EC === 0) {
-                this.setState({
-                    listHandBook: res.DT
-                })
+                    this.setState({
+                        ...coppyState
+                    })
+                    let res = await getTopHandBookRelateto(5, this.props.match.params.id)
+                    if (res.EC === 0) {
+                        this.setState({
+                            listHandBook: res.DT
+                        })
+                    }
+                }
+
             }
 
         }
@@ -155,7 +174,7 @@ class DetailHandBook extends Component {
                 slidesToSlide: 1 // optional, default to 1.
             }
         };
-        let { listHandBook, garaId } = this.state
+        let { listHandBook, garaId, isGaraDelete } = this.state
         console.log(garaId)
         return (
             <>
@@ -175,12 +194,12 @@ class DetailHandBook extends Component {
                                     {this.state.title}
                                 </h3>
                                 <div className='up col-12'>
-                                    <p className='fw-light'>Nguoi viet: {this.state.staffName}</p>
+                                    <p className='fw-light'>Tác giả: {this.state.staffName}</p>
 
                                 </div>
 
                                 <div className='down col-12'>
-                                    <p className='fst-italic'>Ngay viet: {s}</p>
+                                    <p className='fst-italic'>Ngày viết: {s}</p>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +217,7 @@ class DetailHandBook extends Component {
                 </div>
 
                 <div className='gara container'>
-                    {garaId && garaId !== 0 ? <>
+                    {(garaId && garaId !== 0 && isGaraDelete === false) ? <>
                         <div className='gara-with-handbook col-12 row m-y-5' >
                             <h3 className='pt-2'>Đặt lịch tại gara ngay </h3>
                             <hr></hr>

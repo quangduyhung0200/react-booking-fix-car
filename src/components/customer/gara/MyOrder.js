@@ -185,7 +185,7 @@ class MyOrder extends Component {
                             </div>
 
                             <div className='col-4'>
-                                <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>tim kiem</button>
+                                <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>Tìm kiếm</button>
                             </div>
 
 
@@ -204,13 +204,15 @@ class MyOrder extends Component {
                                     <tr>
                                         <th >STT</th>
                                         <th>Thời gian đặt</th>
-                                        <th>Tên gara đặt</th>
+                                        <th>Tên gara</th>
+
                                         <th>Địa chỉ gara</th>
-
-                                        <th>Số điện thoại gara</th>
-
+                                        <th>Số điện thoại</th>
+                                        <th>Xe</th>
+                                        <th>Dịch vụ</th>
+                                        <th>Số tiền đơn đặt</th>
                                         <th>Trạng thái đơn hàng</th>
-                                        <th>Hành động</th>
+                                        <th>ACTION</th>
                                     </tr>
                                     {dataBooking && dataBooking.length > 0 &&
                                         dataBooking.map((item, index) => {
@@ -220,11 +222,14 @@ class MyOrder extends Component {
 
                                                 <tr key={`child-${index}`}>
                                                     <td>{index + 1}</td>
-                                                    <td>{item.timeDataBooking.timValue} ngay {s}</td>
+                                                    <td>{item.timeDataBooking.timValue} ngày {s}</td>
                                                     <td>{item.bookingDataGara.nameGara}</td>
-                                                    <td>{item.bookingDataGara.address}, Tỉnh {item.bookingDataGara.provindGaraData.name}</td>
-                                                    <td>{item.bookingDataGara.phone}</td>
 
+                                                    <td>{item.bookingDataGara.address}, Thành phố {item.bookingDataGara.provindGaraData.name}</td>
+                                                    <td>{item.bookingDataGara.phone}</td>
+                                                    <td>{item.carBookingData.nameCar}</td>
+                                                    <td>{item.serviceBookingData.description}</td>
+                                                    <td>{item.PriceBookingData.value} VND</td>
                                                     <td>{item.statusBooking.description}</td>
                                                     <td>
                                                         {item.status === 'S4' && <button className='btn btn-primary mx-3 my-2'
@@ -233,6 +238,8 @@ class MyOrder extends Component {
                                                             onClick={() => this.hanldOnclick(item)}>Đặt lại</button>
                                                     </td>
                                                 </tr>
+
+
                                             )
                                         })}
 

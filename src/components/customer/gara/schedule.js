@@ -189,7 +189,7 @@ class GaraSchedule extends Component {
                     </div>
                     <div className='all-vailble-time'>
                         <div className='text-calender'>
-                            <span><i className="fa fa-calendar" aria-hidden="true"></i>lich kham</span>
+                            <span><i className="fa fa-calendar" aria-hidden="true"></i>Lịch sửa xe</span>
                         </div>
                         <div className='time-content'>
                             {allAvailbleTime && allAvailbleTime.length > 0 ?
@@ -207,7 +207,7 @@ class GaraSchedule extends Component {
                                 </>
                                 :
 
-                                <div>khong co lich cho thoi gian nay vui long chon thoi gian khac</div>
+                                <div>Không có lịch trong ngày hôm nay vui lòng thử lại sau</div>
 
 
 

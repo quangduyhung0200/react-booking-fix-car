@@ -63,20 +63,28 @@ class Chart extends Component {
         let resuf2 = 0
         let resuf3 = 0
         let resuf4 = 0
+        let resuf1count = 0
+        let resuf2count = 0
+        let resuf3count = 0
+        let resuf4count = 0
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
 
                 if (item.status === 'S0') {
                     resuf1 = +resuf1 + (+item.PriceBookingData.value)
+                    resuf1count = +resuf1count + 1
                 }
                 if (item.status === 'S2') {
                     resuf2 = +resuf2 + (+item.PriceBookingData.value)
+                    resuf2count = +resuf2count + 1
                 }
                 if (item.status === 'S3') {
                     resuf3 = +resuf3 + (+item.PriceBookingData.value)
+                    resuf3count = +resuf3count + 1
                 }
                 if (item.status === 'S4' || item.status === 'S5') {
                     resuf4 = +resuf4 + (+item.PriceBookingData.value)
+                    resuf4count = +resuf4count + 1
                 }
 
 
@@ -87,10 +95,10 @@ class Chart extends Component {
 
 
         }
-        let out = [{ value: resuf1, status: 'S0' },
-        { value: resuf2, status: 'S2' },
-        { value: resuf3, status: 'S3' },
-        { value: resuf4, status: 'S4+S5' },
+        let out = [{ value: resuf1, status: 'S0', count: resuf1count },
+        { value: resuf2, status: 'S2', count: resuf2count },
+        { value: resuf3, status: 'S3', count: resuf3count },
+        { value: resuf4, status: 'S4+S5', count: resuf4count },
         ]
         return out
 
@@ -305,8 +313,15 @@ class Chart extends Component {
                             <button className='btn btn-primary mx-4 ' onClick={() => this.click()}>Tìm kiếm theo ngày đã chọn</button>
                             <button className='btn btn-primary mx-4 ' onClick={() => this.click2()}>Tìm kiếm tất cả các ngày</button>
                             <button className='btn btn-primary mx-4 ' onClick={() => this.click3()}>Xuất file Excel</button>
+
+                            <hr></hr>
+                            <div>Tổng cộng có: <span className='fw-bold'> {profit1.count}</span> đơn đang thất bại, <span className='fw-bold'>
+                                {profit2.count} </span>đơn đang chờ xác thực và <span className='fw-bold'> {+profit3.count + profit4.count} </span> đơn đã hoàn thành trong đó có
+                                <span className='fw-bold'> {profit4.count}  </span>đơn đặt dã được đánh giá</div>
+                            <div>Tổng số tiền gara kiếm được là: <span className='fw-bold'> {+profit4.value + profit3.value} VND </span></div>
                         </div>
                     </div>
+
                     <div className='box'>
                         <div>Biểu đồ doanh thu gara</div>
                         <div className='chart'>
@@ -348,11 +363,16 @@ class Chart extends Component {
                                 <tbody>
                                     <tr>
                                         <th >STT</th>
-                                        <th>thoi  gian</th>
-                                        <th>HO VA TEN</th>
-                                        <th>email</th>
-                                        <th>DIA CHI</th>
-                                        <th>trang thai don hang</th>
+                                        <th>Thời gian đặt</th>
+                                        <th>Họ tên khách hàng</th>
+                                        <th>Email</th>
+                                        <th>Địa chỉ khách hàng</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Xe</th>
+                                        <th>Dịch vụ</th>
+                                        <th>Số tiền đơn đặt</th>
+                                        <th>Trạng thái đơn hàng</th>
+
 
                                     </tr>
                                     {listbooking && listbooking.length > 0 &&
@@ -366,6 +386,10 @@ class Chart extends Component {
                                                     <td>{item.bookingData.userName}</td>
                                                     <td>{item.bookingData.email}</td>
                                                     <td>{item.bookingData.address}</td>
+                                                    <td>{item.bookingData.phone}</td>
+                                                    <td>{item.carBookingData.nameCar}</td>
+                                                    <td>{item.serviceBookingData.description}</td>
+                                                    <td>{item.PriceBookingData.value} VND</td>
                                                     <td>{item.statusBooking.description}</td>
 
                                                 </tr>

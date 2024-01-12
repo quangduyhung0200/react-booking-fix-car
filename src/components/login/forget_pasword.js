@@ -5,16 +5,17 @@ import { toast } from 'react-toastify';
 import { loginUser } from '../../services/userService';
 import { UserContext } from "../../context/userContext"
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { forgetpassword } from '../../services/guestService';
 
-class Login extends Component {
+class Forgotpassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password: '',
+
             isValidEmail: true,
-            isValidPassword: true,
-            createNewAccoutWithEmailHasOrder: false
+
+
 
         }
     }
@@ -46,7 +47,7 @@ class Login extends Component {
         }
         if (!re.test(email)) {
 
-            toast.error('Email không đúng định dạng')
+            toast.error('ples enter email address')
             let coppyState = { ...this.coppyStatea }
             coppyState.isValidEmail = false
             this.setState({
@@ -55,16 +56,6 @@ class Login extends Component {
             return false
         }
 
-
-        if (!password) {
-
-            let coppyState = { ...this.coppyStatea }
-            coppyState.isValidPassword = false
-            this.setState({
-                ...coppyState
-            })
-            return false
-        }
 
 
 
@@ -90,59 +81,19 @@ class Login extends Component {
     }
     handlLogin = async () => {
         let check = this.vetyfyData()
-        let { email, password } = this.state
-
-        if (check) {
-            let data = await loginUser(this.state.email, password)
-
-            if (data && data.EC === 0) {
-
-                let token = data.DT.access_token
-                let email = data.DT.email
-                let userName = data.DT.userName
-                let id = data.DT.id
-                let role = data.DT.data
-                let hehe = {
-                    isAuthenticated: true,
-                    token: token,
-                    account: { role, email, userName, id }
-                }
-                console.log(token)
-                localStorage.setItem('jwt', token)
-                this.context.loginContext(hehe)
-
-                toast.success('Đăng nhập thành công')
-
-                this.props.history.push(`/`);
-                // window.location.reload()
-                let coppyState = { ...this.state }
-                coppyState.email = ''
-                coppyState.password = ''
-                this.setState({
-                    ...coppyState
-                })
-
+        if (check === true) {
+            let res = await forgetpassword(this.state.email)
+            if (res.EC === 0) {
+                toast.success('Vui lòng kiểm tra email để lấy mật khẩu mới')
             }
-            if (data && data.EC === 1) {
-                toast.error('Sai mật khẩu')
-            }
-            if (data && data.EC === 2) {
-                toast.error('Email của bạn không tồm tại')
-            }
-            if (data && data.EC === 3) {
-                this.setState({
-                    createNewAccoutWithEmailHasOrder: true
-                })
-            }
-            if (data && data.EC === -1) {
-                toast.error('Lỗi hệ thống')
+            if (res.EC === 1) {
+                toast.success('Email không tồn tại, vui lòng kiểm tra lại')
             }
 
         }
+
     }
-    HandlCreateNewAccoutewithEmail = (email) => {
-        this.props.history.push(`/register?email=${this.state.email}`);
-    }
+
     render() {
         let { email, password, isValidEmail, isValidPassword, createNewAccoutWithEmailHasOrder } = this.state
         if (this.context.user.isAuthenticated === true) {
@@ -171,23 +122,15 @@ class Login extends Component {
                                     ></input>
 
 
-                                    <input onChange={(event) => this.handlOnchanInput(event, 'password')} type='password'
-                                        className={isValidPassword === true ? 'form-control' : 'form-control is-invalid'}
-                                        value={password}
-                                        placeholder='Mật khẩu'
-                                    ></input>
-                                    <button onClick={() => this.handlLogin()} className='btn btn-primary'>Đăng nhập</button>
-                                    <span className='fogot-pwd text-center'><a href='/forgotpassword'>Quên mật khẩu</a></span>
+
+                                    <button onClick={() => this.handlLogin()} className='btn btn-primary'>Xác nhận</button>
+
                                     <hr />
                                     <div className='text-center'>
                                         <button onClick={() => this.HandlCreateNewAccoute()} className='btn btn-success' >
                                             Đăng ký</button>
                                     </div>
-                                    <div className={createNewAccoutWithEmailHasOrder === true ? 'text-center ' : 'text-center invisible'}>
-                                        <button onClick={() => this.HandlCreateNewAccoutewithEmail(email)} className='btn btn-success' >
-                                            Đăng ký với email này</button>
 
-                                    </div>
                                     <hr />
                                     <div className='return-home'>
 
@@ -209,6 +152,6 @@ class Login extends Component {
     }
 }
 
-Login.contextType = UserContext
+Forgotpassword.contextType = UserContext
 
-export default withRouter(Login);
+export default withRouter(Forgotpassword);

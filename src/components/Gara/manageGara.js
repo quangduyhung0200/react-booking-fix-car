@@ -119,7 +119,7 @@ class ManageGara extends Component {
                             </div>
                             <hr className='my-2'></hr>
                             <div className='down col-12'>
-                                <button onClick={() => this.handOnclickUpdate()} className='btn btn-primary'>update</button>
+                                <button onClick={() => this.handOnclickUpdate()} className='btn btn-warning'>Cập nhật</button>
                             </div>
                             <hr className='my-2'></hr>
                             <div>Trạng thái:
@@ -133,12 +133,12 @@ class ManageGara extends Component {
                             <table className="table table-hover table-bordered my-3">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">car NAME</th>
-                                        <th scope="col">hang xe</th>
-                                        <th scope="col">mo ta</th>
+                                        <th scope="col">id</th>
+                                        <th scope="col">Tên xe</th>
+                                        <th scope="col">Hãng xe</th>
+                                        <th scope="col">Mô tả</th>
                                         <th scope="col">avata</th>
-                                        <th scope="col">action</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

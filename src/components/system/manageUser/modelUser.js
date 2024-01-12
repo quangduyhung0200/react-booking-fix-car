@@ -223,7 +223,7 @@ class ModelUser extends Component {
             }
             if (this.props.action === 'UPDATE') {
 
-                console.log('hehehe')
+
                 let coppyState = { ...this.state }
 
                 coppyState.userName = this.props.dataModel.userName
@@ -386,7 +386,7 @@ class ModelUser extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>{this.props.action === 'CREATE' ? 'Create new user' : 'Edit new user'}</span>
+                            <span>{this.props.action === 'CREATE' ? 'Thêm người dùng mới' : 'Cập nhật thông tin người dùng'}</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -397,7 +397,7 @@ class ModelUser extends Component {
                                     <label className='form-label'>Email</label>
                                     <input onChange={(event) => this.handleOnchaneInput(event, 'email')} type='email'
                                         className={isValidEmail === true ? 'form-control' : 'form-control is-invalid'}
-                                        placeholder='Email address '
+                                        placeholder='Email '
                                         value={email}
                                         required></input>
                                 </div> :
@@ -405,7 +405,7 @@ class ModelUser extends Component {
 
 
                                     <label for="disabledTextInput">Email</label>
-                                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Email input" value={email} />
+                                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Email" value={email} />
 
                                 </fieldset>
                             }
@@ -484,7 +484,7 @@ class ModelUser extends Component {
 
                             <div className='col-12 form-group'>
                                 <label >
-                                    image
+                                    Ảnh đại diện
                                 </label>
                                 <div className='preView-image-container '>
                                     <input id='previewImg' type='file' hidden

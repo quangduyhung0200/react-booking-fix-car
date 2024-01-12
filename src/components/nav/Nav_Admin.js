@@ -45,20 +45,25 @@ class NavigateAdmim extends Component {
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="ms-auto">
                                     <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
+                                    <NavLink to="/myOrder" exact className='nav-link'>Đơn đặt lịch của tôi</NavLink>
                                 </Nav>
-                                <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
-                                <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
+                                <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
+                                    <NavLink to="/allGara" exact className='nav-link'>Tìm kiếm gara</NavLink>
+                                    <NavLink to="/allHandBook" exact className='nav-link'>Tìm kiếm bài viết</NavLink>
+
+                                </NavDropdown>
+
                                 <NavDropdown title="Quản lý người dùng" id="basic-nav-dropdown">
                                     <NavLink to="/user" exact className='nav-link'>Quản lý người dùng</NavLink>
-                                    <NavLink to="/manage-comment" exact className='nav-link'>Quản lý comment người dùng</NavLink>
+                                    <NavLink to="/manage-comment" exact className='nav-link'>Quản lý đánh giá người dùng</NavLink>
 
                                 </NavDropdown>
                                 <NavDropdown title="Quản lý gara" id="basic-nav-dropdown">
-                                    <NavLink to="/ManageGarahasntPass" exact className='nav-link'>Quản lý gara chưa được phê duyệt</NavLink>
+                                    <NavLink to="/ManageGarahasntPass" exact className='nav-link'>Quản lý phê duyệt gara</NavLink>
                                     <NavLink to="/ManageGara" exact className='nav-link'>Quản lý gara đang hoạt động</NavLink>
                                     <NavLink to="/manage-PickCar" exact className='nav-link'>Quản lý chọn xe cho gara</NavLink>
                                     <NavLink to="/setSchedule" exact className='nav-link'>Quản lý đặt lịch sửa xe cho gara</NavLink>
-                                    <NavLink to="/Chart" exact className='nav-link'>Quản lý bieu do</NavLink>
+                                    <NavLink to="/Chart" exact className='nav-link'>Quản lý doanh thu</NavLink>
 
 
                                 </NavDropdown>

@@ -63,20 +63,24 @@ class Navigate extends Component {
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
-                                    <NavLink to="/" exact className='nav-link'>Home</NavLink>
+                                    <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
                                     {user && user.isAuthenticated === true && <>
                                         <NavLink to="/myOrder" exact className='nav-link'>Đơn đặt lịch của tôi</NavLink>
 
                                     </>}
-                                    {garaId !== '' && <NavLink to="/mygara" exact className='nav-link'>My gara</NavLink>}
-                                    <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
-                                    <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
+                                    {garaId !== '' && <NavLink to="/mygara" exact className='nav-link'>Gara của tôi</NavLink>}
 
+                                    <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
+                                        <NavLink to="/allGara" exact className='nav-link'>Tìm kiếm gara</NavLink>
+                                        <NavLink to="/allHandBook" exact className='nav-link'>Tìm kiếm bài viết</NavLink>
+
+
+                                    </NavDropdown>
 
                                 </Nav>
                                 {user && user.isAuthenticated === true ? <>
                                     <Nav className='nav-link'>
-                                        <Nav.Item  >Wellcome  {user.account.userName}</Nav.Item>
+                                        <Nav.Item  >Chào mừng:  {user.account.userName}</Nav.Item>
 
                                     </Nav>
                                     <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
@@ -86,10 +90,10 @@ class Navigate extends Component {
 
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item>
-                                            <span onClick={() => this.handLogout()}> Log out</span>
+                                            <span onClick={() => this.handLogout()}> Đăng xuất</span>
 
                                         </NavDropdown.Item>
-                                    </NavDropdown></> : <> <Link className='nav-link' to='/login'>Login</Link></>}
+                                    </NavDropdown></> : <> <Link className='nav-link' to='/login'>Đăng nhập</Link></>}
 
 
                             </Navbar.Collapse>

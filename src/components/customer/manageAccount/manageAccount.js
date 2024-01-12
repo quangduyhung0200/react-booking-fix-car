@@ -13,6 +13,7 @@ import './manageAccount.scss'
 import { getUserById } from '../../../services/userService';
 import { add } from 'lodash';
 import ModelUser from '../../system/manageUser/modelUser';
+import Chanepass from './chanePassword';
 class DetailAccount extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +29,9 @@ class DetailAccount extends Component {
             phone: '',
             garaId: '',
             datamodel: {},
-            showModelUser: false
+            dataModelchanepass: {},
+            showModelUser: false,
+            showmodelChanepass: false
 
         }
     }
@@ -103,6 +106,25 @@ class DetailAccount extends Component {
 
         })
     }
+    OnclickChanepass = () => {
+        this.setState({
+            dataModelchanepass: this.state.datamodel,
+
+            showmodelChanepass: true,
+
+
+        })
+    }
+    closemodelchanpass = () => {
+        this.setState({
+            showmodelChanepass: false,
+
+            dataModelchanepass: {},
+
+
+
+        })
+    }
     render() {
 
 
@@ -160,6 +182,7 @@ class DetailAccount extends Component {
                             </div>
                             <div className='down col-12 d-flex justify-content-center'>
                                 <button onClick={() => this.OnclickUpdate()} className='btn btn-primary'>Cập nhật thông tin</button>
+                                <button onClick={() => this.OnclickChanepass()} className='btn btn-warning mx-3'>Đổi mật khẩu</button>
                             </div>
                         </div>
                         <hr></hr>
@@ -183,6 +206,16 @@ class DetailAccount extends Component {
                     dataModel={this.state.datamodel}
                     account={this.state.account}
                 />
+
+                <Chanepass
+                    onHide={this.closemodelchanpass}
+                    show={this.state.showmodelChanepass}
+
+                    dataModel={this.state.datamodel}
+
+                />
+
+
             </>
         );
     }

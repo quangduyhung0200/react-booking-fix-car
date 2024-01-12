@@ -51,7 +51,7 @@ class Comment extends Component {
                     <div className='row'>
                         <div className='comment-rate-final col-12 my-4'>
 
-                            <div className='fs-1'>Rate:   {Math.round(this.state.ratetingGara * 10) / 10}/5</div>
+                            <div className='fs-1'>Đánh giá:   {Math.round(this.state.ratetingGara * 10) / 10}/5</div>
                             <Rating
                                 allowFraction={true}
                                 initialValue={this.state.ratetingGara}

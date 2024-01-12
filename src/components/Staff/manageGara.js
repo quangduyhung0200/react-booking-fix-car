@@ -231,7 +231,7 @@ class ManageGaraStaff extends Component {
 
                                         <th scope="col">Số điện thoại</th>
 
-                                        <th scope="col">Miêu tả</th>
+
                                         <th scope="col">Trạng thái</th>
                                         <th scope="col">action</th>
                                     </tr>
@@ -254,11 +254,11 @@ class ManageGaraStaff extends Component {
 
                                                     <td>{item.provindGaraData.name}</td>
                                                     <td>{item.phone}</td>
-                                                    <td>{item.description}</td>
+
                                                     <td>{item.status === 'S1' ? 'gara dang duoc phe duyet' : 'gara da duoc phe duyet'}</td>
-                                                    <td><button onClick={() => this.handOnlcickView(item)} className='button btn btn-primary mx-2'>view</button>
-                                                        <button onClick={() => this.handOnlcickUpdate(item)} className='button btn btn-warning mx-2'>update</button>
-                                                        {groupId === 4 && <button onClick={() => this.handOnlcickDelete(item)} className='button btn btn-danger'>delete</button>}
+                                                    <td><button onClick={() => this.handOnlcickView(item)} className='button btn btn-primary mx-2'>Xem chi tiết</button>
+                                                        <button onClick={() => this.handOnlcickUpdate(item)} className='button btn btn-warning mx-2'>Cập nhật</button>
+                                                        {groupId === 4 && <button onClick={() => this.handOnlcickDelete(item)} className='button btn btn-danger mx-2 my-2'>Xóa</button>}
                                                     </td>
                                                 </tr>
 

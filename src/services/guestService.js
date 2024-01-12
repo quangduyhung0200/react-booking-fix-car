@@ -97,7 +97,9 @@ const searchHandBook = async (text) => {
 }
 
 
-
+const forgetpassword = (data) => {
+    return axios.put('/api/v1/user/forgetpassword', { data })
+}
 
 
 
@@ -105,5 +107,5 @@ export {
     getAllGender, registerUser, getUserAccount, getAllProvind, getGaraInfo, getTopGara, feactAllCar, feactAllCarCompany, getDataPickCar, getDataCarById, getAllPrice,
     getAllPayment, getAllService, readAllScheduleByDate, readAllCarByGara, readAllServiceCarGara, readAllServiceCarGaraPaymentPrice,
     postBooking, veryfyBooking, getAllCommentByGara, getAllGara, getAllGarabyProvind, getGarabyProvindCarCompanyCar, getAllDay, getTopHandBook,
-    getTopHandBookRelateto, searchHandBook
+    getTopHandBookRelateto, searchHandBook, forgetpassword
 }

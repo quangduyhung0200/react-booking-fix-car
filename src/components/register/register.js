@@ -225,7 +225,7 @@ class Register extends Component {
 
             let data = await registerUser(datainput)
             if (data && data.EC === 0) {
-                toast.success('register success')
+                toast.success('Đăng ký thành công')
                 let data = await loginUser(email, password)
                 if (data && data.EC === 0) {
 
@@ -239,9 +239,10 @@ class Register extends Component {
                         token: token,
                         account: { role, email, userName, id }
                     }
+                    localStorage.setItem('jwt', token)
                     this.context.loginContext(hehe)
 
-                    toast.success('LOGIN SUCCESS')
+                    toast.success('Đăng nhập thành công')
 
                     this.props.history.push(`/`);
                     // window.location.reload()
@@ -251,13 +252,13 @@ class Register extends Component {
 
             }
             if (data && data.EC === 1) {
-                toast.success(data.EM)
+                toast.success('Tạo người dùng thành công')
             }
             if (data && data.EC === 2) {
-                toast.error(data.EM)
+                toast.error('Email đã tồn tại trong hệ thống vui lòng thử lại')
             }
             if (data && data.EC === -1) {
-                toast.error(data.EM)
+                toast.error('Lỗi hệ thống')
             }
         }
     }
@@ -314,24 +315,25 @@ class Register extends Component {
                                 }
 
                                 <div className='form-group'>
-                                    <label className='form-label'>Phonenumber</label>
+                                    <label className='form-label'>Số điện thoại</label>
                                     <input onChange={(event) => this.handleOnchaneInput(event, 'phone')} type='text'
                                         className={isValidphone === true ? 'form-control' : 'form-control is-invalid'}
-                                        placeholder='Phonenumber '
+                                        placeholder='Số điện thoại '
                                         value={phone} required></input>
                                 </div>
                                 <div className='form-group'>
-                                    <label className='form-label'>User Name</label>
+                                    <label className='form-label'>Tên người dùng</label>
                                     <input onChange={(event) => this.handleOnchaneInput(event, 'userName')} type='text'
                                         className={isValidUserName === true ? 'form-control' : 'form-control is-invalid'}
+                                        placeholder='Tên người dùng '
                                         value={userName} required></input>
                                 </div>
 
                                 <div className='form-group'>
-                                    <label className='form-label'>Password</label>
+                                    <label className='form-label'>Mật khẩu</label>
                                     <input onChange={(event) => this.handleOnchaneInput(event, 'password')} type='password'
                                         className={isValidPassword === true ? 'form-control' : 'form-control is-invalid'}
-                                        placeholder='Password'
+                                        placeholder='Mật khẩu'
                                         value={password} required></input>
 
 
@@ -340,12 +342,13 @@ class Register extends Component {
 
 
                                 <div className='form-group'>
-                                    <label className='form-label'>Re-enter Password</label>
+                                    <label className='form-label'>Xác nhận mật khẩu</label>
                                     <input onChange={(event) => this.handleOnchaneInput(event, 'comfimPassword')} type='password'
                                         className={isValidConfigPassword === true ? 'form-control' : 'form-control is-invalid'}
-                                        placeholder='Re-enter Password'
+                                        placeholder='Xác nhận mật khẩu'
                                         value={comfimPassword} required></input>
                                 </div>
+
                                 <select value={gender} onChange={(event) => this.handleOnchaneInput(event, 'gender')} className=" form-control" >
                                     {genderArr && genderArr.length > 0 &&
                                         genderArr.map((item, index) => {
@@ -358,22 +361,22 @@ class Register extends Component {
 
                                 </select>
                                 <div className='form-group'>
-                                    <label className='form-label'>address</label>
+                                    <label className='form-label'>Địa chỉ</label>
                                     <input onChange={(event) => this.handleOnchaneInput(event, 'address')} type='text'
                                         className={isValidAddress === true ? 'form-control' : 'form-control is-invalid'}
-                                        placeholder='address'
+                                        placeholder='Địa chỉ'
                                         value={address} required></input>
                                 </div>
 
 
 
 
-                                <button onClick={() => this.handlRegister()} type="submit" className='btn btn-primary'>Registeer</button>
+                                <button onClick={() => this.handlRegister()} type="submit" className='btn btn-primary'>Đăng ký</button>
 
                                 <hr />
                                 <div className='text-center'>
                                     <button onClick={() => this.HandlHaveAlredAccount()} className='btn btn-success'>
-                                        alredy've accoute</button>
+                                        Đã có tài khoản? muốn đăng nhập</button>
                                 </div>
 
 

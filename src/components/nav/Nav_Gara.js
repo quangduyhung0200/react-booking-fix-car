@@ -47,10 +47,15 @@ class NavigateGara extends Component {
                                     <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
 
                                     <NavLink to="/myOrder" exact className='nav-link'>Đơn hàng của tôi</NavLink>
+                                    <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
 
-                                    <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
-                                    <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
-                                    <NavLink to="/Chart" exact className='nav-link'>Quản lý bieu do</NavLink>
+                                        <NavLink to="/allGara" exact className='nav-link'>Tìm gara</NavLink>
+                                        <NavLink to="/allHandBook" exact className='nav-link'>Tìm bài viết</NavLink>
+
+
+                                    </NavDropdown>
+
+
                                 </Nav>
 
                                 <Nav className='nav-link'>
@@ -65,6 +70,7 @@ class NavigateGara extends Component {
                                     <NavLink to="/setSchedule" exact className='nav-link'>Quản lý lịch sửa</NavLink>
                                     <NavLink to="/manageBooking" exact className='nav-link'>Quản lý đơn đặt lịch</NavLink>
                                     <NavLink to="/manageOrder" exact className='nav-link'>Quản lý đơn hàng</NavLink>
+                                    <NavLink to="/Chart" exact className='nav-link'>Quản lý doanh thu</NavLink>
 
 
                                 </NavDropdown>

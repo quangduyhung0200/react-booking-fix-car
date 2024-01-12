@@ -31,8 +31,13 @@ class Navigate_Guest extends Component {
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className='nav-link'>Home</NavLink>
-                                    <NavLink to="/allGara" exact className='nav-link'>Gara</NavLink>
-                                    <NavLink to="/allHandBook" exact className='nav-link'>HandBook</NavLink>
+                                    <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
+                                        <NavLink to="/allGara" exact className='nav-link'>Tìm gara</NavLink>
+                                        <NavLink to="/allHandBook" exact className='nav-link'>Tìm bài viết</NavLink>
+
+
+                                    </NavDropdown>
+
 
 
 
