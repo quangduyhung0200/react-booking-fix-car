@@ -13,6 +13,9 @@ import { deleteCar } from '../../../services/adminService';
 import Select from 'react-select';
 import { feactAllCarCompany } from '../../../services/guestService';
 import { searchCar } from '../../../services/staffService';
+import { getUserById } from '../../../services/userService';
+import { UserContext } from '../../../context/userContext';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class ManageCar extends Component {
 
     constructor(props) {
@@ -29,7 +32,8 @@ class ManageCar extends Component {
             showModel: false,
             showModelUser: false,
             dataModel: {},
-            action: 'CREATE'
+            action: 'CREATE',
+            group: ''
         }
     }
     handlDeleteuser = async (user) => {
@@ -100,12 +104,13 @@ class ManageCar extends Component {
         let { currenpage, currenlimit } = this.state
         let respons = await feactAllCar(currenpage, currenlimit)
         let carCompany = await feactAllCarCompany()
-        if (respons && respons.EC === 0) {
+        let res = await getUserById(this.context.user.account.id)
+        if (respons && respons.EC === 0 && res.EC === 0) {
             let coppystate = { ...this.state }
             coppystate.listCar = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
             coppystate.listCarCompany = this.buildDataSelectCarCompany(carCompany.DT)
-
+            coppystate.group = res.DT.groupId
             this.setState({
                 ...coppystate
             })
@@ -208,7 +213,7 @@ class ManageCar extends Component {
     }
     render() {
 
-        let { listCar } = this.state
+        let { listCar, group } = this.state
 
         return (
             <>
@@ -280,7 +285,7 @@ class ManageCar extends Component {
 
                                                         }}></td>
                                                         <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary mx-2'>Cập nhật thông tin</button>
-                                                            <button onClick={() => this.handlDeleteuser(item)} className='btn btn-danger'>Xóa xe</button></td>
+                                                            {group && group === 4 && <button onClick={() => this.handlDeleteuser(item)} className='btn btn-danger'>Xóa xe</button>} </td>
                                                     </tr>
                                                 )
 
@@ -340,13 +345,13 @@ class ManageCar extends Component {
                     comfirmDeleteUser={this.comfirmDeleteUser}
                     dataModel={this.state.dataModel}
                 />
-
+                <HomeFooter />
             </>
         )
     }
 
 }
 
-
+ManageCar.contextType = UserContext
 
 export default ManageCar;

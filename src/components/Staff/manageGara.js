@@ -12,6 +12,7 @@ import ModelconfimdeledeGara from '../system/manageGara/modelDelete';
 import { deleteGara } from '../../services/adminService';
 import Select from 'react-select';
 import { getAllProvind } from '../../services/guestService';
+import HomeFooter from '../home/homeFooter/homeFooter';
 class ManageGaraStaff extends Component {
     constructor(props) {
         super(props);
@@ -221,7 +222,7 @@ class ManageGaraStaff extends Component {
                     <div className='m-p-body row'>
 
                         <div className='col-12'>
-                            <table className="table-patient table table-hover table-bordered my-3 table-primary">
+                            <table className="table-gara table table-hover table-bordered my-3 table-primary">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
@@ -237,7 +238,7 @@ class ManageGaraStaff extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listGara && listGara.length > 0 &&
+                                    {listGara && listGara.length > 0 ?
                                         listGara.map((item, index) => {
 
 
@@ -263,7 +264,7 @@ class ManageGaraStaff extends Component {
                                                 </tr>
 
                                             )
-                                        })}
+                                        }) : <div className='nodata'>Không có dữ liệu</div>}
 
                                 </tbody>
                             </table>
@@ -304,8 +305,9 @@ class ManageGaraStaff extends Component {
                     comfirmDeleteUser={this.comfirmDeleteUser}
                     dataModel={this.state.dataModel} />
 
-
+                <HomeFooter />
             </>
+
 
         )
     }

@@ -39,55 +39,55 @@ class NavigateGara extends Component {
 
                 <div className='nav-header'>
                     <Navbar expand="lg" className="bg-body-tertiary bg-header h-100">
-                        <Container>
-                            <Navbar.Brand href="/"> <span className='band-nav'>MyCar</span></Navbar.Brand>
-                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="me-auto">
-                                    <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
 
-                                    <NavLink to="/myOrder" exact className='nav-link'>Đơn hàng của tôi</NavLink>
-                                    <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
+                        <Navbar.Brand href="/"> <span className='band-nav'>MyCar</span></Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
 
-                                        <NavLink to="/allGara" exact className='nav-link'>Tìm gara</NavLink>
-                                        <NavLink to="/allHandBook" exact className='nav-link'>Tìm bài viết</NavLink>
+                                <NavLink to="/myOrder" exact className='nav-link'>Đơn hàng của tôi</NavLink>
+                                <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
 
-
-                                    </NavDropdown>
-
-
-                                </Nav>
-
-                                <Nav className='nav-link'>
-                                    <Nav.Item  >Wellcome  {user.account.userName}</Nav.Item>
-
-                                </Nav>
-                                <NavDropdown title="Quản lý gara" id="basic-nav-dropdown">
-
-
-                                    <NavLink to="/mygara" exact className='nav-link'>Gara của tôi</NavLink>
-                                    <NavLink to="/pickcar" exact className='nav-link'>Quản lý chọn xe</NavLink>
-                                    <NavLink to="/setSchedule" exact className='nav-link'>Quản lý lịch sửa</NavLink>
-                                    <NavLink to="/manageBooking" exact className='nav-link'>Quản lý đơn đặt lịch</NavLink>
-                                    <NavLink to="/manageOrder" exact className='nav-link'>Quản lý đơn hàng</NavLink>
-                                    <NavLink to="/Chart" exact className='nav-link'>Quản lý doanh thu</NavLink>
+                                    <NavLink to="/allGara" exact className='nav-link'>Tìm gara</NavLink>
+                                    <NavLink to="/allHandBook" exact className='nav-link'>Tìm bài viết</NavLink>
 
 
                                 </NavDropdown>
-                                <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
-                                    <Link className='nav-link' to="/Account">Trang cá nhân</Link>
 
 
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item>
-                                        <span onClick={() => this.handLogout()}> Log out</span>
+                            </Nav>
 
-                                    </NavDropdown.Item>
-                                </NavDropdown>
+                            <Nav className='nav-link'>
+                                <Nav.Item  >Wellcome  {user.account.userName}</Nav.Item>
+
+                            </Nav>
+                            <NavDropdown title="Quản lý gara" id="basic-nav-dropdown">
 
 
-                            </Navbar.Collapse>
-                        </Container>
+                                <NavLink to="/mygara" exact className='nav-link'>Gara của tôi</NavLink>
+                                <NavLink to="/pickcar" exact className='nav-link'>Quản lý chọn xe</NavLink>
+                                <NavLink to="/setSchedule" exact className='nav-link'>Quản lý lịch sửa</NavLink>
+                                <NavLink to="/manageBooking" exact className='nav-link'>Quản lý đơn đặt lịch</NavLink>
+                                <NavLink to="/manageOrder" exact className='nav-link'>Quản lý đơn hàng</NavLink>
+                                <NavLink to="/Chart" exact className='nav-link'>Quản lý doanh thu</NavLink>
+
+
+                            </NavDropdown>
+                            <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
+                                <Link className='nav-link' to="/Account">Trang cá nhân</Link>
+
+
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item>
+                                    <span onClick={() => this.handLogout()}> Log out</span>
+
+                                </NavDropdown.Item>
+                            </NavDropdown>
+
+
+                        </Navbar.Collapse>
+
                     </Navbar>
 
                 </div >

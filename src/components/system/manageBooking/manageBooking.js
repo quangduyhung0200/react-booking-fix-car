@@ -21,6 +21,7 @@ import './manageBooking.scss'
 import { UserContext } from "../../../context/userContext"
 import { deleteBooking } from '../../../services/adminService';
 import ModelconfimdeledeBooking from './modelDeleteBooking';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class ManageBookingStaff extends Component {
 
     constructor(props) {
@@ -573,7 +574,7 @@ class ManageBookingStaff extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr><td>not fout user</td></tr>
+                                                <div className='nodata'>Không có dữ liệu</div>
                                             </>
 
                                         }
@@ -616,7 +617,7 @@ class ManageBookingStaff extends Component {
                         comfirmDeleteUser={this.comfirmDeleteUser}
                         dataModel={this.state.dataModel}
                     />
-
+                    <HomeFooter />
                 </>
 
 

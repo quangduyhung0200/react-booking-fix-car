@@ -14,6 +14,7 @@ import { getAllHandbook } from '../../../services/adminService';
 import { getAllStaff, searchHandbook } from '../../../services/adminService';
 import Select from 'react-select';
 import './manageHandbook.scss'
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class ManageHandbook extends Component {
 
     constructor(props) {
@@ -316,7 +317,7 @@ class ManageHandbook extends Component {
                     />
 
                 </>
-
+                <HomeFooter />
 
             </>
         )

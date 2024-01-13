@@ -380,19 +380,19 @@ class ModelBooking extends Component {
 
             let res = await postBooking(data)
             if (res.EC === 0) {
-                toast.success('dat lich thanh cong, vui long kiem tra email de xac nhan')
+                toast.success('Đặt lịch thành công, vui lòng kiểm tra email để xác nhận')
                 this.props.closeBookingModel()
             }
             if (res.EC === 1) {
-                toast.success('thong tin banj nhap co ve bi sai, vui long kiem tra lai')
+                toast.success('Thông tin bạn nhập cỏ vẻ không hợp lệ, vui lòng kiểm tra lại')
             }
             if (res.EC === 2) {
-                toast.success('thogn tin nay da duoc dat truoc do, vui long kiem tra lai')
+                toast.success('Thông itn đặt lịch đã đưuoc đặt trước đó, vui lòng kiểm tra lại')
             }
 
         }
         else {
-            toast.error('ghi thieu thong tin')
+            toast.error('Bạn đã ghi thiếu thông tin')
         }
 
     }

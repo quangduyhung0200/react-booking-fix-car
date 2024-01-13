@@ -15,7 +15,7 @@ import { getAllGara } from '../../services/guestService';
 import _ from 'lodash';
 import './PickCar.scss'
 import { toast } from 'react-toastify';
-
+import HomeFooter from '../home/homeFooter/homeFooter';
 
 class PickCar extends Component {
 
@@ -421,10 +421,11 @@ class PickCar extends Component {
                         <div className='action'>
                             <hr></hr>
                             <button onClick={() => this.handlOnclickSavePickCar()} className='btn btn-primary mx-3'>Lưu thông tin</button>
-                            <button onClick={() => this.handlOnclickDeletePickCar()} className='btn btn-warning'>Xóa thông tin đang chọn</button></div>
+                            <button onClick={() => this.handlOnclickDeletePickCar()} className='btn btn-warning my-3'>Xóa thông tin đang chọn</button></div>
                     </div>
 
                 </div >
+                <HomeFooter />
             </>
         )
     }

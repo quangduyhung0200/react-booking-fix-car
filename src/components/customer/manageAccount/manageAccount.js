@@ -14,6 +14,7 @@ import { getUserById } from '../../../services/userService';
 import { add } from 'lodash';
 import ModelUser from '../../system/manageUser/modelUser';
 import Chanepass from './chanePassword';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class DetailAccount extends Component {
     constructor(props) {
         super(props);
@@ -214,7 +215,7 @@ class DetailAccount extends Component {
                     dataModel={this.state.datamodel}
 
                 />
-
+                <HomeFooter />
 
             </>
         );

@@ -8,6 +8,7 @@ import GaraSchedule from '../customer/gara/schedule';
 import { readAllCarByGara } from '../../services/guestService';
 import ReactPaginate from 'react-paginate';
 import Comment from '../customer/gara/comment';
+import HomeFooter from '../home/homeFooter/homeFooter';
 class ManageGara extends Component {
 
     constructor(props) {
@@ -25,7 +26,8 @@ class ManageGara extends Component {
             garaId: '',
             listCar: [],
             rate: '',
-            status: ''
+            status: '',
+
 
 
         }
@@ -58,6 +60,7 @@ class ManageGara extends Component {
             coppyState.listCar = data1.DT
             coppyState.rate = data.DT.rateId
             coppyState.status = data.DT.status
+            coppyState.phone = data.DT.phone
 
             this.setState({
                 ...coppyState
@@ -116,6 +119,9 @@ class ManageGara extends Component {
                                     {this.state.description}
                                 </div>
                                 <div>                     <i class="fa fa-map-marker" aria-hidden="true"></i> {this.state.provind}</div>
+                                <div className='down col-12'>
+                                    Số điện thoại  {this.state.phone}
+                                </div>
                             </div>
                             <hr className='my-2'></hr>
                             <div className='down col-12'>
@@ -199,6 +205,7 @@ class ManageGara extends Component {
                 <Comment
                     currenGaraId={this.state.garaId}
                     rate={this.state.rate} />
+                <HomeFooter />
             </>
         )
     }

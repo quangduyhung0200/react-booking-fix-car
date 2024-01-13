@@ -86,11 +86,11 @@ class ModelComfimBooking extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>asdasdasd</span>
+                            <span>Xác nhận nhận đơn đặt lịch</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div>hehehe</div>
+                        <div>Bạn có xác nhận nhận đơn đặt lịch của người dùng có email: {this.props.dataModel.email}</div>
 
                     </Modal.Body>
                     <Modal.Footer>

@@ -11,7 +11,7 @@ import { withRouter } from 'react-router-dom';
 import { getTopHandBook, getTopHandBookRelateto } from '../../../services/guestService';
 import ProfileGara from '../gara/garaProfile';
 import GaraSchedule from "./../../customer/gara/schedule.js"
-
+import HomeFooter from '../../home/homeFooter/homeFooter.js';
 class DetailHandBook extends Component {
     constructor(props) {
         super(props);
@@ -300,7 +300,7 @@ class DetailHandBook extends Component {
 
                     </div>
                 </div>
-
+                <HomeFooter />
             </>
         );
     }

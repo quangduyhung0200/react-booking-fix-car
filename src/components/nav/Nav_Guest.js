@@ -25,28 +25,28 @@ class Navigate_Guest extends Component {
 
                 <div className='nav-header'>
                     <Navbar expand="lg" className="bg-body-tertiary bg-header h-100">
-                        <Container>
-                            <Navbar.Brand href="/"> <span className='band-nav'>MyCar</span></Navbar.Brand>
-                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="me-auto">
-                                    <NavLink to="/" exact className='nav-link'>Home</NavLink>
-                                    <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
-                                        <NavLink to="/allGara" exact className='nav-link'>Tìm gara</NavLink>
-                                        <NavLink to="/allHandBook" exact className='nav-link'>Tìm bài viết</NavLink>
+
+                        <Navbar.Brand href="/"> <span className='band-nav'>MYCAR</span></Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
+                                <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
+                                    <NavLink to="/allGara" exact className='nav-link'>Tìm gara</NavLink>
+                                    <NavLink to="/allHandBook" exact className='nav-link'>Tìm bài viết</NavLink>
 
 
-                                    </NavDropdown>
+                                </NavDropdown>
 
 
 
 
-                                </Nav>
-                                <> <Link className='nav-link' to='/login'>Login</Link></>
+                            </Nav>
+                            <> <Link className='nav-link' to='/login'>Đăng nhập</Link></>
 
 
-                            </Navbar.Collapse>
-                        </Container>
+                        </Navbar.Collapse>
+
                     </Navbar>
 
                 </div >

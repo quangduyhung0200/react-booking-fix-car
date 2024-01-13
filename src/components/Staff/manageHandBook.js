@@ -10,6 +10,7 @@ import { Buffer } from 'buffer';
 import './manageHandbook.scss'
 import Select from 'react-select';
 import { searchHandbookStaff } from '../../services/staffService';
+import HomeFooter from '../home/homeFooter/homeFooter';
 class ManageHandBook extends Component {
     constructor(props) {
         super(props);
@@ -157,7 +158,7 @@ class ManageHandBook extends Component {
                     <div className='m-p-body row'>
 
                         <div className='col-12'>
-                            <table className="table-patient table table-hover table-bordered my-3 table-primary">
+                            <table className="table-handbook table table-hover table-bordered my-3 table-primary">
                                 <thead>
                                     <tr>
                                         <th scope="col">Id</th>
@@ -169,7 +170,7 @@ class ManageHandBook extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listHandBook && listHandBook.length > 0 &&
+                                    {listHandBook && listHandBook.length > 0 ?
                                         listHandBook.map((item, index) => {
                                             let imageBase64 = ''
                                             if (item.avata) {
@@ -200,7 +201,7 @@ class ManageHandBook extends Component {
                                                 </tr>
 
                                             )
-                                        })}
+                                        }) : <dic className='nodata'>Không có dữ liệu</dic>}
 
                                 </tbody>
                             </table>
@@ -235,7 +236,7 @@ class ManageHandBook extends Component {
                     </div>
 
                 </div>
-
+                <HomeFooter />
             </>
 
         )

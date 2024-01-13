@@ -7,6 +7,7 @@ import { getAllBookingByDay } from '../../services/garaService';
 import ModelComfimBooking from './AllModel/modelComfimBooking';
 import './manageBooking.scss'
 import ModelComfimCanserBooking from './AllModel/modelconfomCasnerBooking.js';
+import HomeFooter from '../home/homeFooter/homeFooter.js';
 class ManageBookingGara extends Component {
     constructor(props) {
         super(props);
@@ -138,7 +139,7 @@ class ManageBookingGara extends Component {
             <>
                 <div className='manage-booking-container container'>
                     <div className='m-p-title'>
-                        <h3>   Quản lý đơn hàng đặt lịch</h3>
+                        <h3>   Quản lý phê duyệt đơn đặt lịch</h3>
                         <hr></hr>
                         <div className='col-4 form-group'>
                             <label className='fw-bold'>Chọn ngày tìm kiếm </label>
@@ -162,7 +163,7 @@ class ManageBookingGara extends Component {
                     <div className='m-p-body row'>
 
                         <div className='col-12'>
-                            <table style={{ width: '100%' }} className='table-patient table table-hover table-bordered my-3 table-primary'>
+                            <table style={{ width: '100%' }} className='table-booking table table-hover table-bordered my-3 table-primary'>
                                 <tbody>
                                     <tr>
                                         <th >STT</th>
@@ -195,11 +196,11 @@ class ManageBookingGara extends Component {
                                                     <td>{item.serviceBookingData.description}</td>
                                                     <td>{item.PriceBookingData.value} VND</td>
                                                     <td>{item.statusBooking.description}</td>
-                                                    <td><button className='btn btn-primary' onClick={() => this.hanldOnclickConfid(item)}>Xác nhận</button>
-                                                        <button className='btn btn-warning' onClick={() => this.hanldOnclickDenice(item)}>Từ chối </button></td>
+                                                    <td><button className='btn btn-primary mx-2 my-2' onClick={() => this.hanldOnclickConfid(item)}>Xác nhận</button>
+                                                        <button className='btn btn-warning mx-2' onClick={() => this.hanldOnclickDenice(item)}>Từ chối </button></td>
                                                 </tr>
                                             )
-                                        }) : <tr><div>Không có đơn đặt lịch mới!!!</div></tr>}
+                                        }) : <div className='nodata'>Không có đơn đặt lịch mới!!!</div>}
 
 
 
@@ -221,7 +222,7 @@ class ManageBookingGara extends Component {
                     show={this.state.isOpentModelCanser}
                     dataModel={this.state.dateModel}
                     onHide={this.closeBookingModelCanser} />
-
+                <HomeFooter />
             </>
         );
     }

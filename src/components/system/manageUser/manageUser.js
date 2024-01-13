@@ -12,6 +12,7 @@ import { feactAllUser, searchUser } from '../../../services/staffService';
 import { getAllGroup } from '../../../services/adminService';
 import './model.scss'
 import { UserContext } from '../../../context/userContext';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class ManageUser extends Component {
 
     constructor(props) {
@@ -272,8 +273,8 @@ class ManageUser extends Component {
                                                             <td>{item.email}</td>
                                                             <td>{item.groupData ? item.groupData.name : ''}</td>
                                                             <td>{item.phone}</td>
-                                                            <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary mx-2'>update</button>
-                                                                {this.state.groupId === 4 && <button onClick={() => this.handlDeletetUser(item)} className='btn btn-danger'>delete</button>}</td>
+                                                            <td><button onClick={() => this.handlUpdatUser(item)} className='btn btn-primary mx-2'>Cập nhật thông tin</button>
+                                                                {this.state.groupId === 4 && <button onClick={() => this.handlDeletetUser(item)} className='btn btn-danger'>Xóa</button>}</td>
                                                         </tr>
                                                     )
 
@@ -332,7 +333,7 @@ class ManageUser extends Component {
                     comfirmDeleteUser={this.comfirmDeleteUser}
                     dataModel={this.state.dataModel}
                 />
-
+                <HomeFooter />
 
             </>
         )

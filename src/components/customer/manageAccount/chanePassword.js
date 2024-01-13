@@ -195,7 +195,7 @@ class Chanepass extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>{this.props.action === 'CREATE' ? 'Create new user' : 'Edit new user'}</span>
+                            <span>Đổi mật khẩu</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

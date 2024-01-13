@@ -15,6 +15,7 @@ import 'react-image-lightbox/style.css';
 import { registerGara } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { userLogout } from '../../services/userService';
+import HomeFooter from '../home/homeFooter/homeFooter';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class RegisterGara extends Component {
@@ -259,12 +260,12 @@ class RegisterGara extends Component {
                             value={this.state.contenMarkdown}></MdEditor>
                     </div>
                     <hr></hr>
-                    <button className='btn btn-primary my-2' onClick={() => this.handleSveConTen()}>
+                    <button className='btn btn-primary my-2 mb-3' onClick={() => this.handleSveConTen()}>
                         Đăng ký</button>
 
                 </div>
 
-
+                <HomeFooter />
             </>
 
         )

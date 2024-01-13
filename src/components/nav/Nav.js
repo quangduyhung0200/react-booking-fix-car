@@ -18,7 +18,8 @@ class Navigate extends Component {
         super(props);
         this.state = {
 
-            garaId: ''
+            garaId: '',
+
 
 
         }
@@ -31,23 +32,32 @@ class Navigate extends Component {
         if (data && data.EC === 0) {
             localStorage.setItem('jwt', '')
             this.props.history.push('/login')
-            toast.success('log out success')
+            toast.success('Đăng xuất thành công')
 
         }
         else {
             toast.error(data.EM)
         }
     }
+
+
     async componentDidMount() {
         console.log('user', this.context.user.account.id)
         let res = await getUserById(this.context.user.account.id)
+
         if (res.EC === 0) {
+
             this.setState({
                 garaId: res.DT.userGara ? res.DT.userGara.id : ''
             })
         }
-        console.log(res)
+        if (res.EC === -1) {
+
+            window.location.reload()
+        }
+
     }
+
     render() {
         let user = this.context.user
         const location = window.location.pathname
@@ -58,46 +68,46 @@ class Navigate extends Component {
 
                 <div className='nav-header'>
                     <Navbar expand="lg" className="bg-body-tertiary bg-header h-100">
-                        <Container>
-                            <Navbar.Brand href="/"> <span className='band-nav'>MyCar</span></Navbar.Brand>
-                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="me-auto">
-                                    <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
-                                    {user && user.isAuthenticated === true && <>
-                                        <NavLink to="/myOrder" exact className='nav-link'>Đơn đặt lịch của tôi</NavLink>
 
-                                    </>}
-                                    {garaId !== '' && <NavLink to="/mygara" exact className='nav-link'>Gara của tôi</NavLink>}
+                        <Navbar.Brand href="/"> <span className='band-nav'>MYCAR</span></Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <NavLink to="/" exact className='nav-link'>Trang chủ</NavLink>
+                                {user && user.isAuthenticated === true && <>
+                                    <NavLink to="/myOrder" exact className='nav-link'>Đơn đặt lịch của tôi</NavLink>
 
-                                    <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
-                                        <NavLink to="/allGara" exact className='nav-link'>Tìm kiếm gara</NavLink>
-                                        <NavLink to="/allHandBook" exact className='nav-link'>Tìm kiếm bài viết</NavLink>
+                                </>}
+                                {garaId !== '' && <NavLink to="/mygara" exact className='nav-link'>Gara của tôi</NavLink>}
+
+                                <NavDropdown title="Tìm kiếm" id="basic-nav-dropdown">
+                                    <NavLink to="/allGara" exact className='nav-link'>Tìm kiếm gara</NavLink>
+                                    <NavLink to="/allHandBook" exact className='nav-link'>Tìm kiếm bài viết</NavLink>
 
 
-                                    </NavDropdown>
+                                </NavDropdown>
+
+                            </Nav>
+                            {user && user.isAuthenticated === true ? <>
+                                <Nav className='nav-link'>
+                                    <Nav.Item  >Chào mừng:  {user.account.userName}</Nav.Item>
 
                                 </Nav>
-                                {user && user.isAuthenticated === true ? <>
-                                    <Nav className='nav-link'>
-                                        <Nav.Item  >Chào mừng:  {user.account.userName}</Nav.Item>
+                                <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
 
-                                    </Nav>
-                                    <NavDropdown title="Tùy chọn" id="basic-nav-dropdown">
+                                    <Link className='nav-link' to="/RegisterGara">Đăng ký gara</Link>
+                                    <Link className='nav-link' to="/Account">Trang cá nhân</Link>
 
-                                        <Link className='nav-link' to="/RegisterGara">Đăng ký gara</Link>
-                                        <Link className='nav-link' to="/Account">Trang cá nhân</Link>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item>
+                                        <span onClick={() => this.handLogout()}> Đăng xuất</span>
 
-                                        <NavDropdown.Divider />
-                                        <NavDropdown.Item>
-                                            <span onClick={() => this.handLogout()}> Đăng xuất</span>
-
-                                        </NavDropdown.Item>
-                                    </NavDropdown></> : <> <Link className='nav-link' to='/login'>Đăng nhập</Link></>}
+                                    </NavDropdown.Item>
+                                </NavDropdown></> : <> <Link className='nav-link' to='/login'>Đăng nhập</Link></>}
 
 
-                            </Navbar.Collapse>
-                        </Container>
+                        </Navbar.Collapse>
+
                     </Navbar>
 
                 </div >

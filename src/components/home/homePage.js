@@ -22,10 +22,10 @@ class HomePage extends Component {
                 <OutStandingGara />
 
                 <HandBook />
-                <About />
+                {/* <About /> */}
 
                 <HomeFooter />
-                <div style={{ height: '300px' }}>         </div >
+
 
             </>
 

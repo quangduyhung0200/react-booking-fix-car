@@ -486,7 +486,7 @@ class AllGara extends Component {
 
                 </div>
                 <div className='container'>
-                    {dataModel && dataModel.length > 0 &&
+                    {dataModel && dataModel.length > 0 ?
                         dataModel.map((item, index) => {
                             return (
 
@@ -507,7 +507,7 @@ class AllGara extends Component {
                                 </>
 
                             )
-                        })}
+                        }) : <div className='searhnew'><h3>Vui lòng chọn các trường để tìm kiếm</h3></div>}
 
 
                 </div>

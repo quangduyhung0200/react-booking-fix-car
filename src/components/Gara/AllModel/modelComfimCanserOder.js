@@ -64,7 +64,7 @@ class ModelComfimCanserOrder extends Component {
     render() {
 
         let dataModel = this.props.dataModel
-
+        console.log(dataModel)
 
         return (
             <>
@@ -80,19 +80,19 @@ class ModelComfimCanserOrder extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>moi moi</span>
+                            <span>Xác nhận đơn thất bại</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div>huuhhu</div>
+                        <div>Bạn có chắc muốn xác nhận đơn thất bại của người dùng có email: {this.props.dataModel.email}</div>
 
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => this.handleClose()}>
-                            Close
+                            Đóng
                         </Button>
                         <Button variant="primary" onClick={() => this.handlecomfime()}>
-                            Save Changes
+                            Xác nhận
                         </Button>
                     </Modal.Footer>
                 </Modal>

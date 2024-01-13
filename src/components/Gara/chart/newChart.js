@@ -12,6 +12,7 @@ import Select from 'react-select';
 import { getAllGara } from '../../../services/guestService';
 import CommonUtils from '../../../utils/CommonUtils';
 import { toast } from 'react-toastify';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
@@ -407,7 +408,7 @@ class Chart extends Component {
                     </div>
                 </div>
 
-
+                <HomeFooter />
 
             </>
         );

@@ -11,6 +11,7 @@ import { getAllTime, createBulkScheduleGara } from '../../services/garaService';
 import { getDataGara } from '../../services/garaService';
 import { UserContext } from "../../context/userContext"
 import { readAllScheduleByDate } from '../../services/guestService';
+import HomeFooter from '../home/homeFooter/homeFooter';
 class ManageSchedule extends Component {
 
 
@@ -429,7 +430,7 @@ class ManageSchedule extends Component {
 
                             </div>
 
-                            <div className='my-2'>
+                            <div className='my-2 schedule'>
                                 <button
                                     className='btn-save-info btn btn-primary'
                                     onClick={() => this.handlSaveSchedule()}>Lưu thông tin</button>
@@ -437,6 +438,7 @@ class ManageSchedule extends Component {
                         </div>
                     </div>
                 </div >
+                <HomeFooter />
             </>
         );
     }

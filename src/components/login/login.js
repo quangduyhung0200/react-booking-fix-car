@@ -107,7 +107,7 @@ class Login extends Component {
                     token: token,
                     account: { role, email, userName, id }
                 }
-                console.log(token)
+
                 localStorage.setItem('jwt', token)
                 this.context.loginContext(hehe)
 
@@ -158,13 +158,13 @@ class Login extends Component {
                         <div className='container'>
                             <div className='row px-3 px-sm-0'>
                                 <div className='content-left  my-3 col-12 d-none col-sm-7 d-sm-block '>
-                                    <div className='brand'>duyhungapp</div>
-                                    <div className='detail'>you can do it</div>
+                                    <div className='brand'>Mycar</div>
+                                    <div className='detail'>Hệ thống đặt lịch sửa xe Ôtô</div>
 
                                 </div>
 
                                 <div className='content-right col-sm-5 col-12  my-3 d-flex flex-column gap-3 py-3 '>
-                                    <div className='brand d-sm-none'>duyhungapp</div>
+                                    <div className='brand d-sm-none'>Mycar</div>
                                     <input onChange={(event) => this.handlOnchanInput(event, 'email')} type='text'
                                         className={isValidEmail === true ? 'form-control' : 'form-control is-invalid'}
                                         value={email} placeholder='Email'
@@ -191,7 +191,7 @@ class Login extends Component {
                                     <hr />
                                     <div className='return-home'>
 
-                                        <button className='btn btn-primary' onClick={() => this.handClickGohome()}>Quay trở  về trang chủ</button>
+                                        <button className='btn btn-primary ' onClick={() => this.handClickGohome()}>Quay trở  về trang chủ</button>
                                     </div>
 
 

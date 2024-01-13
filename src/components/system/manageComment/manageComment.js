@@ -19,6 +19,7 @@ import { deleteComment } from '../../../services/adminService';
 import { getAllGara } from '../../../services/guestService';
 import { feactAllUser } from '../../../services/staffService';
 import { searchComment } from '../../../services/staffService';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class ManageComment extends Component {
 
     constructor(props) {
@@ -308,7 +309,7 @@ class ManageComment extends Component {
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
+                                <table className="table-comment table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
@@ -357,7 +358,7 @@ class ManageComment extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr><td>not fout user</td></tr>
+                                                <div className='nodeta'>not fout user</div>
                                             </>
 
                                         }
@@ -406,7 +407,7 @@ class ManageComment extends Component {
 
                 </>
 
-
+                <HomeFooter />
             </>
         )
     }

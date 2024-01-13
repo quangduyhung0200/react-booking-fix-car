@@ -79,19 +79,19 @@ class ModelComfimFinishOrder extends Component {
 
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <span>moi moi</span>
+                            <span>Xác nhận hoàn thành đơn đặt lịch</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div>hehehe</div>
+                        <div>Bạn có chắc muốn xác nhận hoàn thành đơn đặt lịch của khách hàng co email: {this.props.dataModel.email}</div>
 
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => this.handleClose()}>
-                            Close
+                            Đóng
                         </Button>
                         <Button variant="primary" onClick={() => this.handlecomfime()}>
-                            Save Changes
+                            Xác nhận
                         </Button>
                     </Modal.Footer>
                 </Modal>

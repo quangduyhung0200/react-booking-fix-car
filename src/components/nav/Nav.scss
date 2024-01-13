@@ -3,12 +3,22 @@
     top: 0;
     z-index: 50;
 
+    .logo {
+        height: 30px;
+        width: 30px;
+
+        background: url('../../../public/logo.jpg');
+        // background: center center no-repeat;
+        background-size: contain;
+    }
 
     .nav-header {
 
+
         .bg-header {
             background-color: #20232a;
-
+            padding-left: 50px;
+            padding-right: 50px;
 
             .navbar-brand {
                 color: #61dafb !important;

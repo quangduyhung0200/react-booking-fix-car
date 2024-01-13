@@ -9,6 +9,9 @@ import ModelCarCompany from './modelCarCompany';
 import ModelconfimdeledeCarCompany from './modelDelete';
 import { toast } from 'react-toastify';
 import { searchCarCompany } from '../../../services/staffService';
+import { UserContext } from '../../../context/userContext';
+import { getUserById } from '../../../services/userService';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class ManageCarCompany extends Component {
 
     constructor(props) {
@@ -24,7 +27,8 @@ class ManageCarCompany extends Component {
             showModel: false,
             showModelUser: false,
             dataModel: {},
-            action: 'CREATE'
+            action: 'CREATE',
+            group: ''
 
 
         }
@@ -64,11 +68,15 @@ class ManageCarCompany extends Component {
         let { currenpage, currenlimit } = this.state
         let respons = await getCarCompanyByPage(currenpage, currenlimit)
         let provind = await getAllProvind()
+        let res = await getUserById(this.context.user.account.id)
         if (respons && respons.EC === 0) {
             let coppystate = { ...this.state }
             coppystate.listCarCompany = respons.DT.user
             coppystate.totalpage = respons.DT.totalPage
             coppystate.listProvind = this.buildDataSelectProvind(provind.DT)
+            coppystate.group = res.DT.groupId
+
+
             this.setState({
                 ...coppystate
             })
@@ -205,7 +213,7 @@ class ManageCarCompany extends Component {
     }
     render() {
 
-        let { listCarCompany } = this.state
+        let { listCarCompany, group } = this.state
 
         return (
             <>
@@ -268,7 +276,7 @@ class ManageCarCompany extends Component {
 
 
                                                                 <td><button onClick={() => this.handlViewuUdate(item)} className='button btn btn-primary mx-2'>Cập nhật thông tin</button>
-                                                                    <button onClick={() => this.handlViewDelete(item)} className='button btn btn-warning'>Xóa công ty</button>
+                                                                    {group && group === 4 && <button onClick={() => this.handlViewDelete(item)} className='button btn btn-warning'>Xóa công ty</button>}
 
                                                                 </td>
                                                             </tr>
@@ -332,12 +340,13 @@ class ManageCarCompany extends Component {
                     comfirmDeleteUser={this.comfirmDeleteUser}
                     dataModel={this.state.dataModel}
                 />
+                <HomeFooter />
             </>
         )
     }
 
 }
-
+ManageCarCompany.contextType = UserContext
 
 
 export default withRouter(ManageCarCompany);

@@ -12,6 +12,7 @@ import { getAllProvind } from '../../../services/guestService';
 import { accepGara } from '../../../services/staffService';
 import { toast } from 'react-toastify';
 import { deniceGara } from '../../../services/staffService';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class ManageGaraFromStaffNotYetPass extends Component {
 
     constructor(props) {
@@ -211,7 +212,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
+                                <table className="table-Gara table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
@@ -257,7 +258,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr>Không có dữ liệu</tr>
+                                                <div className='nodata'>Không có dữ liệu</div>
                                             </>
 
                                         }
@@ -294,6 +295,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
                         </div>
 
                     </div>
+                    <HomeFooter />
 
                 </>
 

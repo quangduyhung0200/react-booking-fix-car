@@ -12,6 +12,7 @@ import { getAllStaff, searchHandbookUncensor } from '../../../services/adminServ
 import './manageHanndbookuncerser.scss'
 import { getHandBookById, accepHandBook, deniceHandBook } from '../../../services/adminService';
 import { toast } from 'react-toastify';
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class ManageGaraHandBookHasNotPass extends Component {
 
     constructor(props) {
@@ -221,7 +222,7 @@ class ManageGaraHandBookHasNotPass extends Component {
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
+                                <table className="table-handbookun table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
@@ -271,7 +272,7 @@ class ManageGaraHandBookHasNotPass extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr>Không có data</tr>
+                                                <div className='nodata'>Không có data</div>
                                             </>
 
                                         }
@@ -310,7 +311,7 @@ class ManageGaraHandBookHasNotPass extends Component {
                     </div>
 
                 </>
-
+                <HomeFooter />
 
             </>
         )

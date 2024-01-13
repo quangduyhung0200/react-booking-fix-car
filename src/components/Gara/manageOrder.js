@@ -7,6 +7,7 @@ import { getAllOrderByDay } from '../../services/garaService';
 import ModelComfimFinishOrder from './AllModel/modelComfimFinishOrder';
 import ModelComfimCanserOrder from './AllModel/modelComfimCanserOder';
 import './manageOrder.scss'
+import HomeFooter from '../home/homeFooter/homeFooter';
 class ManageOrder extends Component {
     constructor(props) {
         super(props);
@@ -165,7 +166,7 @@ class ManageOrder extends Component {
                     <div className='m-p-body row'>
 
                         <div className='col-12'>
-                            <table style={{ width: '100%' }} className='table-patient table table-hover table-bordered my-3 table-primary'>
+                            <table style={{ width: '100%' }} className='table-order table table-hover table-bordered my-3 table-primary'>
                                 <tbody>
                                     <tr>
                                         <th >STT</th>
@@ -197,14 +198,14 @@ class ManageOrder extends Component {
                                                     <td>{item.PriceBookingData.value} VND</td>
                                                     <td>{item.statusBooking.description}</td>
                                                     <td>{item.status === 'S3' && item.date <= fomatedDate && <>
-                                                        <button className='btn btn-primary mx-3'
-                                                            onClick={() => this.hanldOnclickConfid(item)}>Hoàn thành đơn hàng</button>
-                                                        <button className='btn btn-primary mx-3'
-                                                            onClick={() => this.hanldOnclickDontFinshTheOrder(item)}>Hủy đơn hàng</button></>}
+                                                        <button className='btn btn-primary mx-3 my-2'
+                                                            onClick={() => this.hanldOnclickConfid(item)}>Hoàn thành</button>
+                                                        <button className='btn btn-warning mx-3'
+                                                            onClick={() => this.hanldOnclickDontFinshTheOrder(item)}>Thất bại</button></>}
                                                     </td>
                                                 </tr>
                                             )
-                                        }) : <tr><div>Không có đơn đặt lịch nào!!!</div></tr>}
+                                        }) : <div className='nodata'>Không có đơn đặt lịch nào!!!</div>}
 
 
 
@@ -226,7 +227,7 @@ class ManageOrder extends Component {
                     show={this.state.isOpentModelCanser}
                     dataModel={this.state.dateModel}
                     onHide={this.closeBookingModelCanser} />
-
+                <HomeFooter />
             </>
         );
     }

@@ -10,6 +10,7 @@ import { getAllGara } from '../../../services/guestService';
 import { getAllStatus } from '../../../services/staffService';
 import { searchOrder } from '../../../services/userService';
 import './myOrder.scss'
+import HomeFooter from '../../home/homeFooter/homeFooter';
 class MyOrder extends Component {
     constructor(props) {
         super(props);
@@ -214,7 +215,7 @@ class MyOrder extends Component {
                                         <th>Trạng thái đơn hàng</th>
                                         <th>ACTION</th>
                                     </tr>
-                                    {dataBooking && dataBooking.length > 0 &&
+                                    {dataBooking && dataBooking.length > 0 ?
                                         dataBooking.map((item, index) => {
 
                                             let s = new Date(item.date * 1000).toLocaleDateString("vi")
@@ -241,7 +242,7 @@ class MyOrder extends Component {
 
 
                                             )
-                                        })}
+                                        }) : <div className='emty'></div>}
 
 
 
@@ -256,7 +257,7 @@ class MyOrder extends Component {
                 <CreateComent show={this.state.isOpentModel}
                     dataModel={this.state.dateModel}
                     onHide={this.closeBookingModel} />
-
+                <HomeFooter />
             </>
         );
     }

@@ -53,14 +53,14 @@ class HomeBody extends Component {
                     <div className='title-2'>
 
 
-                        Hệ thống đặt lịch sửa xe Ôtô
+                        Hệ thống đặt lịch sửa xe ôtô
 
                     </div>
                     <div className='search'>
 
                         <Select
 
-                            placeholder={'CHON gara'}
+                            placeholder={'Tìm gara nhanh'}
                             value={this.state.selectGara}
                             onChange={this.handleChange}
                             options={this.state.listGara}
