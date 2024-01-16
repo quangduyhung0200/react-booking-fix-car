@@ -78,7 +78,7 @@ class ProfileGara extends Component {
     render() {
 
         let { dataProfile } = this.state
-        // console.log(dataProfile)
+
 
         return (
             <>

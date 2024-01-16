@@ -289,7 +289,7 @@ class ManageComment extends Component {
 
                                 </div >
                                 <div className='col-3'>
-                                    <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>tim kiem</button>
+                                    <button onClick={() => this.Search()} className='btn btn-primary button btn btn-primary mt-4'>Tìm kiếm</button>
                                 </div>
 
 
@@ -358,7 +358,7 @@ class ManageComment extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <div className='nodeta'>not fout user</div>
+                                                <div className='nodeta'>Không có dữ liệu</div>
                                             </>
 
                                         }

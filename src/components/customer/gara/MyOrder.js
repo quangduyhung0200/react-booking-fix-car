@@ -242,7 +242,7 @@ class MyOrder extends Component {
 
 
                                             )
-                                        }) : <div className='emty'></div>}
+                                        }) : <div className='emty'>Không có dữ liệu</div>}
 
 
 

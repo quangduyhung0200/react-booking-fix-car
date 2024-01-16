@@ -11,6 +11,7 @@ import { getAllProvind, feactAllCarCompany, feactAllCar, getAllGarabyProvind, ge
 import _ from 'lodash';
 import { getGarabyProvindCarCompanyCar } from '../../../services/guestService';
 import GaraSchedule from "./../../customer/gara/schedule.js"
+import OutStandingGara from "../session/OutStandingGara.js"
 class AllGara extends Component {
     constructor(props) {
         super(props);
@@ -270,7 +271,7 @@ class AllGara extends Component {
     }
     handleChangeCarCompany = async (selectedOption) => {
         if (selectedOption.label === 'ALL') {
-            if (!this.state.selectProvind.value) {
+            if (!this.state.selectProvind.value || +this.state.selectProvind.value === 0) {
                 console.log('eeee')
                 let data = await feactAllCar('ALL')
                 let res = await getAllGarabyProvind('ALL')
@@ -296,7 +297,8 @@ class AllGara extends Component {
             else {
 
                 let data = await feactAllCar('ALL')
-                let res = await getAllGarabyProvind('ALL')
+                let res = await getAllGarabyProvind(this.state.selectProvind.value)
+                console.log('cccc')
                 let dataCar = this.buildDataSelectCar(res.DT)
                 let dataCarAll = this.buildDataSelectCarAll(data.DT)
                 const results2 = dataCarAll.filter(({ value: id1 }) => dataCar.some(({ value: id2, }) => +id2 === +id1));
@@ -320,10 +322,10 @@ class AllGara extends Component {
 
         } else {
 
-            if (!this.state.selectProvind.value) {
+            if (+this.state.selectProvind.value === 0 || !this.state.selectProvind.value) {
 
                 let res = await getAllGarabyProvind('ALL')
-                console.log('asdasdasd', res)
+
                 let data = await getDataPickCar(selectedOption.value)
                 let dataCar = this.buildDataSelectCar(res.DT)
                 let dataCarAll = this.buildDataSelectCarAll(data.DT)
@@ -425,7 +427,6 @@ class AllGara extends Component {
         let listGaraId = results.map(item => item.id)
 
 
-
         this.setState({
             dataModel: listGaraId
         })
@@ -434,6 +435,7 @@ class AllGara extends Component {
 
 
         let { dataModel } = this.state
+
 
         return (
 
@@ -508,6 +510,7 @@ class AllGara extends Component {
 
                             )
                         }) : <div className='searhnew'><h3>Vui lòng chọn các trường để tìm kiếm</h3></div>}
+                    <OutStandingGara />
 
 
                 </div>

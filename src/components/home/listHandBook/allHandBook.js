@@ -9,6 +9,7 @@ import Select from 'react-select';
 import HomeFooter from '../homeFooter/homeFooter';
 import { searchHandBook } from '../../../services/guestService';
 import _ from 'lodash';
+import { toast } from 'react-toastify';
 class AllHandBook extends Component {
     constructor(props) {
         super(props);
@@ -38,6 +39,10 @@ class AllHandBook extends Component {
     }
     handOnclickSearch = async () => {
         let data = await searchHandBook(this.state.selectHandBook)
+
+        if (data.DT.length === 0) {
+            toast.error('Không tìm thấy kết quả vui lòng kiểm tra lại')
+        }
         if (data.EC === 0) {
             this.setState({
                 listHandBookSearch: data.DT

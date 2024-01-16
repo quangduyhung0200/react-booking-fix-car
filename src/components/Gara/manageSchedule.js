@@ -155,33 +155,37 @@ class ManageSchedule extends Component {
         let datenew = moment(new Date(date)).startOf('day').unix()
         if (this.state.groupId === 4 || this.state.groupId === 3) {
 
-
-            let timedatabyday = await readAllScheduleByDate(this.state.selectGara.value, datenew)
-
-            this.setState({
-                allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : [],
-                maxOrder: timedatabyday.EC !== 1 ? timedatabyday.DT[0].maxOrder : ''
-            })
-            if (timedatabyday && timedatabyday.EC === 0) {
-                let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+            if (this.state.selectGara.value) {
+                let timedatabyday = await readAllScheduleByDate(this.state.selectGara.value, datenew)
 
                 this.setState({
-                    timeArr: time
-
+                    allAvailbleTime: timedatabyday.DT ? timedatabyday.DT : [],
+                    maxOrder: timedatabyday.EC !== 1 ? timedatabyday.DT[0].maxOrder : ''
                 })
+                if (timedatabyday && timedatabyday.EC === 0) {
+                    let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+
+                    this.setState({
+                        timeArr: time
+
+                    })
+
+                } else {
+                    let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
+
+                    this.setState({
+                        timeArr: time
+
+                    })
+                }
+
+
 
             } else {
-                let time = this.buidDatatimepick(timedatabyday.DT, this.state.timeArr)
-
-                this.setState({
-                    timeArr: time
-
-                })
+                toast.error('Bạn chưa chọn gara')
             }
-
-
-
         }
+
         else {
             let dataGara = await getDataGara(this.context.user.account.id)
             if (dataGara && dataGara.EC === 0) {

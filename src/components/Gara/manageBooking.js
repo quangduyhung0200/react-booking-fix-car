@@ -193,7 +193,7 @@ class ManageBookingGara extends Component {
                                                     <td>{item.bookingData.address}</td>
                                                     <td>{item.bookingData.phone}</td>
                                                     <td>{item.carBookingData.nameCar}</td>
-                                                    <td>{item.serviceBookingData.description}</td>
+                                                    <td>{item.serviceBookingData.name}</td>
                                                     <td>{item.PriceBookingData.value} VND</td>
                                                     <td>{item.statusBooking.description}</td>
                                                     <td><button className='btn btn-primary mx-2 my-2' onClick={() => this.hanldOnclickConfid(item)}>Xác nhận</button>

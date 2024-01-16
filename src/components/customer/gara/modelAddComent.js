@@ -135,10 +135,10 @@ class CreateComent extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => this.handleClose()}>
-                            Close
+                            Đóng
                         </Button>
                         <Button variant="primary" onClick={() => this.handlSubmid()}>
-                            Save Changes
+                            Xác nhận
                         </Button>
                     </Modal.Footer>
                 </Modal>

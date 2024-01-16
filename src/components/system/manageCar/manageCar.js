@@ -251,7 +251,7 @@ class ManageCar extends Component {
                     </div>
 
                     <div className='car-body'>
-                        <table className="table table-bordered my-3 table-primary">
+                        <table className="tb-car table table-bordered my-3 table-primary">
                             <thead>
                                 <tr>
                                     <th scope="col">ID xe</th>
@@ -295,7 +295,7 @@ class ManageCar extends Component {
                                             })
                                         }
                                     </> : <>
-                                        <tr><td>not fout user</td></tr>
+                                        <div className='nodata'>Không có dữ liệu</div>
                                     </>
 
                                 }

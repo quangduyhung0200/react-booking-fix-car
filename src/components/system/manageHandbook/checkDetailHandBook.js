@@ -109,8 +109,8 @@ class CheckDetailHandBook extends Component {
                         </div>
 
                         {this.context.user.account.role[0].id === 4 && <div className='active col-12'>
-                            <button onClick={() => this.handlAcepHandBook()} className='mx-3 btn btn-primary'>accep</button>
-                            <button className='mx-3 btn btn-danger'>denice</button>
+                            <button onClick={() => this.handlAcepHandBook()} className='mx-3 btn btn-primary'>Thông qua</button>
+                            <button className='mx-3 btn btn-danger'>Từ chối</button>
                         </div>}
 
                     </div>

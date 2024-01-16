@@ -64,7 +64,7 @@ class NavigateStaff extends Component {
                                 <NavLink to="/ManageGara" exact className='nav-link'>Quản lý gara đang hoạt động</NavLink>
                                 <NavLink to="/manage-PickCar" exact className='nav-link'>Quản lý chọn xe cho gara</NavLink>
                                 <NavLink to="/setSchedule" exact className='nav-link'>Quản lý đặt lịch sửa xe cho gara</NavLink>
-                                <NavLink to="/Chart" exact className='nav-link'>Quản lý bieu do</NavLink>
+                                <NavLink to="/Chart" exact className='nav-link'>Quản lý doanh thu gara</NavLink>
 
                             </NavDropdown>
                             <NavDropdown title="Quản lý bài đăng" id="basic-nav-dropdown">

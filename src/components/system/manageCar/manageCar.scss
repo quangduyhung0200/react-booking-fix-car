@@ -15,5 +15,15 @@
 
 
 
-    .car-body {}
+    .car-body {
+        .tb-car {
+            min-height: 500px;
+        }
+
+        .nodata {
+            min-height: 500px;
+        }
+    }
+
+
 }

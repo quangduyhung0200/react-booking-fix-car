@@ -203,7 +203,7 @@ class ManageGaraFromStaffNotYetPass extends Component {
 
                                 <div className='action my-2'>
                                     <hr></hr>
-                                    <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>refesh <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
+                                    <button onClick={() => this.handlRefesh()} className='btn btn-primary mx-3'>Làm mưới trang <span><i className="fa fa-refresh" aria-hidden="true"></i></span></button>
 
                                 </div>
                             </div>

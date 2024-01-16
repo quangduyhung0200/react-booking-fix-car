@@ -249,7 +249,7 @@ class ManageUser extends Component {
                             </div>
                         </div>
                         <div className='user-body'>
-                            <table className="table table-hover table-bordered  table-responsive table-primary">
+                            <table className="tb-user table table-hover table-bordered  table-responsive table-primary">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
@@ -284,7 +284,7 @@ class ManageUser extends Component {
                                                 })
                                             }
                                         </> : <>
-                                            <tr>Không có dữ liệu</tr>
+                                            <div className='nodata'>Không có dữ liệu</div>
                                         </>
 
                                     }

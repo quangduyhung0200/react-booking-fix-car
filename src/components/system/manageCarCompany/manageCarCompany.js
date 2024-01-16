@@ -249,7 +249,7 @@ class ManageCarCompany extends Component {
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
+                                <table className="table-carcompany table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
@@ -288,7 +288,7 @@ class ManageCarCompany extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr><td>not fout user</td></tr>
+                                                <div className='nodata'>Không có dữ liệu</div>
                                             </>
 
                                         }

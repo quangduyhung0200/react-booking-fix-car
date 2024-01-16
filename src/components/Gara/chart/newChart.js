@@ -119,6 +119,7 @@ class Chart extends Component {
     }
     async componentDidMount() {
         let res = await getUserById(this.context.user.account.id)
+        console.log(this.context.user.account.role[0].id)
         let res2 = await getAllGara()
         if (res.EC === 0) {
             this.setState({
@@ -250,7 +251,7 @@ class Chart extends Component {
 
         this.setState({
             selectGara: selectedOption,
-
+            garaId: selectedOption.value
 
 
 
@@ -280,7 +281,7 @@ class Chart extends Component {
     render() {
 
         let { profit1, profit2, profit3, profit4, groupId, listbooking } = this.state
-        console.log(this.state)
+        console.log(this.state.selectGara)
         return (
             <>
                 <div className='profit-container container'>

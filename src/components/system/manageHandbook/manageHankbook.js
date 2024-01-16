@@ -222,7 +222,7 @@ class ManageHandbook extends Component {
                         <div className='m-p-body row'>
 
                             <div className='col-12'>
-                                <table className="table-patient table table-hover table-bordered my-3 table-primary">
+                                <table className="table-handbook table table-hover table-bordered my-3 table-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
@@ -271,7 +271,7 @@ class ManageHandbook extends Component {
                                                     })
                                                 }
                                             </> : <>
-                                                <tr>Không có dữ liệu</tr>
+                                                <div className='nodata'>Không có dữ liệu</div>
                                             </>
 
                                         }

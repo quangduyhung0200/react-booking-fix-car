@@ -95,10 +95,10 @@ class ModelComfimBooking extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => this.handleClose()}>
-                            Close
+                            Hủy
                         </Button>
                         <Button variant="primary" onClick={() => this.handlecomfime()}>
-                            Save Changes
+                            Xác nhận
                         </Button>
                     </Modal.Footer>
                 </Modal>

@@ -342,12 +342,14 @@ class ModelBooking extends Component {
 
     }
     handClose = () => {
+        console.log(this.state.listCar[0])
         this.setState({
             customerName: '',
             customerEmail: '',
             customerAddress: '',
             customerReson: "",
             phone: '',
+            selectCarId: this.state.listCar[0].value
         })
         this.props.closeBookingModel()
     }
@@ -403,12 +405,13 @@ class ModelBooking extends Component {
         let { garaName, garaAddress, garaDescription, garaProvind, garaAvata } = this.state
 
         let { customerName, customerEmail, phone, customerAddress, customerReson, selectCarId, selectService, isValidEmail, isValidUserName, isValidphone, isValidCar, isValidAddress
-            , isValidService, isValidReson } = this.state
+            , isValidService, isValidReson, time, date } = this.state
         if (garaAvata.data) {
 
             imageBase64 = new Buffer(garaAvata.data, 'base64').toString('binary')
         }
-        console.log('this.prop: ', this.props)
+
+        let date2 = new Date(date * 1000).toLocaleDateString("vi")
         return (
             <>
 
@@ -533,6 +536,14 @@ class ModelBooking extends Component {
                             <div className='col-12   col-sm-6 from-group'>
                                 <label>Hình thức thanh toán gara nhận là: </label>
                                 <p className='fw-bold'>{this.state.payment}</p>
+                            </div>
+                            <div className='col-12   col-sm-6 from-group'>
+                                <label>Ngày</label>
+                                <p className='fw-bold'>{date2} </p>
+                            </div>
+                            <div className='col-12   col-sm-6 from-group'>
+                                <label>Giờ: </label>
+                                <p className='fw-bold'>{this.state.time}</p>
                             </div>
 
 
