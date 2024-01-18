@@ -35,41 +35,43 @@ class GaraSchedule extends Component {
                 let allday3 = allday2.DT
                 let allday = this.getArrDay()
                 const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
-                console.log('aaaaaaaaaa', results2)
-                let res = await readAllScheduleByDate(id, results2[0].value / 1000)
-                let date = results2[0].value / 1000
-                let hours = new Date().getHours();
-                let today = moment(new Date()).startOf('day').unix()
+                if (results2.length > 0) {
+                    let res = await readAllScheduleByDate(id, results2[0].value / 1000)
+                    let date = results2[0].value / 1000
+                    let hours = new Date().getHours();
+                    let today = moment(new Date()).startOf('day').unix()
 
 
-                let timecheck = []
-                if (date === today && res && res.EC === 0) {
+                    let timecheck = []
+                    if (date === today && res && res.EC === 0) {
 
-                    let data = res.DT
-                    data.map((item, index) => {
+                        let data = res.DT
+                        data.map((item, index) => {
 
-                        if ((+item.timeType + 8) >= hours) {
+                            if ((+item.timeType + 8) >= hours) {
 
-                            timecheck.push(item)
-                        }
-                    })
+                                timecheck.push(item)
+                            }
+                        })
 
-                    timecheck.sort((a, b) => parseFloat(+a.timeType) - parseFloat(+b.timeType));
+                        timecheck.sort((a, b) => parseFloat(+a.timeType) - parseFloat(+b.timeType));
 
-                    this.setState({
-                        allAvailbleTime: timecheck ? timecheck : [],
-                        allDay: results2
-                    })
+                        this.setState({
+                            allAvailbleTime: timecheck ? timecheck : [],
+                            allDay: results2
+                        })
+                    }
+
+                    else if (date !== today && res && res.EC === 0 || res.EC === 1) {
+                        console.log('bbbbbbbbbbbbbbb,', res)
+                        this.setState({
+                            allAvailbleTime: res.DT ? res.DT : [],
+
+                            allDay: results2
+                        })
+                    }
                 }
 
-                else if (date !== today && res && res.EC === 0 || res.EC === 1) {
-                    console.log('bbbbbbbbbbbbbbb,', res)
-                    this.setState({
-                        allAvailbleTime: res.DT ? res.DT : [],
-
-                        allDay: results2
-                    })
-                }
             }
 
         }
@@ -80,37 +82,38 @@ class GaraSchedule extends Component {
                 let allday3 = allday2.DT
                 let allday = this.getArrDay()
                 const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
+                if (results2.length > 0) {
+                    let res = await readAllScheduleByDate(this.props.garaId, results2[0].value / 1000)
 
-                let res = await readAllScheduleByDate(this.props.garaId, results2[0].value / 1000)
-
-                let date = results2[0].value / 1000
-                let hours = new Date().getHours();
-                let today = moment(new Date()).startOf('day').unix()
+                    let date = results2[0].value / 1000
+                    let hours = new Date().getHours();
+                    let today = moment(new Date()).startOf('day').unix()
 
 
-                let timecheck = []
-                if (date === today && res && res.EC === 0) {
-                    let data = res.DT
+                    let timecheck = []
+                    if (date === today && res && res.EC === 0) {
+                        let data = res.DT
 
-                    data.map((item, index) => {
+                        data.map((item, index) => {
 
-                        if ((+item.timeType + 8) >= hours) {
+                            if ((+item.timeType + 8) >= hours) {
 
-                            timecheck.push(item)
-                        }
-                    })
-                    timecheck.sort((a, b) => parseFloat(+a.timeType) - parseFloat(+b.timeType));
-                    this.setState({
-                        allAvailbleTime: timecheck ? timecheck : [],
-                        allDay: results2
-                    })
-                }
-                else if (date !== today && res && res.EC === 0) {
-                    this.setState({
-                        allAvailbleTime: res.DT ? res.DT : [],
+                                timecheck.push(item)
+                            }
+                        })
+                        timecheck.sort((a, b) => parseFloat(+a.timeType) - parseFloat(+b.timeType));
+                        this.setState({
+                            allAvailbleTime: timecheck ? timecheck : [],
+                            allDay: results2
+                        })
+                    }
+                    else if (date !== today && res && res.EC === 0) {
+                        this.setState({
+                            allAvailbleTime: res.DT ? res.DT : [],
 
-                        allDay: results2
-                    })
+                            allDay: results2
+                        })
+                    }
                 }
             }
         }
@@ -162,35 +165,42 @@ class GaraSchedule extends Component {
             let allday = this.getArrDay()
 
             const results2 = allday.filter(({ value: id1 }) => allday3.some(({ date: id2, }) => +id2 === (id1 / 1000)));
-            let res = await readAllScheduleByDate(this.props.garaId, results2[0].value / 1000)
-            let date = results2[0].value / 1000
-            let hours = new Date().getHours();
-            let today = moment(new Date()).startOf('day').unix()
+            if (results2.length > 0) {
+                let res = await readAllScheduleByDate(this.props.garaId, results2[0].value / 1000)
+                let date = results2[0].value / 1000
+                let hours = new Date().getHours();
+                let today = moment(new Date()).startOf('day').unix()
 
+                console.log('check gio:', hours)
+                let timecheck = []
+                if (date === today && res && res.EC === 0) {
+                    let data = res.DT
+                    data.map((item, index) => {
 
-            let timecheck = []
-            if (date === today && res && res.EC === 0) {
-                let data = res.DT
-                data.map((item, index) => {
+                        if ((+item.timeType + 8) >= hours) {
 
-                    if ((+item.timeType + 8) >= hours) {
+                            timecheck.push(item)
+                        }
+                    })
+                    timecheck.sort((a, b) => parseFloat(+a.timeType) - parseFloat(+b.timeType));
+                    this.setState({
+                        allAvailbleTime: timecheck ? timecheck : [],
+                        allDay: results2
+                    })
+                }
+                else if (date !== today && res && res.EC === 0) {
 
-                        timecheck.push(item)
-                    }
-                })
-                timecheck.sort((a, b) => parseFloat(+a.timeType) - parseFloat(+b.timeType));
-                this.setState({
-                    allAvailbleTime: timecheck ? timecheck : [],
-                    allDay: results2
-                })
+                    this.setState({
+                        allAvailbleTime: res.DT ? res.DT : [],
+
+                        allDay: results2
+                    })
+                }
             }
-            else if (date !== today && res && res.EC === 0) {
-                this.setState({
-                    allAvailbleTime: res.DT ? res.DT : [],
-
-                    allDay: results2
-                })
+            else {
+                toast.error('Hiện tại gara chưa có lịch sửa xe, vui lòng thử lại sau')
             }
+
 
 
 

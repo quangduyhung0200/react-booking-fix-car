@@ -109,7 +109,7 @@ class CreateCar extends Component {
             let res = await createCar(nameCar, avata, descriptions, carCompanyId)
 
             if (res && res.EC === 0) {
-                toast.success('Tạo mới người dùng thành công')
+                toast.success('Tạo mới xe thành công')
 
                 this.props.onHide()
             } else {
